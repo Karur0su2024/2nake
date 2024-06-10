@@ -2,16 +2,18 @@ package org.example;
 
 import javax.swing.*;
 
-public class Game extends JFrame {
+public class GameWindow extends JFrame {
 
-    Game(){
-        this.add(new Panel());
+    GameWindow(){
+        this.add(new GamePanel());
         this.setTitle("Snake");
         this.setResizable(false);
         this.pack();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
+
+
 
 
 

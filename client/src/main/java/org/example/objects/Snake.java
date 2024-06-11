@@ -1,12 +1,14 @@
 package org.example.objects;
 
+import org.example.GameSettings;
+
 public class Snake {
     private char direction = 'R';
     private int bodyParts = 6;
     private int applesEaten = 0;
     private int x[];
     private int y[];
-
+    private int score = 0;
 
 
     public Snake(int gameUnits){
@@ -24,6 +26,7 @@ public class Snake {
 
     public void eat(){
         this.bodyParts++;
+        this.score++;
         this.applesEaten++;
     }
 
@@ -49,6 +52,32 @@ public class Snake {
 
     public void setY(int i, int y) {
         this.y[i] = y;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+
+    public void move(){
+        for(int i = bodyParts; i> 0; i--){
+            x[i] = x[i-1];
+            y[i] = y[i-1];
+        }
+        switch (direction){
+            case 'U':
+                y[0] = y[0]-GameSettings.UNIT_SIZE;
+                break;
+            case 'D':
+                y[0] = y[0]+GameSettings.UNIT_SIZE;
+                break;
+            case 'L':
+                x[0] = x[0]-GameSettings.UNIT_SIZE;
+                break;
+            case 'R':
+                x[0] = x[0]+GameSettings.UNIT_SIZE;
+                break;
+        }
     }
 
 

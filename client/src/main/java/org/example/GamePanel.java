@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.objects.Apple;
 import org.example.objects.Snake;
 
 import javax.imageio.ImageIO;
@@ -7,33 +8,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Random;
 import java.awt.event.*;
 
 public class GamePanel extends JPanel implements ActionListener {
 
-    static final int SCREEN_WIDTH = 600;
-    static final int SCREEN_HEIGHT = 600;
-    static final int UNIT_SIZE = 25;
-    static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
-    static final int DELAY = 75;
     public Image backgroundImage;
     Snake snake;
-    int appleX;
-    int appleY;
-
+    Apple[] apples = new Apple[2];
     boolean running = false;
     Timer timer;
     Random random;
 
     GamePanel(){
         random = new Random();
-        try {
-            setBackgroundImage();
-        }
-        catch (IOException e) {
-            System.out.println(e);
-        }
 
         initialization();
 
@@ -42,7 +31,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void setGame(){
-        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT+100));
+        this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT+100));
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         if(timer != null){
@@ -51,20 +40,24 @@ public class GamePanel extends JPanel implements ActionListener {
         this.addKeyListener(new MyKeyAdapter());
     }
 
-    public void setBackgroundImage() throws IOException {
-        this.backgroundImage = ImageIO.read(new File("images/background.jpg"));
-    }
 
     public void initialization(){
         setGame();
-        snake = new Snake(GAME_UNITS);
+        snake = new Snake(GameSettings.GAME_UNITS);
+        for(int i = 0; i < apples.length; i++){
+            newApple(i);
+        }
+
+
         startGame();
     }
 
     public void startGame(){
-        newApple();
+        for(int i = 0; i < apples.length; i++){
+            newApple(i);
+        }
         running = true;
-        timer = new Timer(DELAY, this);
+        timer = new Timer(GameSettings.DELAY, this);
         timer.start();
     }
 
@@ -76,10 +69,15 @@ public class GamePanel extends JPanel implements ActionListener {
     public void draw(Graphics g){
         if(running){
             g.setColor(Color.gray);
-            g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            g.fillRect(0, 0, GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT);
             g.drawImage(backgroundImage, 0, 0, this);
-            g.setColor(Color.red);
-            g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+
+
+
+            for(int i = 0; i < apples.length; i++){
+                apples[i].paint(g, GameSettings.UNIT_SIZE);
+            }
+
             for(int i = 0; i < snake.getBodyParts(); i++) {
                 if(i == 0){
                     g.setColor(Color.green);
@@ -88,7 +86,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 else {
                     g.setColor(new Color(45, 180, 0));
                 }
-                g.fillRect(snake.getX(i), snake.getY(i), UNIT_SIZE, UNIT_SIZE);
+                g.fillRect(snake.getX(i), snake.getY(i), GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
             }
 
 
@@ -101,9 +99,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
-    public void newApple(){
-        appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE))*UNIT_SIZE;
-        appleY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE))*UNIT_SIZE;
+    public void newApple(int i){
+        apples[i] = new Apple(random.nextInt((int)(GameSettings.SCREEN_WIDTH/GameSettings.UNIT_SIZE))*GameSettings.UNIT_SIZE, random.nextInt((int)(GameSettings.SCREEN_HEIGHT/GameSettings.UNIT_SIZE))*GameSettings.UNIT_SIZE);
     }
 
     public void move(){
@@ -111,27 +108,17 @@ public class GamePanel extends JPanel implements ActionListener {
             snake.setX(i, snake.getX(i-1));
             snake.setY(i, snake.getY(i-1));
         }
-        switch (snake.getDirection()){
-            case 'U':
-                snake.setY(0, snake.getY(0)-UNIT_SIZE);
-                break;
-            case 'D':
-                snake.setY(0, snake.getY(0)+UNIT_SIZE);
-                break;
-            case 'L':
-                snake.setX(0, snake.getX(0)-UNIT_SIZE);
-                break;
-            case 'R':
-                snake.setX(0, snake.getX(0)+UNIT_SIZE);
-                break;
-        }
+
     }
 
     public void checkApple() {
-        if((snake.getX(0) == appleX) && (snake.getY(0) == appleY)) {
-            snake.eat();
-            newApple();
+        for(int i = 0; i < apples.length; i++){
+            if((snake.getX(0) == apples[i].getX()) && (snake.getY(0) == apples[i].getY())) {
+                snake.eat();
+                newApple(i);
+            }
         }
+
     }
 
     public void checkCollisions() {
@@ -145,7 +132,7 @@ public class GamePanel extends JPanel implements ActionListener {
             running = false;
         }
 
-        if(snake.getX(0) >= SCREEN_WIDTH){
+        if(snake.getX(0) >= GameSettings.SCREEN_WIDTH){
             running = false;
         }
 
@@ -153,7 +140,7 @@ public class GamePanel extends JPanel implements ActionListener {
             running = false;
         }
 
-        if(snake.getY(0) > SCREEN_HEIGHT){
+        if(snake.getY(0) >= GameSettings.SCREEN_HEIGHT){
             running = false;
         }
 
@@ -170,13 +157,13 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 75));
         metrics = getFontMetrics(g.getFont());
-        g.drawString("Game over", (SCREEN_WIDTH- metrics.stringWidth("Game over"))/2, SCREEN_HEIGHT/2);
+        g.drawString("Game over", (GameSettings.SCREEN_WIDTH- metrics.stringWidth("Game over"))/2, GameSettings.SCREEN_HEIGHT/2);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(running){
-            move();
+            snake.move();
             checkApple();
             checkCollisions();
         }
@@ -222,8 +209,9 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(Color.CYAN);
         g.setFont(new Font("Roboto", Font.BOLD, 40));
         FontMetrics metrics = getFontMetrics(g.getFont());
-        g.drawString("Game: " + snake.getApplesEaten(), (SCREEN_WIDTH- metrics.stringWidth("Game over"))/2, SCREEN_HEIGHT+50);
+        g.drawString("Game: " + snake.getApplesEaten(), (GameSettings.SCREEN_WIDTH- metrics.stringWidth("Game over"))/2, GameSettings.SCREEN_HEIGHT+50);
     }
+
 
 
 }

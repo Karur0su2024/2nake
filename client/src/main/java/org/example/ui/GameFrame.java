@@ -1,20 +1,15 @@
-package org.example;
+package org.example.ui;
 
 import javax.swing.*;
 
-public class GameWindow extends JFrame {
+public class GameFrame extends JFrame {
 
-    GameWindow(){
-        this.add(new GamePanel());
+    GameFrame(){
+        this.add(new Game());
         this.setTitle("Snake");
         this.setResizable(false);
         this.pack();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
-
-
-
-
-
 }

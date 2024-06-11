@@ -1,33 +1,29 @@
-package org.example;
+package org.example.ui;
 
+import org.example.GameSettings;
 import org.example.objects.Apple;
+import org.example.objects.Obstacle;
 import org.example.objects.Snake;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Random;
 import java.awt.event.*;
 
-public class GamePanel extends JPanel implements ActionListener {
+public class Game extends JPanel implements ActionListener {
 
     public Image backgroundImage;
     Snake snake;
-    Apple[] apples = new Apple[2];
+    Apple[] apples = new Apple[GameSettings.APPLES];
+    Obstacle[] obstacles = new Obstacle[GameSettings.OBSTACLES];
     boolean running = false;
     Timer timer;
     Random random;
 
-    GamePanel(){
+    Game(){
         random = new Random();
 
         initialization();
-
-
-
     }
 
     public void setGame(){
@@ -44,9 +40,16 @@ public class GamePanel extends JPanel implements ActionListener {
     public void initialization(){
         setGame();
         snake = new Snake(GameSettings.GAME_UNITS);
+
+        for(int i = 0; i < obstacles.length; i++){
+            newObstacle(i);
+        }
+
         for(int i = 0; i < apples.length; i++){
             newApple(i);
         }
+
+
 
 
         startGame();
@@ -73,18 +76,21 @@ public class GamePanel extends JPanel implements ActionListener {
             g.drawImage(backgroundImage, 0, 0, this);
 
 
+            for (Apple apple : apples) {
+                apple.paint(g, GameSettings.UNIT_SIZE);
+            }
 
-            for(int i = 0; i < apples.length; i++){
-                apples[i].paint(g, GameSettings.UNIT_SIZE);
+            for(int i = 0; i < obstacles.length; i++){
+                obstacles[i].paint(g);
             }
 
             for(int i = 0; i < snake.getBodyParts(); i++) {
                 if(i == 0){
-                    g.setColor(Color.green);
+                    g.setColor(Color.WHITE);
 
                 }
                 else {
-                    g.setColor(new Color(45, 180, 0));
+                    g.setColor(new Color(200, 200, 200));
                 }
                 g.fillRect(snake.getX(i), snake.getY(i), GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
             }
@@ -100,7 +106,19 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void newApple(int i){
-        apples[i] = new Apple(random.nextInt((int)(GameSettings.SCREEN_WIDTH/GameSettings.UNIT_SIZE))*GameSettings.UNIT_SIZE, random.nextInt((int)(GameSettings.SCREEN_HEIGHT/GameSettings.UNIT_SIZE))*GameSettings.UNIT_SIZE);
+        int x = 0;
+        int y = 0;
+        boolean empty = false;
+        while(!empty){
+            x = random.nextInt((int)(GameSettings.SCREEN_WIDTH/GameSettings.UNIT_SIZE))*GameSettings.UNIT_SIZE;
+            y = random.nextInt((int)(GameSettings.SCREEN_HEIGHT/GameSettings.UNIT_SIZE))*GameSettings.UNIT_SIZE;
+            empty = checkIfEmpty(x, y);
+        }
+        apples[i] = new Apple(x,y);
+    }
+
+    public void newObstacle(int i){
+        obstacles[i] = new Obstacle(random.nextInt((int)(GameSettings.SCREEN_WIDTH/GameSettings.UNIT_SIZE))*GameSettings.UNIT_SIZE, random.nextInt((int)(GameSettings.SCREEN_HEIGHT/GameSettings.UNIT_SIZE))*GameSettings.UNIT_SIZE);
     }
 
     public void move(){
@@ -128,6 +146,13 @@ public class GamePanel extends JPanel implements ActionListener {
                 running = false;
             }
         }
+
+        for(int i = 0; i < obstacles.length; i++){
+            if((snake.getX(0) == obstacles[i].getX()) && (snake.getY(0) == obstacles[i].getY())){
+                running = false;
+            }
+        }
+
         if(snake.getX(0) < 0) {
             running = false;
         }
@@ -213,5 +238,22 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
 
+    public boolean checkIfEmpty(int x, int y){
+        boolean empty = false;
+        for(int i = 0; i < snake.getBodyParts(); i++){
+            if(x == snake.getX(i) && y == snake.getY(i)){
+                return false;
+            }
+        }
+        for(Obstacle obstacle : obstacles){
+            if(x == obstacle.getX() && y == obstacle.getY()){
+                return false;
+            }
+        }
+
+        return true;
+
+
+    }
 
 }

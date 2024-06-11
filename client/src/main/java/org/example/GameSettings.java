@@ -6,4 +6,6 @@ public class GameSettings {
     public static final int UNIT_SIZE = 25;
     public static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
     public static final int DELAY = 75;
+    public static final int APPLES = 2;
+    public static final int OBSTACLES = 25;
 }

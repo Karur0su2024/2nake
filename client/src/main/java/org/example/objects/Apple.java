@@ -1,6 +1,6 @@
 package org.example.objects;
 
-import org.example.GamePanel;
+import org.example.GameSettings;
 
 import java.awt.*;
 
@@ -23,7 +23,7 @@ public class Apple {
 
     public void paint(Graphics g, int UNIT_SIZE){
         g.setColor(Color.red);
-        g.fillOval(this.X, this.Y, UNIT_SIZE, UNIT_SIZE);
+        g.fillOval(this.X, this.Y, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
     }
 
 

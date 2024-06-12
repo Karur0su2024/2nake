@@ -2,6 +2,8 @@ package org.example.objects;
 
 import org.example.GameSettings;
 
+import java.awt.*;
+
 public class Snake {
     private char direction = 'R';
     private int bodyParts = 6;
@@ -14,6 +16,7 @@ public class Snake {
     public Snake(int gameUnits){
         x = new int[gameUnits];
         y = new int[gameUnits];
+
     }
 
     public int getBodyParts() {
@@ -24,9 +27,15 @@ public class Snake {
         return applesEaten;
     }
 
-    public void eat(){
-        this.bodyParts++;
-        this.score++;
+    public void eat(int points){
+        if(!(bodyParts == 1 && points < 0)){
+            this.bodyParts = this.bodyParts+points;
+            this.score = this.score + points;
+        }
+        if(bodyParts < 1){
+            bodyParts = 1;
+        }
+
         this.applesEaten++;
     }
 
@@ -77,6 +86,20 @@ public class Snake {
             case 'R':
                 x[0] = x[0]+GameSettings.UNIT_SIZE;
                 break;
+        }
+    }
+
+
+    public void paint(Graphics g){
+        for(int i = 0; i < bodyParts; i++) {
+            if(i == 0){
+                g.setColor(Color.WHITE);
+
+            }
+            else {
+                g.setColor(new Color(200, 200, 200));
+            }
+            g.fillRect(x[i], y[i], GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
         }
     }
 

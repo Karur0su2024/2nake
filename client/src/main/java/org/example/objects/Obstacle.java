@@ -22,7 +22,7 @@ public class Obstacle {
     }
 
     public void paint(Graphics g){
-        g.setColor(Color.BLACK);
+        g.setColor(Color.gray);
         g.fillRect(this.X, this.Y, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
     }
 }

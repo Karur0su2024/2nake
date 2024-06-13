@@ -18,20 +18,30 @@ public class MainMenuFrame extends JFrame {
         // Create a panel for the main menu
         JPanel panel = new JPanel();
 
-        panel.setLayout(new GridLayout(3, 1, 10, 10));
+        panel.setLayout(new GridLayout(4, 1, 10, 10));
 
         // Create buttons
-        JButton startButton = new JButton("Start Game");
+        JButton start1player = new JButton("1 player game");
+        JButton start2players = new JButton("2 players local Game");
         JButton instructionsButton = new JButton("Instructions");
         JButton exitButton = new JButton("Exit");
 
         // Add action listeners
-        startButton.addActionListener(new ActionListener() {
+        start1player.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Start the game
-                dispose(); // Close the main menu
-                new GameFrame(); // Open the game frame
+                setVisible(false);
+                new GameFrame(1, MainMenuFrame.this, 45, 30); // Open the game frame
+            }
+        });
+
+        start2players.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Start the game
+                setVisible(false);
+                new GameFrame(2, MainMenuFrame.this, 45, 30);  // Open the game frame
             }
         });
 
@@ -52,7 +62,8 @@ public class MainMenuFrame extends JFrame {
         });
 
         // Add buttons to the panel
-        panel.add(startButton);
+        panel.add(start1player);
+        panel.add(start2players);
         panel.add(instructionsButton);
         panel.add(exitButton);
 

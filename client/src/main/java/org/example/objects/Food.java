@@ -2,45 +2,72 @@ package org.example.objects;
 
 import org.example.GameSettings;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
+import java.io.File;
+import java.io.IOException;
 
 public class Food {
-    private int X;
-    private int Y;
+    private int x;
+    private int y;
     private int points;
     private Color color;
+    private Image image;
 
     public Food(int X, int Y){
-        this.X = X;
-        this.Y = Y;
+        this.x = X;
+        this.y = Y;
+        try {
+            File f = new File("client/src/images/food.png");
+            System.out.println(f.getAbsoluteFile());
+            //l.a(f.getCanonicalPath());
+            image = ImageIO.read(f);
+            image = image.getScaledInstance(GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE, Image.SCALE_DEFAULT);
+        } catch (IOException ex) {
+            System.out.println("test" + ex);
+        }
+
+
         Random r = new Random();
-        this.points = r.nextInt(6)-3;
-        if(this.points == 0){
-            this.points++;
+        if(r.nextInt(30)-5 > 0){
+            this.points = 1;
+        }
+        else {
+            this.points = -1;
         }
 
         setColor();
 
-
-
     }
 
     public int getX() {
-        return X;
+        return x;
     }
 
     public int getY() {
-        return Y;
+        return y;
     }
 
-    public void paint(Graphics g, int UNIT_SIZE){
+    public void paint(Graphics g, JPanel panel){
         g.setColor(this.color);
-        g.fillOval(this.X, this.Y, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
+        if(this.points < 1){
+            this.color = Color.red;
+        }
+        else {
+            this.color = Color.cyan;
+            //g.drawImage(image, x*GameSettings.UNIT_SIZE, x*GameSettings.UNIT_SIZE, panel);
+        }
+
+        //g.fillOval(x*);
+        g.drawImage(image, x*GameSettings.UNIT_SIZE, y*GameSettings.UNIT_SIZE, panel);
+
     }
 
     private void setColor(){
-        if(this.points < -1){
+        if(this.points < 1){
             this.color = Color.red;
         }
         else {
@@ -51,4 +78,5 @@ public class Food {
     public int getPoints() {
         return points;
     }
+
 }

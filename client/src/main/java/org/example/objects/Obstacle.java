@@ -5,24 +5,24 @@ import org.example.GameSettings;
 import java.awt.*;
 
 public class Obstacle {
-    int X;
-    int Y;
+    int x;
+    int y;
 
     public Obstacle(int X, int Y){
-        this.X = X;
-        this.Y = Y;
+        this.x = X;
+        this.y = Y;
     }
 
     public int getX() {
-        return X;
+        return x;
     }
 
     public int getY() {
-        return Y;
+        return y;
     }
 
     public void paint(Graphics g){
         g.setColor(Color.gray);
-        g.fillRect(this.X, this.Y, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
+        g.fillRect(this.x * GameSettings.UNIT_SIZE, this.y * GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
     }
 }

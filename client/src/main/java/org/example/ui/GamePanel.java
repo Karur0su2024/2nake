@@ -11,59 +11,84 @@ import java.awt.event.*;
 
 public class GamePanel extends JPanel implements ActionListener {
 
-    public Image backgroundImage;
-
     Timer timer;
     Random random;
     Game game;
     int player;
     int players;
+    int time;
 
-    GamePanel(int players){
+
+    int width;
+    int height;
+    int seconds;
+
+    GamePanel(int players, int width, int height){
+        this.width = width;
+        this.height = height;
+        this.setPreferredSize(new Dimension(width*GameSettings.UNIT_SIZE, height*GameSettings.UNIT_SIZE+200));
+        this.setFocusable(true);
+        this.addKeyListener(new MyKeyAdapter());
+
         random = new Random();
         setGame();
         this.players = players;
         player = 0;
-        game = new Game(timer, 2);
+        game = new Game(timer, this.players, width, height);
     }
 
     public void setGame(){
-        this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT+100));
-        this.setBackground(Color.BLACK);
-        this.setFocusable(true);
         if(timer != null){
             timer.stop();
         }
+        seconds = 0;
         timer = new Timer(GameSettings.DELAY, this);
         timer.start();
-        this.addKeyListener(new MyKeyAdapter());
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         draw(g);
+        g.setColor(Color.black);
+        g.fillRect(0, height*GameSettings.UNIT_SIZE, width*GameSettings.UNIT_SIZE, 200);
+        g.setColor(Color.CYAN);
+        g.setFont(new Font("Roboto", Font.BOLD, 40));
+        FontMetrics metrics = g.getFontMetrics(g.getFont());
+        g.drawString("Time: " + seconds, (GameSettings.SCREEN_WIDTH- metrics.stringWidth("Time"))/2, height*GameSettings.UNIT_SIZE+100);
+        g.drawString("Rychlost: " + (20 / (20 - (game.snakes[0].getBodyParts() / 3))), (GameSettings.SCREEN_WIDTH- metrics.stringWidth("Time"))/2, height*GameSettings.UNIT_SIZE+150);
+
     }
+
 
 
     public void draw(Graphics g){
-        game.paint(g);
+        game.paint(g, this);
     }
-
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(game.running){
-            game.move();
-            game.checkFood();
-            game.checkCollisions();
+
+
+
+            time++;
+            if(time % 200 == 0){
+                game.generateAction();
+            }
+            if(time % 250 == 0){
+            }
+
+            if(time % 90 == 0){
+                seconds++;
+            }
+            if(time % (20 - (int)(game.snakes[0].getBodyParts() / 3)) == 0){
+                game.move();
+                game.checkCollisions();
+                game.checkFood();
+            }
         }
         repaint();
     }
-
-
-
     public class MyKeyAdapter extends KeyAdapter {
 
         @Override
@@ -134,11 +159,6 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                 }
             }
-
-
-
-
-
 
             if(e.getKeyCode() == KeyEvent.VK_R){
                 setGame();

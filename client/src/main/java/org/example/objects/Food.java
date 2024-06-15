@@ -11,25 +11,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class Food {
-    private int x;
-    private int y;
-    private int points;
+    private final int x;
+    private final int y;
+    private final int points;
     private Color color;
-    private Image image;
 
     public Food(int X, int Y){
         this.x = X;
         this.y = Y;
-        try {
-            File f = new File("client/src/images/food.png");
-            System.out.println(f.getAbsoluteFile());
-            //l.a(f.getCanonicalPath());
-            image = ImageIO.read(f);
-            image = image.getScaledInstance(GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE, Image.SCALE_DEFAULT);
-        } catch (IOException ex) {
-            System.out.println("test" + ex);
-        }
-
 
         Random r = new Random();
         if(r.nextInt(30)-5 > 0){
@@ -58,12 +47,9 @@ public class Food {
         }
         else {
             this.color = Color.cyan;
-            //g.drawImage(image, x*GameSettings.UNIT_SIZE, x*GameSettings.UNIT_SIZE, panel);
         }
 
-        //g.fillOval(x*);
-        g.drawImage(image, x*GameSettings.UNIT_SIZE, y*GameSettings.UNIT_SIZE, panel);
-
+        g.fillOval(x*GameSettings.UNIT_SIZE + 3, y*GameSettings.UNIT_SIZE + 3, GameSettings.UNIT_SIZE - 6, GameSettings.UNIT_SIZE - 6);
     }
 
     private void setColor(){

@@ -17,16 +17,20 @@ public class GamePanel extends JPanel implements ActionListener {
     int player;
     int players;
     int time;
-
+    int length;
 
     int width;
     int height;
     int seconds;
 
-    GamePanel(int players, int width, int height){
+    SidebarPanel sidebarPanel;
+
+    GamePanel(int players, int width, int height, int obsactles, int food, int size, int length, SidebarPanel sidebarPanel){
         this.width = width;
         this.height = height;
-        this.setPreferredSize(new Dimension(width*GameSettings.UNIT_SIZE, height*GameSettings.UNIT_SIZE+200));
+        this.length = length;
+        this.sidebarPanel = sidebarPanel;
+        this.setPreferredSize(new Dimension(width*GameSettings.UNIT_SIZE, height*GameSettings.UNIT_SIZE));
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
 
@@ -34,7 +38,7 @@ public class GamePanel extends JPanel implements ActionListener {
         setGame();
         this.players = players;
         player = 0;
-        game = new Game(timer, this.players, width, height);
+        game = new Game(timer, this.players, width, height, obsactles, food, size, length, sidebarPanel);
     }
 
     public void setGame(){
@@ -49,13 +53,6 @@ public class GamePanel extends JPanel implements ActionListener {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         draw(g);
-        g.setColor(Color.black);
-        g.fillRect(0, height*GameSettings.UNIT_SIZE, width*GameSettings.UNIT_SIZE, 200);
-        g.setColor(Color.CYAN);
-        g.setFont(new Font("Roboto", Font.BOLD, 40));
-        FontMetrics metrics = g.getFontMetrics(g.getFont());
-        g.drawString("Time: " + seconds, (GameSettings.SCREEN_WIDTH- metrics.stringWidth("Time"))/2, height*GameSettings.UNIT_SIZE+100);
-        g.drawString("Rychlost: " + (20 / (20 - (game.snakes[0].getBodyParts() / 3))), (GameSettings.SCREEN_WIDTH- metrics.stringWidth("Time"))/2, height*GameSettings.UNIT_SIZE+150);
 
     }
 
@@ -75,19 +72,27 @@ public class GamePanel extends JPanel implements ActionListener {
             if(time % 200 == 0){
                 game.generateAction();
             }
-            if(time % 250 == 0){
+
+            if(time % 80 == 0){
+                game.length--;
+                sidebarPanel.setTime();
+            }
+            for(Snake snake : game.snakes){
+
+                if(time % snake.getSpeed() == 0){
+                    snake.move();
+                    game.checkCollisions();
+                    game.checkFood();
+                }
+                if(game.length == 0){
+                    game.running = false;
+                }
             }
 
-            if(time % 90 == 0){
-                seconds++;
-            }
-            if(time % (20 - (int)(game.snakes[0].getBodyParts() / 3)) == 0){
-                game.move();
-                game.checkCollisions();
-                game.checkFood();
-            }
         }
         repaint();
+
+
     }
     public class MyKeyAdapter extends KeyAdapter {
 
@@ -97,21 +102,25 @@ public class GamePanel extends JPanel implements ActionListener {
                 if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
                     if(game.snakes[player].getDirection() != 'R'){
                         game.snakes[player].setDirection('L');
+                        return;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
                     if(game.snakes[player].getDirection() != 'L'){
                         game.snakes[player].setDirection('R');
+                        return;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
                     if(game.snakes[player].getDirection() != 'D'){
                         game.snakes[player].setDirection('U');
+                        return;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
                     if(game.snakes[player].getDirection() != 'U'){
                         game.snakes[player].setDirection('D');
+                        return;
                     }
                 }
             }
@@ -119,21 +128,25 @@ public class GamePanel extends JPanel implements ActionListener {
                 if(e.getKeyCode() == KeyEvent.VK_A){
                     if(game.snakes[0].getDirection() != 'R'){
                         game.snakes[0].setDirection('L');
+                        return;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_D){
                     if(game.snakes[0].getDirection() != 'L'){
                         game.snakes[0].setDirection('R');
+                        return;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_W){
                     if(game.snakes[0].getDirection() != 'D'){
                         game.snakes[0].setDirection('U');
+                        return;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_S){
                     if(game.snakes[0].getDirection() != 'U'){
                         game.snakes[0].setDirection('D');
+                        return;
                     }
                 }
 
@@ -141,21 +154,25 @@ public class GamePanel extends JPanel implements ActionListener {
                 if(e.getKeyCode() == KeyEvent.VK_LEFT){
                     if(game.snakes[1].getDirection() != 'R'){
                         game.snakes[1].setDirection('L');
+                        return;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT){
                     if(game.snakes[1].getDirection() != 'L'){
                         game.snakes[1].setDirection('R');
+                        return;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP){
                     if(game.snakes[1].getDirection() != 'D'){
                         game.snakes[1].setDirection('U');
+                        return;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN){
                     if(game.snakes[1].getDirection() != 'U'){
                         game.snakes[1].setDirection('D');
+                        return;
                     }
                 }
             }
@@ -163,9 +180,9 @@ public class GamePanel extends JPanel implements ActionListener {
             if(e.getKeyCode() == KeyEvent.VK_R){
                 setGame();
                 game.restart();
+
             }
         }
     }
-
 
 }

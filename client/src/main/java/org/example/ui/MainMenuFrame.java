@@ -12,17 +12,18 @@ public class MainMenuFrame extends JFrame {
         // Set title and default close operation
         setTitle("Snake Game Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(500, 300);
         setLocationRelativeTo(null); // Center the frame
 
         // Create a panel for the main menu
         JPanel panel = new JPanel();
 
-        panel.setLayout(new GridLayout(4, 1, 10, 10));
+        panel.setLayout(new GridLayout(5, 1, 20, 10));
 
         // Create buttons
         JButton start1player = new JButton("1 player game");
         JButton start2players = new JButton("2 players local Game");
+        JButton start2playersServer = new JButton("2 players game over server");
         JButton instructionsButton = new JButton("Instructions");
         JButton exitButton = new JButton("Exit");
 
@@ -31,8 +32,9 @@ public class MainMenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Start the game
-                setVisible(false);
-                new GameFrame(1, MainMenuFrame.this, 45, 30); // Open the game frame
+                //setVisible(false);
+                new SettingsFrame(MainMenuFrame.this, 1);
+                //new GameFrame(1, MainMenuFrame.this, 45, 30); // Open the game frame
             }
         });
 
@@ -40,8 +42,8 @@ public class MainMenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Start the game
-                setVisible(false);
-                new GameFrame(2, MainMenuFrame.this, 45, 30);  // Open the game frame
+                new SettingsFrame(MainMenuFrame.this, 2);
+                //new GameFrame(2, MainMenuFrame.this, 45, 30);  // Open the game frame
             }
         });
 
@@ -64,8 +66,10 @@ public class MainMenuFrame extends JFrame {
         // Add buttons to the panel
         panel.add(start1player);
         panel.add(start2players);
+        panel.add(start2playersServer);
         panel.add(instructionsButton);
         panel.add(exitButton);
+
 
         // Add panel to the frame
         add(panel);

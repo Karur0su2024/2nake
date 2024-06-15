@@ -4,45 +4,49 @@ import org.example.objects.Food;
 import org.example.objects.GamePlan;
 import org.example.objects.Obstacle;
 import org.example.objects.Snake;
+import org.example.ui.SidebarPanel;
 
 import java.awt.*;
-import java.util.Objects;
 import java.util.Random;
 import javax.swing.*;
 
 
 public class Game {
     public Snake[] snakes;
-    public Food[] foods = new Food[GameSettings.APPLES];
+    public Food[] foods;
     int currentFood = 0;
+    int size;
 
-    public Obstacle[] obstacles = new Obstacle[GameSettings.OBSTACLES];
+    public Obstacle[] obstacles;
     public int players;
     public boolean running = false;
     public GamePlan gamePlan;
+
     Random random;
     Timer timer;
 
     int timeLeft;
     public int width;
     public int height;
+    SidebarPanel sidebarPanel;
+    public int length;
 
-
-    public Game(Timer timer, int players, int width, int height){
+    public Game(Timer timer, int players, int width, int height, int obsactles, int food, int size, int length, SidebarPanel sidebarPanel){
         random = new Random();
-
+        this.length = length;
+        this.sidebarPanel = sidebarPanel;
         timeLeft = 20;
         this.width = width;
         this.height = height;
-
         this.gamePlan = new GamePlan(this.width, this.height);
         this.players = players;
-
+        obstacles = new Obstacle[obsactles];
+        foods = new Food[food];
         snakes = new Snake[players];
         this.timer = timer;
+        this.size = size;
         setGame();
     }
-
 
 
     private void setGame(){
@@ -52,9 +56,18 @@ public class Game {
             newObstacle(i);
         }
         for(int i = 0; i < foods.length; i++) {
-
+            foods[i] = null;
         }
         running = true;
+
+        setSidebar();
+
+        sidebarPanel.setTime();
+    }
+
+    private void setSidebar(){
+        this.sidebarPanel.setGame(this);
+        this.sidebarPanel.setScores();
     }
 
     public void newApple(int i){
@@ -70,17 +83,7 @@ public class Game {
     }
 
     public void newObstacle(int i){
-
-
         obstacles[i] = new Obstacle(random.nextInt(this.width-2)+1, random.nextInt(this.height-2)+1);
-    }
-
-    public void move(){
-        for(Snake snake : snakes){
-            snake.move();
-        }
-
-
     }
 
     public void checkFood() {
@@ -92,20 +95,22 @@ public class Game {
                         newApple(i);
                     }
                 }
-
             }
         }
-
     }
 
     public void checkCollisions() {
         // check if head collides with body
         for(Snake snake : snakes){
-            for(int i = snake.getBodyParts(); i>0; i--){
-                if((snake.getX(0) == snake.getX(i)) && (snake.getY(0) == snake.getY(i))){
-                    running = false;
+            for(Snake snake2 : snakes){
+                for(int i = snake2.getBodyParts(); i>0; i--){
+
+                    if((snake.getX(0) == snake2.getX(i)) && (snake.getY(0) == snake2.getY(i))){
+                        running = false;
+                    }
                 }
             }
+
 
             for(int i = 0; i < obstacles.length; i++){
                 if((snake.getX(0) == obstacles[i].getX()) && (snake.getY(0) == obstacles[i].getY())){
@@ -113,16 +118,13 @@ public class Game {
                 }
             }
 
-
             checkBorders(snake);
 
             if(!running){
                 timer.stop();;
             }
         }
-
     }
-
 
     private void checkBorders(Snake snake){
         if(snake.getX(0) < 0) {
@@ -150,7 +152,6 @@ public class Game {
                 if(food != null){
                     food.paint(g, panel);
                 }
-
             }
 
             for(Obstacle obstacle : obstacles){
@@ -160,8 +161,6 @@ public class Game {
             for(Snake snake : snakes){
                 snake.paint(g, panel);
             }
-
-
         }
         else {
             gameOver(g);
@@ -207,13 +206,15 @@ public class Game {
 
     public void setPlayers(){
         for(int i = 0; i < players; i++){
-            snakes[i] = new Snake(width*height);
+
             if(i == 0){
+                snakes[i] = new Snake(width*height, this.size, this.sidebarPanel);
                 snakes[i].setX(0);
                 snakes[i].setY(0);
                 snakes[i].setDirection('R');
             }
             if(i == 1){
+                snakes[i] = new Snake(width*height, this.size, this.sidebarPanel);
                 snakes[i].setX(width-1);
                 snakes[i].setY(height-1);
                 snakes[i].setDirection('L');

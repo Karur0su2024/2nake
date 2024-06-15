@@ -12,10 +12,13 @@ public class GameFrame extends JFrame {
     MainMenuFrame menuFrame;
 
 
-    GameFrame(int players, MainMenuFrame menuFrame, int width, int height){
+    GameFrame(int players, MainMenuFrame menuFrame, int width, int height, int obsactles, int food, int size, int length){
 
-        GamePanel gamePanel = new GamePanel(players, width, height);
-        this.add(gamePanel);
+        this.setLayout(new BorderLayout());
+        SidebarPanel sidebarPanel = new SidebarPanel(players);
+        this.add(new GamePanel(players, width, height, obsactles, food, size, length, sidebarPanel), BorderLayout.CENTER);
+
+        this.add(sidebarPanel, BorderLayout.EAST);
 
         this.menuFrame = menuFrame;
         this.setTitle("Snake");

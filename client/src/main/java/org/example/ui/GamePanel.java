@@ -19,26 +19,36 @@ public class GamePanel extends JPanel implements ActionListener {
     int time;
     int length;
 
+    int obstacles;
+    int food;
+    int size;
     int width;
     int height;
     int seconds;
 
     SidebarPanel sidebarPanel;
+    MainMenuFrame menuFrame;
+    GameFrame gameFrame;
 
-    GamePanel(int players, int width, int height, int obsactles, int food, int size, int length, SidebarPanel sidebarPanel){
+    GamePanel(int players, int width, int height, int obstacles, int food, int size, int length, SidebarPanel sidebarPanel, MainMenuFrame menuFrame, GameFrame gameFrame){
         this.width = width;
         this.height = height;
         this.length = length;
         this.sidebarPanel = sidebarPanel;
+        this.gameFrame = gameFrame;
+        this.obstacles = obstacles;
+        this.food = food;
+        this.size = size;
+        this.menuFrame = menuFrame;
         this.setPreferredSize(new Dimension(width*GameSettings.UNIT_SIZE, height*GameSettings.UNIT_SIZE));
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
-
+        this.players = players;
         random = new Random();
         setGame();
-        this.players = players;
+
         player = 0;
-        game = new Game(timer, this.players, width, height, obsactles, food, size, length, sidebarPanel);
+
     }
 
     public void setGame(){
@@ -48,6 +58,7 @@ public class GamePanel extends JPanel implements ActionListener {
         seconds = 0;
         timer = new Timer(GameSettings.DELAY, this);
         timer.start();
+        game = new Game(timer, this.players, width, height, obstacles, food, size, length, sidebarPanel);
     }
 
     public void paintComponent(Graphics g){
@@ -64,7 +75,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(game.running){
+        if(game.isRunning()){
 
 
 
@@ -74,19 +85,24 @@ public class GamePanel extends JPanel implements ActionListener {
             }
 
             if(time % 80 == 0){
-                game.length--;
+                game.decreaseTime();
                 sidebarPanel.setTime();
             }
-            for(Snake snake : game.snakes){
+            for(Snake snake : game.getSnakes()){
 
                 if(time % snake.getSpeed() == 0){
                     snake.move();
                     game.checkCollisions();
                     game.checkFood();
                 }
-                if(game.length == 0){
-                    game.running = false;
+                if(game.getTime() == 0){
+                    game.setRunning(false);
+
                 }
+            }
+
+            if(!game.isRunning()) {
+                showGameOverDialog();
             }
 
         }
@@ -94,95 +110,82 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
     }
-    public class MyKeyAdapter extends KeyAdapter {
-
+    private class MyKeyAdapter extends KeyAdapter {
         @Override
-        public void keyPressed(KeyEvent e){
-            if(players == 1){
-                if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-                    if(game.snakes[player].getDirection() != 'R'){
-                        game.snakes[player].setDirection('L');
-                        return;
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-                    if(game.snakes[player].getDirection() != 'L'){
-                        game.snakes[player].setDirection('R');
-                        return;
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-                    if(game.snakes[player].getDirection() != 'D'){
-                        game.snakes[player].setDirection('U');
-                        return;
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-                    if(game.snakes[player].getDirection() != 'U'){
-                        game.snakes[player].setDirection('D');
-                        return;
-                    }
-                }
-            }
-            if(players == 2){
-                if(e.getKeyCode() == KeyEvent.VK_A){
-                    if(game.snakes[0].getDirection() != 'R'){
-                        game.snakes[0].setDirection('L');
-                        return;
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_D){
-                    if(game.snakes[0].getDirection() != 'L'){
-                        game.snakes[0].setDirection('R');
-                        return;
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_W){
-                    if(game.snakes[0].getDirection() != 'D'){
-                        game.snakes[0].setDirection('U');
-                        return;
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_S){
-                    if(game.snakes[0].getDirection() != 'U'){
-                        game.snakes[0].setDirection('D');
-                        return;
-                    }
-                }
+        public void keyPressed(KeyEvent e) {
+            int key = e.getKeyCode();
 
-                //Player 2
-                if(e.getKeyCode() == KeyEvent.VK_LEFT){
-                    if(game.snakes[1].getDirection() != 'R'){
-                        game.snakes[1].setDirection('L');
-                        return;
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-                    if(game.snakes[1].getDirection() != 'L'){
-                        game.snakes[1].setDirection('R');
-                        return;
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_UP){
-                    if(game.snakes[1].getDirection() != 'D'){
-                        game.snakes[1].setDirection('U');
-                        return;
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN){
-                    if(game.snakes[1].getDirection() != 'U'){
-                        game.snakes[1].setDirection('D');
-                        return;
-                    }
-                }
+            if (players == 1) {
+                handleSinglePlayerKey(key);
+            } else if (players == 2) {
+                handleMultiPlayerKey(key);
             }
 
-            if(e.getKeyCode() == KeyEvent.VK_R){
+            if (key == KeyEvent.VK_R) {
                 setGame();
                 game.restart();
-
             }
         }
+
+        private void handleSinglePlayerKey(int key) {
+            Snake snake = game.getSnakes()[0];
+            char direction = snake.getDirection();
+
+            switch (key) {
+                case KeyEvent.VK_LEFT:
+                case KeyEvent.VK_A:
+                    if (direction != 'R') snake.setDirection('L');
+                    break;
+                case KeyEvent.VK_RIGHT:
+                case KeyEvent.VK_D:
+                    if (direction != 'L') snake.setDirection('R');
+                    break;
+                case KeyEvent.VK_UP:
+                case KeyEvent.VK_W:
+                    if (direction != 'D') snake.setDirection('U');
+                    break;
+                case KeyEvent.VK_DOWN:
+                case KeyEvent.VK_S:
+                    if (direction != 'U') snake.setDirection('D');
+                    break;
+            }
+        }
+
+        private void handleMultiPlayerKey(int key) {
+            Snake snake1 = game.getSnakes()[0];
+            Snake snake2 = game.getSnakes()[1];
+
+            switch (key) {
+                case KeyEvent.VK_A:
+                    if (snake1.getDirection() != 'R') snake1.setDirection('L');
+                    break;
+                case KeyEvent.VK_D:
+                    if (snake1.getDirection() != 'L') snake1.setDirection('R');
+                    break;
+                case KeyEvent.VK_W:
+                    if (snake1.getDirection() != 'D') snake1.setDirection('U');
+                    break;
+                case KeyEvent.VK_S:
+                    if (snake1.getDirection() != 'U') snake1.setDirection('D');
+                    break;
+                case KeyEvent.VK_LEFT:
+                    if (snake2.getDirection() != 'R') snake2.setDirection('L');
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    if (snake2.getDirection() != 'L') snake2.setDirection('R');
+                    break;
+                case KeyEvent.VK_UP:
+                    if (snake2.getDirection() != 'D') snake2.setDirection('U');
+                    break;
+                case KeyEvent.VK_DOWN:
+                    if (snake2.getDirection() != 'U') snake2.setDirection('D');
+                    break;
+            }
+        }
+    }
+
+    private void showGameOverDialog() {
+        SwingUtilities.invokeLater(() -> new GameOverFrame(this, menuFrame, gameFrame).setVisible(true));
     }
 
 }

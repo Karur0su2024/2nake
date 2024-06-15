@@ -10,10 +10,10 @@ public class MainMenuFrame extends JFrame {
 
     public MainMenuFrame() {
         // Set title and default close operation
-        setTitle("Snake Game Main Menu");
+        setTitle("2nake");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 300);
-        setLocationRelativeTo(null); // Center the frame
+        setSize(500, 400);
+        setLocationRelativeTo(null);
 
         // Create a panel for the main menu
         JPanel panel = new JPanel();
@@ -21,20 +21,18 @@ public class MainMenuFrame extends JFrame {
         panel.setLayout(new GridLayout(5, 1, 20, 10));
 
         // Create buttons
-        JButton start1player = new JButton("1 player game");
-        JButton start2players = new JButton("2 players local Game");
-        JButton start2playersServer = new JButton("2 players game over server");
-        JButton instructionsButton = new JButton("Instructions");
-        JButton exitButton = new JButton("Exit");
+        JButton start1player = new JButton("Hra pro jednoho hráče");
+        JButton start2players = new JButton("Hra pro dva hráče");
+        JButton startServer = new JButton("Servery");
+        JButton instructionsButton = new JButton("Nápověda");
+        JButton exitButton = new JButton("Konec");
 
         // Add action listeners
         start1player.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Start the game
-                //setVisible(false);
                 new SettingsFrame(MainMenuFrame.this, 1);
-                //new GameFrame(1, MainMenuFrame.this, 45, 30); // Open the game frame
             }
         });
 
@@ -43,7 +41,6 @@ public class MainMenuFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Start the game
                 new SettingsFrame(MainMenuFrame.this, 2);
-                //new GameFrame(2, MainMenuFrame.this, 45, 30);  // Open the game frame
             }
         });
 
@@ -51,7 +48,7 @@ public class MainMenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Show instructions
-                JOptionPane.showMessageDialog(null, "Use arrow keys to move the snake.\nEat the food to grow.\nAvoid hitting the walls or the snake's own body.", "Instructions", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Pro pohyb hada použijte klávesy šipek nebo ASDW.\nModré jídlo prodlužuje hada červené ho zkracuje.\nPokud nabouráte do překážky nebo těla hada prohráváte.", "Instructions", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
@@ -66,10 +63,9 @@ public class MainMenuFrame extends JFrame {
         // Add buttons to the panel
         panel.add(start1player);
         panel.add(start2players);
-        panel.add(start2playersServer);
+        panel.add(startServer);
         panel.add(instructionsButton);
         panel.add(exitButton);
-
 
         // Add panel to the frame
         add(panel);

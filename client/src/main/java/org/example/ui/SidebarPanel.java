@@ -41,12 +41,12 @@ public class SidebarPanel extends JPanel implements ActionListener {
     }
 
     public void setScores(){
-            for(int i = 0; i < game.snakes.length; i++){
-                scoreLabel[i].setText("Snake " + (int)(i+1) + ": " + game.snakes[i].getBodyParts());
+            for(int i = 0; i < game.getSnakes().length; i++){
+                scoreLabel[i].setText("Snake " + (int)(i+1) + ": " + game.getSnakes()[i].getBodyParts());
             }
     }
 
     public void setTime(){
-        timeLabel.setText("Time left: " + game.length + "s");
+        timeLabel.setText("Time left: " + game.getTime() + "s");
     }
 }

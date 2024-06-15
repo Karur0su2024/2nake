@@ -30,7 +30,7 @@ public class Snake {
         bodyPartsDirection = new char[maxSize];
         bodyPartsDirection[0] = 'R';
 
-        speed = (20 - (bodyParts / 3));
+        setSpeed();
 
     }
     public int getBodyParts() {
@@ -45,7 +45,11 @@ public class Snake {
             bodyParts = 1;
         }
 
-        speed = (20 - (bodyParts / 3));
+        setSpeed();
+
+        if(speed < 1){
+            speed = 1;
+        }
 
         this.sidebarPanel.setScores();
     }
@@ -115,5 +119,7 @@ public class Snake {
         return this.speed;
     }
 
-
+    public void setSpeed() {
+        this.speed = (22 - (bodyParts / 7));
+    }
 }

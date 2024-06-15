@@ -16,12 +16,12 @@ public class GameFrame extends JFrame {
 
         this.setLayout(new BorderLayout());
         SidebarPanel sidebarPanel = new SidebarPanel(players);
-        this.add(new GamePanel(players, width, height, obsactles, food, size, length, sidebarPanel), BorderLayout.CENTER);
+        this.add(new GamePanel(players, width, height, obsactles, food, size, length, sidebarPanel, menuFrame, this), BorderLayout.CENTER);
 
         this.add(sidebarPanel, BorderLayout.EAST);
 
         this.menuFrame = menuFrame;
-        this.setTitle("Snake");
+        this.setTitle("2nake");
         this.setResizable(false);
         this.pack();
         this.setVisible(true);

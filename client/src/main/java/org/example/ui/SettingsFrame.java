@@ -2,17 +2,15 @@ package org.example.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class SettingsFrame extends JFrame implements ActionListener {
+public class SettingsFrame extends JFrame {
 
-    private JTextField widthField;
-    private JTextField heightField;
-    private JTextField snakeSizeField;
-    private JTextField obstaclesField;
-    private JTextField foodField;
-    private JTextField timeField;
+    private final JTextField widthField;
+    private final JTextField heightField;
+    private final JTextField snakeSizeField;
+    private final JTextField obstaclesField;
+    private final JTextField foodField;
+    private final JTextField timeField;
     private final MainMenuFrame mainMenuFrame;
 
     public SettingsFrame(MainMenuFrame mainMenuFrame, int players) {
@@ -23,60 +21,51 @@ public class SettingsFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setLayout(new GridLayout(7, 2));
 
-        JPanel panel = new JPanel();
-
-
-        // Width setting
-        add(new JLabel("Width:"));
-        widthField = new JTextField("45");
-        add(widthField);
-
-        // Height setting
-        add(new JLabel("Height:"));
-        heightField = new JTextField("30");
-        add(heightField);
-
-        // Snake starting size setting
-        add(new JLabel("Snake Starting Size:"));
-        snakeSizeField = new JTextField("6");
-        add(snakeSizeField);
-
-        // Number of obstacles setting
-        add(new JLabel("Number of Obstacles:"));
-        obstaclesField = new JTextField("20");
-        add(obstaclesField);
-
-        // Number of food setting
-        add(new JLabel("Number of Food:"));
-        foodField = new JTextField("5");
-        add(foodField);
-
-        add(new JLabel("Time:"));
-        timeField = new JTextField("60");
-        add(timeField);
+        // Initialize fields with default values
+        widthField = createAndAddField("Width:", "45");
+        heightField = createAndAddField("Height:", "30");
+        snakeSizeField = createAndAddField("Snake Starting Size:", "6");
+        obstaclesField = createAndAddField("Number of Obstacles:", "20");
+        foodField = createAndAddField("Number of Food:", "5");
+        timeField = createAndAddField("Time:", "60");
 
         // Submit button
         JButton submitButton = new JButton("Start Game");
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new GameFrame(players,
-                        mainMenuFrame, Integer.parseInt(widthField.getText()),
-                        Integer.parseInt(heightField.getText()), Integer.parseInt(obstaclesField.getText()),
-                                Integer.parseInt(foodField.getText()), Integer.parseInt(snakeSizeField.getText()), Integer.parseInt(timeField.getText()));
-                mainMenuFrame.setVisible(false);
-                dispose();
-
-            }
-        });
+        submitButton.addActionListener(e -> setGame(players));
         add(submitButton);
 
-        add(panel);
-        this.setVisible(true);
+        setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    private JTextField createAndAddField(String labelText, String defaultValue) {
+        add(new JLabel(labelText));
+        JTextField textField = new JTextField(defaultValue);
+        add(textField);
+        return textField;
+    }
 
+
+
+    private void setGame(int players) {
+        int width = parseField(widthField, 45, 10, 70);
+        int height = parseField(heightField, 30, 10, 50);
+        int obstacles = parseField(obstaclesField, 10, 0, (width * height) / 10);
+        int food = parseField(foodField, 5, 1, (width * height) / 50);
+        int snakeSize = parseField(snakeSizeField, 6, 1, (width * height) / 50);
+        int time = parseField(timeField, 60, 30, 600);
+
+        new GameFrame(players, mainMenuFrame, width, height, obstacles, food, snakeSize, time);
+        mainMenuFrame.setVisible(false);
+        dispose();
+    }
+
+    private int parseField(JTextField field, int defaultValue, int minValue, int maxValue) {
+        int value;
+        try {
+            value = Integer.parseInt(field.getText());
+        } catch (NumberFormatException e) {
+            value = defaultValue;
+        }
+        return Math.max(minValue, Math.min(value, maxValue));
     }
 }

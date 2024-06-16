@@ -9,6 +9,12 @@ import java.awt.*;
 import java.util.Random;
 import java.awt.event.*;
 
+import org.example.Game;
+import org.example.LocalGameHandler;
+import org.example.RemoteGameHandler;
+import org.example.GameHandler;
+
+
 public class GamePanel extends JPanel implements ActionListener {
 
     Timer timer;
@@ -29,8 +35,9 @@ public class GamePanel extends JPanel implements ActionListener {
     SidebarPanel sidebarPanel;
     MainMenuFrame menuFrame;
     GameFrame gameFrame;
+    String gameMode;
 
-    GamePanel(int players, int width, int height, int obstacles, int food, int size, int length, SidebarPanel sidebarPanel, MainMenuFrame menuFrame, GameFrame gameFrame){
+    GamePanel(int players, int width, int height, int obstacles, int food, int size, int length, SidebarPanel sidebarPanel, MainMenuFrame menuFrame, GameFrame gameFrame, String gameMode) {
         this.width = width;
         this.height = height;
         this.length = length;
@@ -40,87 +47,80 @@ public class GamePanel extends JPanel implements ActionListener {
         this.food = food;
         this.size = size;
         this.menuFrame = menuFrame;
-        this.setPreferredSize(new Dimension(width*GameSettings.UNIT_SIZE, height*GameSettings.UNIT_SIZE));
+        this.setPreferredSize(new Dimension(width * GameSettings.UNIT_SIZE, height * GameSettings.UNIT_SIZE));
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         this.players = players;
+        this.gameMode = gameMode;
         random = new Random();
         setGame();
 
         player = 0;
-
     }
 
-    public void setGame(){
-        if(timer != null){
+    public void setGame() {
+        if (timer != null) {
             timer.stop();
         }
         seconds = 0;
         timer = new Timer(GameSettings.DELAY, this);
         timer.start();
-        game = new Game(timer, this.players, width, height, obstacles, food, size, length, sidebarPanel);
+
+        // Initialize the game with the correct GameHandler
+        if ("Remote".equals(gameMode)) {
+            GameClient gameClient = new GameClient();
+            game = new Game(timer, players, width, height, obstacles, food, size, length, sidebarPanel, new RemoteGameHandler(gameClient));
+        } else {
+            game = new Game(timer, players, width, height, obstacles, food, size, length, sidebarPanel, new LocalGameHandler());
+        }
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
-
     }
 
-
-
-    public void draw(Graphics g){
+    public void draw(Graphics g) {
         game.paint(g, this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(game.isRunning()){
-
-
-
+        if (game.isRunning()) {
             time++;
-            if(time % 200 == 0){
+            if (time % 200 == 0) {
                 game.generateAction();
             }
-
-            if(time % 80 == 0){
+            if (time % 80 == 0) {
                 game.decreaseTime();
                 sidebarPanel.setTime();
             }
-            for(Snake snake : game.getSnakes()){
-
-                if(time % snake.getSpeed() == 0){
+            for (Snake snake : game.getSnakes()) {
+                if (time % snake.getSpeed() == 0) {
                     snake.move();
                     game.checkCollisions();
                     game.checkFood();
                 }
-                if(game.getTime() == 0){
+                if (game.getTime() == 0) {
                     game.setRunning(false);
-
                 }
             }
-
-            if(!game.isRunning()) {
+            if (!game.isRunning()) {
                 showGameOverDialog();
             }
-
         }
         repaint();
-
-
     }
+
     private class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();
-
             if (players == 1) {
                 handleSinglePlayerKey(key);
             } else if (players == 2) {
                 handleMultiPlayerKey(key);
             }
-
             if (key == KeyEvent.VK_R) {
                 setGame();
                 game.restart();
@@ -130,7 +130,6 @@ public class GamePanel extends JPanel implements ActionListener {
         private void handleSinglePlayerKey(int key) {
             Snake snake = game.getSnakes()[0];
             char direction = snake.getDirection();
-
             switch (key) {
                 case KeyEvent.VK_LEFT:
                 case KeyEvent.VK_A:
@@ -154,7 +153,6 @@ public class GamePanel extends JPanel implements ActionListener {
         private void handleMultiPlayerKey(int key) {
             Snake snake1 = game.getSnakes()[0];
             Snake snake2 = game.getSnakes()[1];
-
             switch (key) {
                 case KeyEvent.VK_A:
                     if (snake1.getDirection() != 'R') snake1.setDirection('L');
@@ -187,5 +185,4 @@ public class GamePanel extends JPanel implements ActionListener {
     private void showGameOverDialog() {
         SwingUtilities.invokeLater(() -> new GameOverFrame(this, menuFrame, gameFrame).setVisible(true));
     }
-
 }

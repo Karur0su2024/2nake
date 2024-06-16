@@ -28,6 +28,8 @@ public class Game {
     private final int height;
     private int time;
 
+    private GameHandler gameHandler;
+
     public Game(Timer timer, int players, int width, int height, int obstacles, int food, int size, int time, SidebarPanel sidebarPanel) {
         this.timer = timer;
         this.players = players;
@@ -41,10 +43,29 @@ public class Game {
         this.foods = new Food[food];
         this.snakes = new Snake[players];
         this.size = size;
-        initializeGame();
     }
 
-    private void initializeGame() {
+    public void setGameHandler(GameHandler gameHandler) {
+        this.gameHandler = gameHandler;
+    }
+
+    public void startGame() {
+        gameHandler.initializeGame(this);
+    }
+
+    public void playerAction(String action) {
+        gameHandler.sendPlayerAction(action);
+    }
+
+    public void processGameState(String gameState) {
+        // Update local game state based on the received game state
+    }
+
+    public void updateGame() {
+        gameHandler.updateGame();
+    }
+
+    public void initializeGame() {
         setPlayers();
         initializeObstacles();
         clearFoods();

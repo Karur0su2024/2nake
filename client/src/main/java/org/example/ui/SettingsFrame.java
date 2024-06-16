@@ -12,6 +12,7 @@ public class SettingsFrame extends JFrame {
     private final JTextField foodField;
     private final JTextField timeField;
     private final MainMenuFrame mainMenuFrame;
+    private final JComboBox<String> gameModeBox;
 
     public SettingsFrame(MainMenuFrame mainMenuFrame, int players) {
         setTitle("Snake Game Settings");
@@ -19,7 +20,7 @@ public class SettingsFrame extends JFrame {
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(7, 2));
+        setLayout(new GridLayout(8, 2));
 
         // Initialize fields with default values
         widthField = createAndAddField("Width:", "45");
@@ -28,6 +29,11 @@ public class SettingsFrame extends JFrame {
         obstaclesField = createAndAddField("Number of Obstacles:", "20");
         foodField = createAndAddField("Number of Food:", "5");
         timeField = createAndAddField("Time:", "60");
+
+        // Game mode selection
+        add(new JLabel("Game Mode:"));
+        gameModeBox = new JComboBox<>(new String[] { "Local", "Remote" });
+        add(gameModeBox);
 
         // Submit button
         JButton submitButton = new JButton("Start Game");
@@ -44,8 +50,6 @@ public class SettingsFrame extends JFrame {
         return textField;
     }
 
-
-
     private void setGame(int players) {
         int width = parseField(widthField, 45, 10, 70);
         int height = parseField(heightField, 30, 10, 50);
@@ -54,7 +58,8 @@ public class SettingsFrame extends JFrame {
         int snakeSize = parseField(snakeSizeField, 6, 1, (width * height) / 50);
         int time = parseField(timeField, 60, 30, 600);
 
-        new GameFrame(players, mainMenuFrame, width, height, obstacles, food, snakeSize, time);
+        String gameMode = (String) gameModeBox.getSelectedItem();
+        new GameFrame(players, mainMenuFrame, width, height, obstacles, food, snakeSize, time, gameMode);
         mainMenuFrame.setVisible(false);
         dispose();
     }

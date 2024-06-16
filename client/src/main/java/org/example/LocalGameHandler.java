@@ -6,6 +6,7 @@ import org.example.ui.GamePanel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class LocalGameHandler implements GameHandler, ActionListener {
@@ -37,8 +38,31 @@ public class LocalGameHandler implements GameHandler, ActionListener {
     }
 
     @Override
-    public void sendPlayerAction(String action) {
-        // Directly handle player action locally
+    public void sendPlayerAction(int player, int key) {
+        Snake snake = game.getSnakes()[player];
+
+        char direction = snake.getDirection();
+
+        switch (key) {
+            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
+                if (direction != 'R') snake.setDirection('L');
+                break;
+            case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_D:
+                if (direction != 'L') snake.setDirection('R');
+                break;
+            case KeyEvent.VK_UP:
+            case KeyEvent.VK_W:
+                if (direction != 'D'){
+                    snake.setDirection('U');
+                }
+                break;
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
+                if (direction != 'U') snake.setDirection('D');
+                break;
+        }
 
     }
 

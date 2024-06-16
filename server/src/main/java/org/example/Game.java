@@ -4,12 +4,12 @@ import org.example.objects.Food;
 import org.example.objects.GamePlan;
 import org.example.objects.Obstacle;
 import org.example.objects.Snake;
-import org.example.ui.GameOverFrame;
 import org.example.ui.SidebarPanel;
 
-import java.awt.*;
-import java.util.Random;
 import javax.swing.*;
+import java.awt.*;
+import java.util.Arrays;
+import java.util.Random;
 
 public class Game {
     private final Snake[] snakes;
@@ -17,7 +17,6 @@ public class Game {
     private final Obstacle[] obstacles;
     private final GamePlan gamePlan;
     private final Random random;
-    private final SidebarPanel sidebarPanel;
     private final int size;
 
     private boolean running = false;
@@ -27,26 +26,23 @@ public class Game {
     private final int height;
     private int time;
 
-    private GameHandler gameHandler;
-
-    public Game(int players, int width, int height, int obstacles, int food, int size, int time, SidebarPanel sidebarPanel, GameHandler gameHandler) {
+    public Game(int players, int width, int height, int obstacles, int food, int size, int time) {
         this.players = players;
         this.width = width;
         this.height = height;
         this.time = time;
-        this.sidebarPanel = sidebarPanel;
         this.random = new Random();
         this.gamePlan = new GamePlan(width, height);
         this.obstacles = new Obstacle[obstacles];
         this.foods = new Food[food];
         this.snakes = new Snake[players];
         this.size = size;
-        this.gameHandler = gameHandler;
         startGame();
     }
 
     public void startGame() {
-        gameHandler.initializeGame(this);
+        initializeGame();
+
     }
 
 
@@ -60,14 +56,8 @@ public class Game {
         initializeObstacles();
         clearFoods();
         running = true;
-        updateSidebar();
-        sidebarPanel.setTime();
     }
 
-    private void updateSidebar() {
-        sidebarPanel.setGame(this);
-        sidebarPanel.setScores();
-    }
 
     private void clearFoods() {
         for (int i = 0; i < foods.length; i++) {
@@ -149,20 +139,6 @@ public class Game {
         }
     }
 
-    public void paint(Graphics g, JPanel panel) {
-        gamePlan.paint(g);
-        for (Food food : foods) {
-            if (food != null) {
-                food.paint(g, panel);
-            }
-        }
-        for (Obstacle obstacle : obstacles) {
-            obstacle.paint(g);
-        }
-        for (Snake snake : snakes) {
-            snake.paint(g, panel);
-        }
-    }
 
     private boolean isPositionEmpty(int x, int y) {
         for (Snake snake : snakes) {
@@ -182,13 +158,10 @@ public class Game {
         return true;
     }
 
-    public void restart() {
-        initializeGame();
-    }
 
     private void setPlayers() {
         for (int i = 0; i < players; i++) {
-            snakes[i] = new Snake(width * height, size, sidebarPanel);
+            snakes[i] = new Snake(width * height, size);
             if (i == 0) {
                 snakes[i].setX(0);
                 snakes[i].setY(0);
@@ -231,5 +204,24 @@ public class Game {
 
     public int getPlayers() {
         return players;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "snakes=" + Arrays.toString(snakes) +
+                ", foods=" + Arrays.toString(foods) +
+                ", obstacles=" + Arrays.toString(obstacles) +
+                ", gamePlan=" + gamePlan +
+                ", random=" + random +
+                ", size=" + size +
+                ", running=" + running +
+                ", currentFood=" + currentFood +
+                ", players=" + players +
+                ", width=" + width +
+                ", height=" + height +
+                ", time=" + time +
+                '}';
     }
 }

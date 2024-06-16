@@ -59,7 +59,7 @@ public class SettingsFrame extends JFrame {
         int time = parseField(timeField, 60, 30, 600);
 
         String gameMode = (String) gameModeBox.getSelectedItem();
-        new GameFrame(players, mainMenuFrame, width, height, obstacles, food, snakeSize, time, gameMode);
+        new GameFrame(players, mainMenuFrame, width, height, obstacles, food, snakeSize, time, gameMode, null);
         mainMenuFrame.setVisible(false);
         dispose();
     }

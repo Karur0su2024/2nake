@@ -1,8 +1,9 @@
 package org.example;
 
 public class RemoteGameHandler implements GameHandler {
-    private Game game;
-    private GameClient gameClient;
+
+    GameClient gameClient;
+    Game game;
 
     public RemoteGameHandler(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -11,23 +12,35 @@ public class RemoteGameHandler implements GameHandler {
     @Override
     public void initializeGame(Game game) {
         this.game = game;
-        /*gameClient.setGame(game);
-        gameClient.connectToServer();*/
     }
 
     @Override
-    public void sendPlayerAction(String action) {
-        //gameClient.sendAction(action);
+    public void sendPlayerAction(int player, int key) {
+
     }
 
+
     @Override
-    public void receiveGameState(String gameState) {
-        game.processGameState(gameState);
+    public void receiveGameState(String message) {
+        String[] parts = message.split(" ", 3);
+        String command = parts[0];
+        int player = Integer.getInteger(parts[1]);
+        char parameter = 'A';
+        if(parts[2] != null){
+            parameter = parts[2].charAt(0);
+        }
+
+        if (command.equals("move")) {
+            // Example: "MOVE playerId direction"
+            // Parse message and update player position or perform related actions
+            // Example implementation:
+            // handleMoveCommand(message);
+            game.getSnakes()[player].setDirection(parameter);
+        }
     }
 
     @Override
     public void updateGame() {
-        // Update game state based on server communication
-        //gameClient.requestGameState();
+
     }
 }

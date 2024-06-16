@@ -11,7 +11,7 @@ import org.example.Game;
 
 
 public class GamePanel extends JPanel {
-    Game game;
+    public Game game;
     int players;
 
     int player;
@@ -20,22 +20,29 @@ public class GamePanel extends JPanel {
     GameFrame gameFrame;
     String gameMode;
 
-    GamePanel(int players, int width, int height, int obstacles, int food, int size, int length, SidebarPanel sidebarPanel, MainMenuFrame menuFrame, GameFrame gameFrame, String gameMode){
+    GameHandler gameHandler;
+
+    GamePanel(int players, int width, int height, int obstacles, int food, int size, int length, SidebarPanel sidebarPanel, MainMenuFrame menuFrame, GameFrame gameFrame, String gameMode, GameClient gameClient){
         this.menuFrame = menuFrame;
         this.gameFrame = gameFrame;
         this.players = players;
+        if(gameClient != null){
+            gameClient.setGamePanel(this);
+        }
+
         this.setPreferredSize(new Dimension(width*GameSettings.UNIT_SIZE, height*GameSettings.UNIT_SIZE));
         this.setFocusable(true);
 
 
-        this.gameMode = gameMode;
-        if ("Remote".equals(this.gameMode)) {
-            GameClient gameClient = new GameClient();
-            game = new Game(players, width, height, obstacles, food, size, length, sidebarPanel, new RemoteGameHandler(gameClient));
-        } else {
-            game = new Game(players, width, height, obstacles, food, size, length, sidebarPanel, new LocalGameHandler(this));
-        }
 
+        this.gameMode = gameMode;
+        if ("remote".equals(this.gameMode)) {
+            gameHandler = new RemoteGameHandler(gameClient);
+        } else {
+            this.gameHandler = new LocalGameHandler(this);
+
+        }
+        game = new Game(players, width, height, obstacles, food, size, length, sidebarPanel, gameHandler);
         this.addKeyListener(new MyKeyAdapter());
 
 
@@ -63,77 +70,16 @@ public class GamePanel extends JPanel {
 
             if ("Remote".equals(gameMode)) {
 
+                gameHandler.sendPlayerAction(player, key);
+
             } else {
-                if (players == 1) {
-                    handleSinglePlayerKey(key);
-                } else if (players == 2) {
-                    handleMultiPlayerKey(key);
-                }
+                gameHandler.sendPlayerAction(0, key);
 
                 if (key == KeyEvent.VK_R) {
                     game.restart();
                 }
             }
 
-        }
-
-        private void handleSinglePlayerKey(int key) {
-            Snake snake = game.getSnakes()[0];
-
-            char direction = snake.getDirection();
-
-            switch (key) {
-                case KeyEvent.VK_LEFT:
-                case KeyEvent.VK_A:
-                    if (direction != 'R') snake.setDirection('L');
-                    break;
-                case KeyEvent.VK_RIGHT:
-                case KeyEvent.VK_D:
-                    if (direction != 'L') snake.setDirection('R');
-                    break;
-                case KeyEvent.VK_UP:
-                case KeyEvent.VK_W:
-                    if (direction != 'D'){
-                        snake.setDirection('U');
-                    }
-                    break;
-                case KeyEvent.VK_DOWN:
-                case KeyEvent.VK_S:
-                    if (direction != 'U') snake.setDirection('D');
-                    break;
-            }
-        }
-
-        private void handleMultiPlayerKey(int key) {
-            Snake snake1 = game.getSnakes()[0];
-            Snake snake2 = game.getSnakes()[1];
-
-            switch (key) {
-                case KeyEvent.VK_A:
-                    if (snake1.getDirection() != 'R') snake1.setDirection('L');
-                    break;
-                case KeyEvent.VK_D:
-                    if (snake1.getDirection() != 'L') snake1.setDirection('R');
-                    break;
-                case KeyEvent.VK_W:
-                    if (snake1.getDirection() != 'D') snake1.setDirection('U');
-                    break;
-                case KeyEvent.VK_S:
-                    if (snake1.getDirection() != 'U') snake1.setDirection('D');
-                    break;
-                case KeyEvent.VK_LEFT:
-                    if (snake2.getDirection() != 'R') snake2.setDirection('L');
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    if (snake2.getDirection() != 'L') snake2.setDirection('R');
-                    break;
-                case KeyEvent.VK_UP:
-                    if (snake2.getDirection() != 'D') snake2.setDirection('U');
-                    break;
-                case KeyEvent.VK_DOWN:
-                    if (snake2.getDirection() != 'U') snake2.setDirection('D');
-                    break;
-            }
         }
     }
 

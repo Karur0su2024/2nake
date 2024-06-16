@@ -3,45 +3,38 @@ package org.example;
 import java.io.*;
 import java.net.*;
 
-public class ClientHandler implements Runnable {
-    private Socket clientSocket;
+class ClientHandler implements Runnable {
+
+    private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
 
     public ClientHandler(Socket socket) {
-        this.clientSocket = socket;
+        this.socket = socket;
     }
 
     @Override
     public void run() {
         try {
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String message;
-
             while ((message = in.readLine()) != null) {
-                // Process client message (e.g., player actions)
-                processMessage(message);
+                // Process messages received from clients
+
+
+
+                System.out.println("Received: " + message);
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                clientSocket.close();
+                socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
-    public void sendMessage(String message) {
-        out.println(message);
-    }
-
-    private void processMessage(String message) {
-        // Process player actions (e.g., move snake)
-        System.out.println("Received: " + message);
-        // Update game state based on the message
-        GameServer.updateGameState();
-    }
 }
+

@@ -44,6 +44,14 @@ public class MainMenuFrame extends JFrame {
             }
         });
 
+        startServer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Start the game
+                new JoinServerFrame(MainMenuFrame.this);
+            }
+        });
+
         instructionsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

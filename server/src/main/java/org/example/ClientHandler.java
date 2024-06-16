@@ -6,7 +6,7 @@ import java.net.*;
 class ClientHandler implements Runnable {
 
     private Socket socket;
-    private PrintWriter out;
+    public PrintWriter out;
     private BufferedReader in;
 
     public ClientHandler(Socket socket) {

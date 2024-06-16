@@ -1,5 +1,12 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import org.example.objects.Food;
 import org.example.objects.GamePlan;
 import org.example.objects.Obstacle;
@@ -11,25 +18,77 @@ import java.awt.*;
 import java.util.Random;
 import javax.swing.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.google.gson.*;
+
+
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Game {
-    private final Snake[] snakes;
-    private final Food[] foods;
-    private final Obstacle[] obstacles;
-    private final GamePlan gamePlan;
-    private final Random random;
-    private final SidebarPanel sidebarPanel;
-    private final int size;
+    private Snake[] snakes = null;
+    private Food[] foods = null;
+    private Obstacle[] obstacles = null;
+    private GamePlan gamePlan = null;
+    @JsonIgnore
+    private boolean deprecated;
+
+    @JsonIgnore
+    private Random random = null;
+
+    @JsonIgnore
+    private SidebarPanel sidebarPanel = null;
+    private int size = 6;
 
     private boolean running = false;
     private int currentFood = 0;
-    private final int players;
-    private final int width;
-    private final int height;
+    private int players = 1;
+    private int width = 45;
+    private int height = 30;
     private int time;
 
+    @JsonIgnore
     private GameHandler gameHandler;
 
-    public Game(int players, int width, int height, int obstacles, int food, int size, int time, SidebarPanel sidebarPanel, GameHandler gameHandler) {
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    static {
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public Game(){
+
+    }
+
+    @JsonCreator
+    public Game(@JsonProperty("players") int players,
+                @JsonProperty("width") int width,
+                @JsonProperty("height") int height,
+                @JsonProperty("obstacles") Obstacle[] obstacles,
+                @JsonProperty("size") int size,
+                @JsonProperty("time") int time,
+                @JsonProperty("snakes") Snake[] snakes,
+                @JsonProperty("foods") Food[] foods,
+                @JsonProperty("gamePlan") GamePlan gamePlan,
+                @JsonProperty("random") Random random,
+                @JsonProperty("running") boolean running,
+                @JsonProperty("currentFood") int currentFood) {
+        this.players = players;
+        this.width = width;
+        this.height = height;
+        this.obstacles = obstacles;
+        this.size = size;
+        this.time = time;
+        this.snakes = snakes;
+        this.foods = foods;
+        this.gamePlan = gamePlan;
+        this.random = random;
+        this.running = running;
+        this.currentFood = currentFood;
+    }
+
+    public Game(int players, int width, int height, int obstacles, int food, int size, int time) {
         this.players = players;
         this.width = width;
         this.height = height;
@@ -42,7 +101,10 @@ public class Game {
         this.snakes = new Snake[players];
         this.size = size;
         this.gameHandler = gameHandler;
-        startGame();
+    }
+
+    public void setSidebarPanel(){
+        this.sidebarPanel = sidebarPanel;
     }
 
     public void startGame() {
@@ -188,7 +250,7 @@ public class Game {
 
     private void setPlayers() {
         for (int i = 0; i < players; i++) {
-            snakes[i] = new Snake(width * height, size, sidebarPanel);
+            snakes[i] = new Snake(width * height, size);
             if (i == 0) {
                 snakes[i].setX(0);
                 snakes[i].setY(0);
@@ -232,4 +294,118 @@ public class Game {
     public int getPlayers() {
         return players;
     }
+
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Obstacle[] getObstacles() {
+        return obstacles;
+    }
+
+    public Food[] getFoods() {
+        return foods;
+    }
+
+    public GamePlan getGamePlan() {
+        return gamePlan;
+    }
+
+    public void setSnakes(Snake[] snakes) {
+        this.snakes = snakes;
+    }
+
+    public void setObstacles(Obstacle[] obstacles) {
+        this.obstacles = obstacles;
+    }
+
+    public void setFoods(Food[] foods) {
+        this.foods = foods;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setCurrentFood(int currentFood) {
+        this.currentFood = currentFood;
+    }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public SidebarPanel getSidebarPanel() {
+        return sidebarPanel;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public int getCurrentFood() {
+        return currentFood;
+    }
+
+    public GameHandler getGameHandler() {
+        return gameHandler;
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Game fromString(String jsonString) {
+        try {
+            return mapper.readValue(jsonString, Game.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public void setGamePlan(GamePlan gamePlan) {
+        this.gamePlan = gamePlan;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    public void setSidebarPanel(SidebarPanel sidebarPanel) {
+        this.sidebarPanel = sidebarPanel;
+    }
+
+    public void setPlayers(int players) {
+        this.players = players;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public void setGameHandler(GameHandler gameHandler) {
+        this.gameHandler = gameHandler;
+    }
 }
+

@@ -1,5 +1,9 @@
 package org.example.objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.example.CustomColorDeserializer;
 import org.example.GameSettings;
 
 import javax.imageio.ImageIO;
@@ -11,16 +15,21 @@ import java.io.File;
 import java.io.IOException;
 
 public class Food {
-    private final int x;
-    private final int y;
-    private final int points;
+    private int x = 0;
+    private int y = 0;
+    private int points = 0;
+
+    @JsonDeserialize(using = CustomColorDeserializer.class)
     private Color color;
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    private Random r;
 
     public Food(int X, int Y){
         this.x = X;
         this.y = Y;
 
-        Random r = new Random();
+        r = new Random();
         if(r.nextInt(30)-5 > 0){
             this.points = 1;
         }
@@ -32,12 +41,53 @@ public class Food {
 
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public Food(){
+        super();
+    }
+
     public int getX() {
         return x;
     }
 
     public int getY() {
         return y;
+    }
+
+
+    private void setColor(){
+        if(this.points < 1){
+            this.color = Color.red;
+        }
+        else {
+            this.color = Color.cyan;
+        }
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+
+    public Color getColor() {
+        return color;
+    }
+
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public void paint(Graphics g, JPanel panel){
@@ -52,17 +102,6 @@ public class Food {
         g.fillOval(x*GameSettings.UNIT_SIZE + 3, y*GameSettings.UNIT_SIZE + 3, GameSettings.UNIT_SIZE - 6, GameSettings.UNIT_SIZE - 6);
     }
 
-    private void setColor(){
-        if(this.points < 1){
-            this.color = Color.red;
-        }
-        else {
-            this.color = Color.cyan;
-        }
-    }
 
-    public int getPoints() {
-        return points;
-    }
 
 }

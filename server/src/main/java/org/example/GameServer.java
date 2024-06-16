@@ -9,16 +9,16 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.*;
-import javax.swing.Timer;
+
 
 public class GameServer implements ActionListener {
-    private static final int PORT = 12344;
+    private static final int PORT = 12343;
     private static Set<ClientHandler> clientHandlers = new HashSet<>();
-    Timer timer;
     int time;
+    private Timer timer;
     boolean alive = true;
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
@@ -37,11 +37,7 @@ public class GameServer implements ActionListener {
 
                 System.out.println(clientHandlers.size());
                 if(clientHandlers.size() == 2){
-                    log.info("Test");
                     startGame();
-                }
-                else {
-                    log.info("Test 2");
                 }
             }
         } catch (IOException e) {
@@ -50,18 +46,36 @@ public class GameServer implements ActionListener {
     }
 
     private void startGame(){
-        broadcastMessage("start");
+
         time = 0;
-        game = new Game(2, 60, 50, 20, 5, 6, 60);
+
         timer = new Timer(5, this);
+
+        game = new Game(1, 60, 50, 20, 5, 6, 60);
+
+        broadcastMessage("start");
+
+        broadcastGame();
+
+        game.startGame();
         timer.start();
-        log.info("K serveru se připojilo tolik clientu: " + clientHandlers.size());
+
+
+
+
     }
 
     private void broadcastMessage(String message) {
-        for (ClientHandler clientHandler : clientHandlers) {
-            //clientHandler.out.println(message);
+        for (ClientHandler client : clientHandlers) {
+            client.out.println(message);
 
+        }
+    }
+
+    private void broadcastGame(){
+        String gameState = game.toString();
+        for (ClientHandler client : clientHandlers) {
+            client.out.println(gameState);
         }
     }
 
@@ -93,5 +107,7 @@ public class GameServer implements ActionListener {
                 }
             }
         }
+
+        broadcastGame();
     }
 }

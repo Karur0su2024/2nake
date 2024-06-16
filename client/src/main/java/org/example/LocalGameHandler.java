@@ -101,6 +101,7 @@ public class LocalGameHandler implements GameHandler, ActionListener {
 
         }
         gamePanel.repaint();
+        System.out.println(game.toString());
     }
 
     @Override

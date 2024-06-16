@@ -15,7 +15,14 @@ public class GameFrame extends JFrame {
         this.setLayout(new BorderLayout());
         SidebarPanel sidebarPanel = new SidebarPanel(players);
 
-        this.add(new GamePanel(players, width, height, obstacles, food, size, length, sidebarPanel, menuFrame, this, gameMode, gameClient), BorderLayout.CENTER);
+        if("remote".equals(gameMode)){
+
+
+        }
+        else {
+            this.add(new GamePanel(players, width, height, obstacles, food, size, length, sidebarPanel, menuFrame, this, gameMode, gameClient), BorderLayout.CENTER);
+        }
+
 
         this.add(sidebarPanel, BorderLayout.EAST);
 

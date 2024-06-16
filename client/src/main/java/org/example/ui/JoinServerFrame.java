@@ -32,7 +32,7 @@ public class JoinServerFrame extends JFrame {
 
     private void setGame() {
         //new GameFrame(2, mainMenuFrame, 45, 30, 10, 5, 6, 180, "remote", new GameClient(0));
-        new GameClient();
+        new GameClient(mainMenuFrame);
         mainMenuFrame.setVisible(false);
         dispose();
 

@@ -40,10 +40,15 @@ public class GamePanel extends JPanel {
             gameHandler = new RemoteGameHandler(gameClient);
         } else {
             this.gameHandler = new LocalGameHandler(this);
-
+            game = new Game(players, width, height, obstacles, food, size, length);
+            game.setGameHandler(gameHandler);
+            game.setSidebarPanel(sidebarPanel);
+            this.addKeyListener(new MyKeyAdapter());
+            game.startGame();
+            System.out.println(game.toString());
         }
-        game = new Game(players, width, height, obstacles, food, size, length, sidebarPanel, gameHandler);
-        this.addKeyListener(new MyKeyAdapter());
+
+
 
 
 

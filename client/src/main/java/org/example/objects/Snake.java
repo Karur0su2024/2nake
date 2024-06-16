@@ -1,16 +1,12 @@
 package org.example.objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.example.GameSettings;
 import org.example.ui.SidebarPanel;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Snake {
     private char direction = 'R';
@@ -20,9 +16,11 @@ public class Snake {
     private int y[];
 
     private int speed;
+
+    @JsonIgnore
     SidebarPanel sidebarPanel;
 
-    public Snake(int maxSize, int bodySize, SidebarPanel sidebarPanel){
+    public Snake(int maxSize, int bodySize){
         this.sidebarPanel = sidebarPanel;
         x = new int[maxSize];
         y = new int[maxSize];
@@ -33,6 +31,12 @@ public class Snake {
         setSpeed();
 
     }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public Snake(){
+
+    }
+
     public int getBodyParts() {
         return bodyParts;
     }
@@ -121,5 +125,45 @@ public class Snake {
 
     public void setSpeed() {
         this.speed = (22 - (bodyParts / 7));
+    }
+
+    public void setBodyParts(int bodyParts) {
+        this.bodyParts = bodyParts;
+    }
+
+    public void setBodyPartsDirection(char[] bodyPartsDirection) {
+        this.bodyPartsDirection = bodyPartsDirection;
+    }
+
+    public void setX(int[] x) {
+        this.x = x;
+    }
+
+    public void setY(int[] y) {
+        this.y = y;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setSidebarPanel(SidebarPanel sidebarPanel) {
+        this.sidebarPanel = sidebarPanel;
+    }
+
+    public char[] getBodyPartsDirection() {
+        return bodyPartsDirection;
+    }
+
+    public int[] getX() {
+        return x;
+    }
+
+    public int[] getY() {
+        return y;
+    }
+
+    public SidebarPanel getSidebarPanel() {
+        return sidebarPanel;
     }
 }

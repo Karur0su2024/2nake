@@ -1,9 +1,11 @@
 package org.example;
 
 
+import com.google.gson.Gson;
 import org.example.objects.Snake;
 import org.example.ui.GameFrame;
 import org.example.ui.GamePanel;
+import org.example.ui.MainMenuFrame;
 
 import java.awt.event.KeyEvent;
 import java.io.*;
@@ -12,20 +14,23 @@ import java.util.Scanner;
 
 public class GameClient {
     private static final String SERVER_ADDRESS = "localhost";
-    private static final int SERVER_PORT = 12344;
+    private static final int SERVER_PORT = 12343;
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
     private GamePanel gamePanel;
     private int player;
+    public boolean started = false;
+    public Game game;
+    public MainMenuFrame menuFrame;
 
-    public GameClient() {
+    public GameClient(MainMenuFrame menuFrame) {
         try {
             socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             new Thread(new ServerListener()).start();
-            System.out.println("Připojeno");
+            this.menuFrame = menuFrame;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,25 +50,30 @@ public class GameClient {
         switch (key) {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                if (direction != 'R') snake.setDirection('L');
+                if (direction != 'R') sendMove('L');
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                if (direction != 'L') snake.setDirection('R');
+                if (direction != 'L') sendMove('R');
                 break;
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
                 if (direction != 'D'){
-                    snake.setDirection('U');
+                    sendMove('U');
                 }
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                if (direction != 'U') snake.setDirection('D');
+                if (direction != 'U')
+                    sendMove('D');
                 break;
         }
 
         out.println("move " + player + " " + snake.getDirection());
+    }
+
+    public void sendMove(char direction) {
+        out.println("MOVE " + direction);
     }
 
     private class ServerListener implements Runnable {
@@ -73,18 +83,26 @@ public class GameClient {
                 String message;
                 while ((message = in.readLine()) != null) {
                     // Process messages received from the server
-                    System.out.println(message);
-                    /*if(message.equals("start")){
-                        new GameFrame(2, null, 50, 20, 5, 6, 20, 60, "remote", GameClient.this);
 
-                    }*/
+                    if(started){
+                        updateGameState(message);
+                    }
+
+                    if(message.equals("start")){
+                        started = true;
+                    }
 
 
-                    System.out.println("Server: " + message);
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void updateGameState(String stateMessage) {
+        System.out.println(Game.fromString(stateMessage));
+        //updateUI();
     }
 }

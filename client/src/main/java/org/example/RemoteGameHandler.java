@@ -11,13 +11,13 @@ public class RemoteGameHandler implements GameHandler {
     @Override
     public void initializeGame(Game game) {
         this.game = game;
-        gameClient.setGame(game);
-        gameClient.connectToServer();
+        /*gameClient.setGame(game);
+        gameClient.connectToServer();*/
     }
 
     @Override
     public void sendPlayerAction(String action) {
-        gameClient.sendAction(action);
+        //gameClient.sendAction(action);
     }
 
     @Override
@@ -28,6 +28,6 @@ public class RemoteGameHandler implements GameHandler {
     @Override
     public void updateGame() {
         // Update game state based on server communication
-        gameClient.requestGameState();
+        //gameClient.requestGameState();
     }
 }

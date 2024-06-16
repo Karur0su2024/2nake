@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 public class GameServer {
     private static final int PORT = 12345;
     private static Set<ClientHandler> clientHandlers = new HashSet<>();
-    private static GameState gameState = new GameState();
+    //private static GameState gameState = new GameState();
 
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
@@ -35,9 +35,9 @@ public class GameServer {
 
     public static synchronized void updateGameState() {
         // Update game state logic (move snakes, check collisions, etc.)
-        gameState.update();
+        //gameState.update();
 
         // Notify all clients of the updated game state
-        broadcast(gameState.toString());
+        //broadcast(gameState.toString());
     }
 }

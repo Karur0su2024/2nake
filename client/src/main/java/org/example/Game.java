@@ -17,7 +17,6 @@ public class Game {
     private final Obstacle[] obstacles;
     private final GamePlan gamePlan;
     private final Random random;
-    private final Timer timer;
     private final SidebarPanel sidebarPanel;
     private final int size;
 
@@ -30,8 +29,7 @@ public class Game {
 
     private GameHandler gameHandler;
 
-    public Game(Timer timer, int players, int width, int height, int obstacles, int food, int size, int time, SidebarPanel sidebarPanel) {
-        this.timer = timer;
+    public Game(int players, int width, int height, int obstacles, int food, int size, int time, SidebarPanel sidebarPanel, GameHandler gameHandler) {
         this.players = players;
         this.width = width;
         this.height = height;
@@ -43,27 +41,19 @@ public class Game {
         this.foods = new Food[food];
         this.snakes = new Snake[players];
         this.size = size;
-    }
-
-    public void setGameHandler(GameHandler gameHandler) {
         this.gameHandler = gameHandler;
+        startGame();
     }
 
     public void startGame() {
         gameHandler.initializeGame(this);
     }
 
-    public void playerAction(String action) {
-        gameHandler.sendPlayerAction(action);
-    }
 
     public void processGameState(String gameState) {
         // Update local game state based on the received game state
     }
 
-    public void updateGame() {
-        gameHandler.updateGame();
-    }
 
     public void initializeGame() {
         setPlayers();
@@ -122,10 +112,6 @@ public class Game {
             checkSnakeCollisions(snake);
             checkObstacleCollisions(snake);
             checkBorderCollisions(snake);
-
-            if (!running) {
-                timer.stop();
-            }
         }
     }
 

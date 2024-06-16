@@ -27,7 +27,7 @@ public class GameOverFrame extends JFrame implements ActionListener {
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gamePanel.setGame();  // Reset the game
+                gamePanel.game.restart();
                 dispose();
             }
         });

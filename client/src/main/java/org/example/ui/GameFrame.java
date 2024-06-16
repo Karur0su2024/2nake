@@ -12,6 +12,7 @@ public class GameFrame extends JFrame {
     GameFrame(int players, MainMenuFrame menuFrame, int width, int height, int obstacles, int food, int size, int length, String gameMode) {
         this.setLayout(new BorderLayout());
         SidebarPanel sidebarPanel = new SidebarPanel(players);
+
         this.add(new GamePanel(players, width, height, obstacles, food, size, length, sidebarPanel, menuFrame, this, gameMode), BorderLayout.CENTER);
 
         this.add(sidebarPanel, BorderLayout.EAST);

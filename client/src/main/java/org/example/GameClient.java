@@ -1,6 +1,5 @@
 package org.example;
 
-
 import com.google.gson.Gson;
 import org.example.objects.Snake;
 import org.example.ui.GameFrame;
@@ -10,19 +9,19 @@ import org.example.ui.MainMenuFrame;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 
 public class GameClient {
     private static final String SERVER_ADDRESS = "localhost";
-    private static final int SERVER_PORT = 12343;
+    private static final int SERVER_PORT = 1000;
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
     private GamePanel gamePanel;
-    private int player;
-    public boolean started = false;
-    public Game game;
-    public MainMenuFrame menuFrame;
+    private int player = 99;
+    private boolean started = false;
+    private Game game; // Hold a reference to the game state
+    private MainMenuFrame menuFrame;
+    private GameFrame gameFrame;
 
     public GameClient(MainMenuFrame menuFrame) {
         try {
@@ -42,10 +41,8 @@ public class GameClient {
     }
 
     public void sendMessage(int player, int key) {
-
-        Snake snake = gamePanel.game.getSnakes()[player];
+        Snake snake = gamePanel.getGame().getSnakes()[player];
         char direction = snake.getDirection();
-
 
         switch (key) {
             case KeyEvent.VK_LEFT:
@@ -58,22 +55,18 @@ public class GameClient {
                 break;
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                if (direction != 'D'){
-                    sendMove('U');
-                }
+                if (direction != 'D') sendMove('U');
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                if (direction != 'U')
-                    sendMove('D');
+                if (direction != 'U') sendMove('D');
                 break;
         }
-
-        out.println("move " + player + " " + snake.getDirection());
     }
 
     public void sendMove(char direction) {
-        out.println("MOVE " + direction);
+
+        out.println("move " + player + " " + direction);
     }
 
     private class ServerListener implements Runnable {
@@ -82,15 +75,41 @@ public class GameClient {
             try {
                 String message;
                 while ((message = in.readLine()) != null) {
-                    // Process messages received from the server
 
-                    if(started){
+
+                    if (started && gameFrame != null) {
+                        // Update game state on receiving new state message from server
+
+
                         updateGameState(message);
+
+                    }
+                    if(started && gameFrame == null && player != 99){
+                        game = Game.fromString(message);
+                        gameFrame = new GameFrame(game, GameClient.this, menuFrame, player);
                     }
 
-                    if(message.equals("start")){
+
+                    if (message.equals("start")) {
                         started = true;
+
+
+
+                        // You might want to initialize the GameFrame after receiving "start"
+                        // But this should be done in a way that integrates with your UI setup
                     }
+
+                    String[] parts = message.split(" ", 3);
+                    if(parts.length > 1){
+                        String command = parts[0];
+                        int playerId = Integer.parseInt(parts[1]); // Corrected from getInteger to parseInt
+
+                        if (command.equals("player")){
+                            player = playerId;
+
+                        }
+                    }
+
 
 
 
@@ -102,7 +121,16 @@ public class GameClient {
     }
 
     public void updateGameState(String stateMessage) {
-        System.out.println(Game.fromString(stateMessage));
-        //updateUI();
+        // Parse the stateMessage into a Game object using your Game.fromString method
+        Game updatedGame = Game.fromString(stateMessage);
+        this.game = updatedGame;
+        // Update the local reference to the game state
+
+
+        // Update the GamePanel with the updated game state
+        if (gamePanel != null) {
+            gamePanel.updateGame(this.game);
+        }
     }
+
 }

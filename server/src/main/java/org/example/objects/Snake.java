@@ -10,9 +10,9 @@ import java.awt.*;
 public class Snake {
     private char direction = 'R';
     private int bodyParts = 6;
-    private char[] bodyPartsDirection;
     private int[] x;
     private int[] y;
+
 
     private int speed;
 
@@ -23,19 +23,24 @@ public class Snake {
         // Default constructor needed for Jackson
     }
 
-    public void setHead(int x, int y){
-        this.x[0] = x;
-        this.y[0] = y;
+
+
+    public Snake(int[] x, int[] y) {
+        this.x = x;
+        this.y = y;
     }
 
     public Snake(int maxSize, int bodySize) {
-        x = new int[maxSize];
-        y = new int[maxSize];
-        bodyParts = bodySize;
-        bodyPartsDirection = new char[maxSize];
-        bodyPartsDirection[0] = 'R';
+        this.x = new int[maxSize/2];
+        this.y = new int[maxSize/2];
 
+
+        bodyParts = bodySize;
         setSpeed();
+    }
+    public void setHead(int x, int y){
+        this.x[0] = x;
+        this.y[0] = y;
     }
 
     // Getters and setters
@@ -71,12 +76,12 @@ public class Snake {
         return direction;
     }
 
-    public int getX(int i) {
-        return x[i];
+    public int[] getX() {
+        return x;
     }
 
-    public int getY(int i) {
-        return y[i];
+    public int[] getY() {
+        return y;
     }
 
     public void setX(int[] x) {
@@ -124,11 +129,4 @@ public class Snake {
         this.sidebarPanel = sidebarPanel;
     }
 
-    public char[] getBodyPartsDirection() {
-        return bodyPartsDirection;
-    }
-
-    public void setBodyPartsDirection(char[] bodyPartsDirection) {
-        this.bodyPartsDirection = bodyPartsDirection;
-    }
 }

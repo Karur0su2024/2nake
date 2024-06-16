@@ -13,31 +13,38 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.swing.*;
 
-
 public class GameServer implements ActionListener {
-    private static final int PORT = 12343;
+    private static final int PORT = 1000;
     private static Set<ClientHandler> clientHandlers = new HashSet<>();
-    int time;
+    private int time;
     private Timer timer;
-    boolean alive = true;
+    private boolean alive = true;
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
-    Game game;
+    private Game game;
 
-    public GameServer(){
+    public GameServer() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            log.info("Startuji server...");
+            log.info("Starting server...");
             System.out.println(alive);
             while (alive) {
-
                 Socket clientSocket = serverSocket.accept();
                 ClientHandler clientHandler = new ClientHandler(clientSocket);
+
+                log.info("Hráč " + clientHandlers.size() + " se připojil do hry");
                 clientHandlers.add(clientHandler);
                 new Thread(clientHandler).start();
 
-                System.out.println(clientHandlers.size());
-                if(clientHandlers.size() == 2){
+                if (clientHandlers.size() == 2) {
+
                     startGame();
+
+                    int player = 0;
+                    for(ClientHandler clientHandler1 : clientHandlers){
+                        clientHandler1.setGame(game);
+                        clientHandler1.setPlayer(player);
+                        player++;
+                    }
                 }
             }
         } catch (IOException e) {
@@ -45,34 +52,28 @@ public class GameServer implements ActionListener {
         }
     }
 
-    private void startGame(){
-
+    private void startGame() {
         time = 0;
+        // Increase the timer interval for smoother gameplay
+        timer = new Timer(50, this);
 
-        timer = new Timer(5, this);
-
-        game = new Game(1, 60, 50, 20, 5, 6, 60);
+        game = new Game(2, 60, 50, 20, 5, 6, 180);
 
         broadcastMessage("start");
-
-        broadcastGame();
 
         game.startGame();
         timer.start();
 
-
-
-
+        broadcastGame();
     }
 
-    private void broadcastMessage(String message) {
+    private synchronized void broadcastMessage(String message) {
         for (ClientHandler client : clientHandlers) {
             client.out.println(message);
-
         }
     }
 
-    private void broadcastGame(){
+    private synchronized void broadcastGame() {
         String gameState = game.toString();
         for (ClientHandler client : clientHandlers) {
             client.out.println(gameState);
@@ -83,31 +84,31 @@ public class GameServer implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         time++;
 
-        if(game.isRunning()){
-
-            time++;
-            if(time % 200*game.getPlayers()*2 == 0){
-                game.generateAction();
-                System.out.println("generuji jablko");
-            }
-
-            if(time % 80*game.getPlayers()*2 == 0){
-                game.decreaseTime();
-            }
-            for(Snake snake : game.getSnakes()){
-
-                if(time/game.getPlayers() % snake.getSpeed() == 0){
-                    snake.move();
-                    System.out.println("Snake se pohnul");
-                    game.checkCollisions();
-                    game.checkFood();
+        synchronized (game) {
+            if (game.isRunning()) {
+                time++;
+                if (time % 200 * game.getPlayers()  == 0) {
+                    game.generateAction();
                 }
-                if(game.getTime() == 0){
-                    game.setRunning(false);
+
+                if (time % 80 * game.getPlayers() == 0) {
+                    game.decreaseTime();
+                }
+
+                for (Snake snake : game.getSnakes()) {
+                    if (time % snake.getSpeed() == 0) {
+                        snake.move();
+                        game.checkCollisions();
+                        game.checkFood();
+                        System.out.println(game.toString());
+                    }
+                    if (game.getTime() == 0) {
+                        game.setRunning(false);
+                    }
                 }
             }
+
+            broadcastGame();
         }
-
-        broadcastGame();
     }
 }

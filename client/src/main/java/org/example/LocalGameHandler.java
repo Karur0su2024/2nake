@@ -10,15 +10,14 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class LocalGameHandler implements GameHandler, ActionListener {
+
     private Game game;
-    Timer timer;
-    int time = 0;
-    Random random;
+    private Timer timer;
+    private int time = 0;
+    private Random random;
+    private GamePanel gamePanel;
 
-
-    GamePanel gamePanel;
-
-    public LocalGameHandler(GamePanel gamePanel){
+    public LocalGameHandler(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         random = new Random();
     }
@@ -28,19 +27,16 @@ public class LocalGameHandler implements GameHandler, ActionListener {
         this.game = game;
         game.initializeGame();
 
-
-        if(timer != null){
+        if (timer != null) {
             timer.stop();
         }
         timer = new Timer(GameSettings.DELAY, this);
         timer.start();
-
     }
 
     @Override
     public void sendPlayerAction(int player, int key) {
         Snake snake = game.getSnakes()[player];
-
         char direction = snake.getDirection();
 
         switch (key) {
@@ -54,16 +50,13 @@ public class LocalGameHandler implements GameHandler, ActionListener {
                 break;
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                if (direction != 'D'){
-                    snake.setDirection('U');
-                }
+                if (direction != 'D') snake.setDirection('U');
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
                 if (direction != 'U') snake.setDirection('D');
                 break;
         }
-
     }
 
     @Override
@@ -73,39 +66,38 @@ public class LocalGameHandler implements GameHandler, ActionListener {
 
     @Override
     public void updateGame() {
-        if(game.isRunning()){
-
+        if (game.isRunning()) {
             time++;
-            if(time % 200 == 0){
+            if (time % 200 == 0) {
                 game.generateAction();
             }
 
-            if(time % 80 == 0){
+            if (time % 80 == 0) {
                 game.decreaseTime();
             }
-            for(Snake snake : game.getSnakes()){
 
-                if(time % snake.getSpeed() == 0){
+            for (Snake snake : game.getSnakes()) {
+                if (time % snake.getSpeed() == 0) {
                     snake.move();
                     game.checkCollisions();
                     game.checkFood();
                 }
-                if(game.getTime() == 0){
+                if (game.getTime() == 0) {
                     game.setRunning(false);
                 }
             }
 
-            if(!game.isRunning()) {
+            if (!game.isRunning()) {
                 gamePanel.showGameOverDialog();
             }
-
         }
         gamePanel.repaint();
-        System.out.println(game.toString());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        updateGame();
+        if (game.isRunning()) {
+            updateGame();
+        }
     }
 }

@@ -11,9 +11,11 @@ import java.awt.*;
 public class Snake {
     private char direction = 'R';
     private int bodyParts = 6;
-    private char[] bodyPartsDirection;
     private int x[];
     private int y[];
+
+    @JsonIgnore
+    private int maxSize;
 
     private int speed;
 
@@ -21,12 +23,12 @@ public class Snake {
     SidebarPanel sidebarPanel;
 
     public Snake(int maxSize, int bodySize){
-        this.sidebarPanel = sidebarPanel;
+        //this.sidebarPanel = sidebarPanel;
+        this.maxSize = maxSize;
         x = new int[maxSize];
         y = new int[maxSize];
+
         bodyParts = bodySize;
-        bodyPartsDirection = new char[maxSize];
-        bodyPartsDirection[0] = 'R';
 
         setSpeed();
 
@@ -34,7 +36,13 @@ public class Snake {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public Snake(){
+        x = new int[maxSize];
+        y = new int[maxSize];
+    }
 
+    public Snake(int[] x, int[] y) {
+        this.x = x;
+        this.y = y;
     }
 
     public int getBodyParts() {
@@ -55,7 +63,7 @@ public class Snake {
             speed = 1;
         }
 
-        this.sidebarPanel.setScores();
+        //this.sidebarPanel.setScores();
     }
 
     public void setDirection(char direction) {
@@ -64,22 +72,6 @@ public class Snake {
 
     public char getDirection() {
         return direction;
-    }
-
-    public int getX(int i) {
-        return x[i];
-    }
-
-    public int getY(int i) {
-        return y[i];
-    }
-
-    public void setX(int x) {
-        this.x[0] = x;
-    }
-
-    public void setY(int y) {
-        this.y[0] = y;
     }
 
     public void move(){
@@ -106,16 +98,21 @@ public class Snake {
     }
 
     public void paint(Graphics g, JPanel panel){
-        for(int i = 0; i < bodyParts; i++) {
-            if(i == 0){
-                g.setColor(Color.yellow);
-            }
-            else {
-                g.setColor(new Color(221, 221, 119));
-            }
+        if (this.x != null && this.y != null && x.length > 0 && y.length > 0) {
+            for(int i = 0; i < bodyParts; i++) {
+                if(i == 0){
+                    g.setColor(Color.yellow);
+                }
+                else {
+                    g.setColor(new Color(221, 221, 119));
+                }
 
-            g.fillRect(x[i]*GameSettings.UNIT_SIZE, y[i]*GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
+                g.fillRect(x[i]*GameSettings.UNIT_SIZE, y[i]*GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
+            }
+        } else {
+            // Handle the case when x or y is null (optional based on your logic)
         }
+
     }
 
 
@@ -129,10 +126,6 @@ public class Snake {
 
     public void setBodyParts(int bodyParts) {
         this.bodyParts = bodyParts;
-    }
-
-    public void setBodyPartsDirection(char[] bodyPartsDirection) {
-        this.bodyPartsDirection = bodyPartsDirection;
     }
 
     public void setX(int[] x) {
@@ -151,10 +144,6 @@ public class Snake {
         this.sidebarPanel = sidebarPanel;
     }
 
-    public char[] getBodyPartsDirection() {
-        return bodyPartsDirection;
-    }
-
     public int[] getX() {
         return x;
     }
@@ -166,4 +155,10 @@ public class Snake {
     public SidebarPanel getSidebarPanel() {
         return sidebarPanel;
     }
+
+    public void setHead(int x, int y){
+        this.x[0] = x;
+        this.y[0] = y;
+    }
+
 }

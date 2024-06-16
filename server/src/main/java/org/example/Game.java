@@ -149,7 +149,7 @@ public class Game {
     public void checkFood() {
         for (Snake snake : snakes) {
             for (int i = 0; i < foods.length; i++) {
-                if (foods[i] != null && snake.getX(0) == foods[i].getX() && snake.getY(0) == foods[i].getY()) {
+                if (foods[i] != null && snake.getX()[0] == foods[i].getX() && snake.getY()[0] == foods[i].getY()) {
                     snake.eat(foods[i].getPoints());
                     newFood(i);
                 }
@@ -168,7 +168,7 @@ public class Game {
     private void checkSnakeCollisions(Snake snake) {
         for (Snake otherSnake : snakes) {
             for (int i = otherSnake.getBodyParts(); i > 0; i--) {
-                if (snake.getX(0) == otherSnake.getX(i) && snake.getY(0) == otherSnake.getY(i)) {
+                if (snake.getX()[0] == otherSnake.getX()[i] && snake.getY()[0] == otherSnake.getY()[i]) {
                     running = false;
                     break;
                 }
@@ -178,7 +178,7 @@ public class Game {
 
     private void checkObstacleCollisions(Snake snake) {
         for (Obstacle obstacle : obstacles) {
-            if (snake.getX(0) == obstacle.getX() && snake.getY(0) == obstacle.getY()) {
+            if (snake.getX()[0] == obstacle.getX() && snake.getY()[0] == obstacle.getY()) {
                 running = false;
                 break;
             }
@@ -186,23 +186,23 @@ public class Game {
     }
 
     private void checkBorderCollisions(Snake snake) {
-        if (snake.getX(0) < 0) {
-            snake.setHead(width-1, snake.getY(0));
-        } else if (snake.getX(0) >= width) {
-            snake.setHead(0, snake.getY(0));
+        if (snake.getX()[0] < 0) {
+            snake.setHead(width-1, snake.getY()[0]);
+        } else if (snake.getX()[0] >= width) {
+            snake.setHead(0, snake.getY()[0]);
         }
 
-        if (snake.getY(0) < 0) {
-            snake.setHead(snake.getX(0), height-1);
-        } else if (snake.getY(0) >= height) {
-            snake.setHead(snake.getX(0), 0);
+        if (snake.getY()[0] < 0) {
+            snake.setHead(snake.getX()[0], height-1);
+        } else if (snake.getY()[0] >= height) {
+            snake.setHead(snake.getX()[0], 0);
         }
     }
 
     private boolean isPositionEmpty(int x, int y) {
         for (Snake snake : snakes) {
             for (int i = 0; i < snake.getBodyParts(); i++) {
-                if (x == snake.getX(i) && y == snake.getY(i)) {
+                if (x == snake.getX()[i] && y == snake.getY()[i]) {
                     return false;
                 }
             }

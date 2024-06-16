@@ -27,7 +27,7 @@ public class GameOverFrame extends JFrame implements ActionListener {
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gamePanel.game.restart();
+                gamePanel.getGame().restart();
                 dispose();
             }
         });
@@ -39,7 +39,7 @@ public class GameOverFrame extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new SettingsFrame(mainMenuFrame, gamePanel.game.getPlayers());
+                new SettingsFrame(mainMenuFrame, gamePanel.getGame().getPlayers());
                 gameFrame.dispose();
                 dispose();
 

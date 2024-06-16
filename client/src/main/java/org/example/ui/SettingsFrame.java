@@ -12,7 +12,6 @@ public class SettingsFrame extends JFrame {
     private final JTextField foodField;
     private final JTextField timeField;
     private final MainMenuFrame mainMenuFrame;
-    private final JComboBox<String> gameModeBox;
 
     public SettingsFrame(MainMenuFrame mainMenuFrame, int players) {
         setTitle("Snake Game Settings");
@@ -29,11 +28,6 @@ public class SettingsFrame extends JFrame {
         obstaclesField = createAndAddField("Number of Obstacles:", "20");
         foodField = createAndAddField("Number of Food:", "5");
         timeField = createAndAddField("Time:", "60");
-
-        // Game mode selection
-        add(new JLabel("Game Mode:"));
-        gameModeBox = new JComboBox<>(new String[] { "Local", "Remote" });
-        add(gameModeBox);
 
         // Submit button
         JButton submitButton = new JButton("Start Game");
@@ -58,8 +52,7 @@ public class SettingsFrame extends JFrame {
         int snakeSize = parseField(snakeSizeField, 6, 1, (width * height) / 50);
         int time = parseField(timeField, 60, 30, 600);
 
-        String gameMode = (String) gameModeBox.getSelectedItem();
-        new GameFrame(players, mainMenuFrame, width, height, obstacles, food, snakeSize, time, gameMode, null);
+        new GameFrame(players, mainMenuFrame, width, height, obstacles, food, snakeSize, time, "local", null);
         mainMenuFrame.setVisible(false);
         dispose();
     }

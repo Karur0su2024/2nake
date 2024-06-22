@@ -1,7 +1,6 @@
-package org.example.ui;
+package org.example.gui;
 
 import javax.swing.*;
-import org.example.Game;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -39,7 +38,7 @@ public class GameOverFrame extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new SettingsFrame(mainMenuFrame, gamePanel.getGame().getPlayers());
+                new SetGameWindow(mainMenuFrame, gamePanel.getGame().getPlayers());
                 gameFrame.dispose();
                 dispose();
 

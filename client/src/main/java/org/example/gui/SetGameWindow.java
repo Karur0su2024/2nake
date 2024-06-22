@@ -1,9 +1,9 @@
-package org.example.ui;
+package org.example.gui;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SettingsFrame extends JFrame {
+public class SetGameWindow extends JFrame {
 
     private final JTextField widthField;
     private final JTextField heightField;
@@ -13,34 +13,60 @@ public class SettingsFrame extends JFrame {
     private final JTextField timeField;
     private final MainMenuFrame mainMenuFrame;
 
-    public SettingsFrame(MainMenuFrame mainMenuFrame, int players) {
+    public SetGameWindow(MainMenuFrame mainMenuFrame, int players) {
         setTitle("Snake Game Settings");
         this.mainMenuFrame = mainMenuFrame;
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(8, 2));
+        setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Title
+        JLabel titleLabel = new JLabel("Snake Game Settings", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        add(titleLabel, gbc);
 
         // Initialize fields with default values
-        widthField = createAndAddField("Width:", "45");
-        heightField = createAndAddField("Height:", "30");
-        snakeSizeField = createAndAddField("Snake Starting Size:", "6");
-        obstaclesField = createAndAddField("Number of Obstacles:", "20");
-        foodField = createAndAddField("Number of Food:", "5");
-        timeField = createAndAddField("Time:", "60");
+        widthField = createAndAddField("Width:", "45", "Set the width of the game area.", 1);
+        heightField = createAndAddField("Height:", "30", "Set the height of the game area.", 2);
+        snakeSizeField = createAndAddField("Snake Starting Size:", "6", "Set the starting size of the snake.", 3);
+        obstaclesField = createAndAddField("Number of Obstacles:", "20", "Set the number of obstacles in the game.", 4);
+        foodField = createAndAddField("Number of Food:", "5", "Set the number of food items in the game.", 5);
+        timeField = createAndAddField("Time:", "60", "Set the game duration in seconds.", 6);
 
         // Submit button
         JButton submitButton = new JButton("Start Game");
         submitButton.addActionListener(e -> setGame(players));
-        add(submitButton);
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        add(submitButton, gbc);
 
         setVisible(true);
     }
 
-    private JTextField createAndAddField(String labelText, String defaultValue) {
-        add(new JLabel(labelText));
+    private JTextField createAndAddField(String labelText, String defaultValue, String toolTipText, int gridy) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = gridy;
+
+        JLabel label = new JLabel(labelText);
+        add(label, gbc);
+
+        gbc.gridx = 1;
         JTextField textField = new JTextField(defaultValue);
-        add(textField);
+        textField.setToolTipText(toolTipText);
+        add(textField, gbc);
+
         return textField;
     }
 

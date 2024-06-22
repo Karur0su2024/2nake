@@ -1,25 +1,18 @@
 package org.example.objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.example.CustomColorDeserializer;
 import org.example.GameSettings;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Random;
-import java.io.File;
-import java.io.IOException;
 
 public class Food {
     private int x = 0;
     private int y = 0;
     private int points = 0;
 
-    @JsonDeserialize(using = CustomColorDeserializer.class)
     private Color color;
 
     @JsonIgnoreProperties(ignoreUnknown = true)

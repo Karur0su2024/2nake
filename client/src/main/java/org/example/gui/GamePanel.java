@@ -1,4 +1,4 @@
-package org.example.ui;
+package org.example.gui;
 
 import org.example.*;
 import org.example.objects.Snake;
@@ -13,7 +13,7 @@ public class GamePanel extends JPanel {
     private Game game;
     private GameClient gameClient;
     private int players;
-    private SidebarPanel sidebarPanel;
+    private Sidebar sidebar;
     private MainMenuFrame menuFrame;
     private GameFrame gameFrame;
     private String gameMode;
@@ -21,9 +21,9 @@ public class GamePanel extends JPanel {
 
     private int player;
 
-    public GamePanel(int players, int width, int height, int obstacles, int food, int size, int length, SidebarPanel sidebarPanel, MainMenuFrame menuFrame, GameFrame gameFrame, String gameMode, GameClient gameClient) {
+    public GamePanel(int players, int width, int height, int obstacles, int food, int size, int length, Sidebar sidebar, MainMenuFrame menuFrame, GameFrame gameFrame, String gameMode, GameClient gameClient) {
         this.players = players;
-        this.sidebarPanel = sidebarPanel;
+        this.sidebar = sidebar;
         this.menuFrame = menuFrame;
         this.gameFrame = gameFrame;
         this.gameClient = gameClient;
@@ -36,7 +36,7 @@ public class GamePanel extends JPanel {
         this.gameHandler = new LocalGameHandler(this);
         this.game = new Game(players, width, height, obstacles, food, size, length);
         this.game.setGameHandler(gameHandler);
-        this.game.setSidebarPanel(sidebarPanel);
+        this.game.setSidebarPanel(sidebar);
 
         // Start the game
         this.game.startGame();
@@ -52,9 +52,9 @@ public class GamePanel extends JPanel {
         System.out.println(game.toString());
     }
 
-    public GamePanel(MainMenuFrame menuFrame, SidebarPanel sidebarPanel, GameFrame gameFrame, Game game, GameClient gameClient, int player) {
+    public GamePanel(MainMenuFrame menuFrame, Sidebar sidebar, GameFrame gameFrame, Game game, GameClient gameClient, int player) {
         this.menuFrame = menuFrame;
-        this.sidebarPanel = sidebarPanel;
+        this.sidebar = sidebar;
         this.gameFrame = gameFrame;
         this.game = game;
         this.gameClient = gameClient;
@@ -62,7 +62,7 @@ public class GamePanel extends JPanel {
         this.player = player;
 
         this.game.setGameHandler(gameHandler);
-        this.game.setSidebarPanel(sidebarPanel);
+        this.game.setSidebarPanel(sidebar);
 
         this.setPreferredSize(new Dimension(game.getWidth() * GameSettings.UNIT_SIZE, game.getHeight() * GameSettings.UNIT_SIZE));
         this.setFocusable(true);

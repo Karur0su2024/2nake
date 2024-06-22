@@ -2,9 +2,7 @@ package org.example.objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.example.ui.SidebarPanel;
-
-import java.awt.*;
+import org.example.gui.Sidebar;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Snake {
@@ -17,7 +15,7 @@ public class Snake {
     private int speed;
 
     @JsonIgnore
-    private SidebarPanel sidebarPanel;
+    private Sidebar sidebarPanel;
 
     public Snake() {
         // Default constructor needed for Jackson
@@ -63,8 +61,8 @@ public class Snake {
             speed = 1;
         }
 
-        if (sidebarPanel != null) {
-            sidebarPanel.setScores();
+        if (sidebar != null) {
+            sidebar.setScores();
         }
     }
 
@@ -121,12 +119,12 @@ public class Snake {
         this.speed = (22 - (bodyParts / 7));
     }
 
-    public SidebarPanel getSidebarPanel() {
-        return sidebarPanel;
+    public Sidebar getSidebarPanel() {
+        return sidebar;
     }
 
-    public void setSidebarPanel(SidebarPanel sidebarPanel) {
-        this.sidebarPanel = sidebarPanel;
+    public void setSidebarPanel(Sidebar sidebarPanel) {
+        this.sidebar = sidebarPanel;
     }
 
 }

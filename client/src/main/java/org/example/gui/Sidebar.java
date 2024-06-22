@@ -1,4 +1,4 @@
-package org.example.ui;
+package org.example.gui;
 import org.example.Game;
 
 import javax.swing.*;
@@ -6,12 +6,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SidebarPanel extends JPanel implements ActionListener {
+public class Sidebar extends JPanel implements ActionListener {
         private JLabel[] scoreLabel;
         private JLabel timeLabel;
         private Game game;
 
-        public SidebarPanel(int players) {
+        public Sidebar(int players) {
             setLayout(new GridLayout(10, 1));
             setPreferredSize(new Dimension(200, 600));
             setBackground(Color.LIGHT_GRAY);

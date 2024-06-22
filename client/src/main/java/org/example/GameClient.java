@@ -1,10 +1,9 @@
 package org.example;
 
-import com.google.gson.Gson;
 import org.example.objects.Snake;
-import org.example.ui.GameFrame;
-import org.example.ui.GamePanel;
-import org.example.ui.MainMenuFrame;
+import org.example.gui.GameFrame;
+import org.example.gui.GamePanel;
+import org.example.gui.MainMenuFrame;
 
 import java.awt.event.KeyEvent;
 import java.io.*;

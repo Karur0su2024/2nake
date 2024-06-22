@@ -1,4 +1,4 @@
-package org.example.ui;
+package org.example.gui;
 
 import org.example.Game;
 import org.example.GameClient;
@@ -17,15 +17,15 @@ public class GameFrame extends JFrame {
         this.menuFrame = menuFrame;
         this.setLayout(new BorderLayout());
 
-        SidebarPanel sidebarPanel = new SidebarPanel(players);
+        Sidebar sidebar = new Sidebar(players);
         if ("remote".equals(gameMode)) {
             // Add remote game initialization logic if needed
         } else {
-            GamePanel gamePanel = new GamePanel(players, width, height, obstacles, food, size, length, sidebarPanel, menuFrame, this, gameMode, gameClient);
+            GamePanel gamePanel = new GamePanel(players, width, height, obstacles, food, size, length, sidebar, menuFrame, this, gameMode, gameClient);
             this.add(gamePanel, BorderLayout.CENTER);
         }
 
-        this.add(sidebarPanel, BorderLayout.EAST);
+        this.add(sidebar, BorderLayout.EAST);
 
         this.setTitle("2nake");
         this.setResizable(false);
@@ -46,12 +46,12 @@ public class GameFrame extends JFrame {
         this.menuFrame = menuFrame;
         this.setLayout(new BorderLayout());
 
-        SidebarPanel sidebarPanel = new SidebarPanel(2);
-        GamePanel gamePanel = new GamePanel(menuFrame, sidebarPanel, this, game, gameClient, player);
+        Sidebar sidebar = new Sidebar(2);
+        GamePanel gamePanel = new GamePanel(menuFrame, sidebar, this, game, gameClient, player);
         gameClient.setGamePanel(gamePanel); // Set the game panel in GameClient
         this.add(gamePanel, BorderLayout.CENTER);
 
-        this.add(sidebarPanel, BorderLayout.EAST);
+        this.add(sidebar, BorderLayout.EAST);
 
         this.setTitle("2nake");
         this.setResizable(false);

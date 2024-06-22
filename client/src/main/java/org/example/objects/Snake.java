@@ -3,7 +3,7 @@ package org.example.objects;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.example.GameSettings;
-import org.example.ui.SidebarPanel;
+import org.example.gui.Sidebar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ public class Snake {
     private int speed;
 
     @JsonIgnore
-    SidebarPanel sidebarPanel;
+    Sidebar sidebar;
 
     public Snake(int maxSize, int bodySize){
         //this.sidebarPanel = sidebarPanel;
@@ -140,8 +140,8 @@ public class Snake {
         this.speed = speed;
     }
 
-    public void setSidebarPanel(SidebarPanel sidebarPanel) {
-        this.sidebarPanel = sidebarPanel;
+    public void setSidebarPanel(Sidebar sidebar) {
+        this.sidebar = sidebar;
     }
 
     public int[] getX() {
@@ -152,8 +152,8 @@ public class Snake {
         return y;
     }
 
-    public SidebarPanel getSidebarPanel() {
-        return sidebarPanel;
+    public Sidebar getSidebarPanel() {
+        return sidebar;
     }
 
     public void setHead(int x, int y){

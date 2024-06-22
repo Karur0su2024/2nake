@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.objects.Snake;
-import org.example.ui.GamePanel;
+import org.example.gui.GamePanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

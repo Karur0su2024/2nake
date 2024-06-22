@@ -4,24 +4,17 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
 import org.example.objects.Food;
 import org.example.objects.GamePlan;
 import org.example.objects.Obstacle;
 import org.example.objects.Snake;
-import org.example.ui.GameOverFrame;
-import org.example.ui.SidebarPanel;
+import org.example.gui.Sidebar;
 
 import java.awt.*;
 import java.util.Random;
 import javax.swing.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import com.google.gson.*;
-
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -37,7 +30,7 @@ public class Game {
     private Random random = null;
 
     @JsonIgnore
-    private SidebarPanel sidebarPanel = null;
+    private Sidebar sidebar = null;
     private int size = 6;
 
     private boolean running = false;
@@ -93,7 +86,7 @@ public class Game {
         this.width = width;
         this.height = height;
         this.time = time;
-        this.sidebarPanel = sidebarPanel;
+        this.sidebar = sidebar;
         this.random = new Random();
         this.gamePlan = new GamePlan(width, height);
         this.obstacles = new Obstacle[obstacles];
@@ -103,17 +96,8 @@ public class Game {
         this.gameHandler = gameHandler;
     }
 
-    public void setSidebarPanel(){
-        this.sidebarPanel = sidebarPanel;
-    }
-
     public void startGame() {
         gameHandler.initializeGame(this);
-    }
-
-
-    public void processGameState(Snake[] snakes) {
-        // Update local game state based on the received game state
     }
 
 
@@ -123,12 +107,12 @@ public class Game {
         clearFoods();
         running = true;
         updateSidebar();
-        sidebarPanel.setTime();
+        sidebar.setTime();
     }
 
     private void updateSidebar() {
-        sidebarPanel.setGame(this);
-        sidebarPanel.setScores();
+        sidebar.setGame(this);
+        sidebar.setScores();
     }
 
     private void clearFoods() {
@@ -302,56 +286,8 @@ public class Game {
         return height;
     }
 
-    public Obstacle[] getObstacles() {
-        return obstacles;
-    }
-
-    public Food[] getFoods() {
-        return foods;
-    }
-
-    public GamePlan getGamePlan() {
-        return gamePlan;
-    }
-
     public void setSnakes(Snake[] snakes) {
         this.snakes = snakes;
-    }
-
-    public void setObstacles(Obstacle[] obstacles) {
-        this.obstacles = obstacles;
-    }
-
-    public void setFoods(Food[] foods) {
-        this.foods = foods;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public void setCurrentFood(int currentFood) {
-        this.currentFood = currentFood;
-    }
-
-    public Random getRandom() {
-        return random;
-    }
-
-    public SidebarPanel getSidebarPanel() {
-        return sidebarPanel;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public int getCurrentFood() {
-        return currentFood;
-    }
-
-    public GameHandler getGameHandler() {
-        return gameHandler;
     }
 
     @Override
@@ -373,32 +309,8 @@ public class Game {
         }
     }
 
-    public void setGamePlan(GamePlan gamePlan) {
-        this.gamePlan = gamePlan;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
-    public void setSidebarPanel(SidebarPanel sidebarPanel) {
-        this.sidebarPanel = sidebarPanel;
-    }
-
-    public void setPlayers(int players) {
-        this.players = players;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
+    public void setSidebarPanel(Sidebar sidebar) {
+        this.sidebar = sidebar;
     }
 
     public void setGameHandler(GameHandler gameHandler) {

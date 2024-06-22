@@ -1,4 +1,4 @@
-package org.example.ui;
+package org.example.gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +32,7 @@ public class MainMenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Start the game
-                new SettingsFrame(MainMenuFrame.this, 1);
+                new SetGameWindow(MainMenuFrame.this, 1);
             }
         });
 
@@ -40,7 +40,7 @@ public class MainMenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Start the game
-                new SettingsFrame(MainMenuFrame.this, 2);
+                new SetGameWindow(MainMenuFrame.this, 2);
             }
         });
 

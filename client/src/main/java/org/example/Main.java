@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.ui.MainMenuFrame;
+import org.example.gui.MainMenuFrame;
 
 import javax.swing.*;
 

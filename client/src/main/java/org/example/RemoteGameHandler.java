@@ -2,64 +2,89 @@ package org.example;
 
 import org.example.objects.Snake;
 
+/**
+ * Třída RemoteGameHandler implementující rozhraní GameHandler.
+ * Spravuje odesílání akcí hráčů a aktualizaci stavu hry pro vzdáleného hráče přes síť.
+ */
 public class RemoteGameHandler implements GameHandler {
 
     private final GameClient gameClient;
     private Game game;
 
+    /**
+     * Konstruktor pro vytvoření RemoteGameHandler s daným GameClientem.
+     *
+     * @param gameClient instance GameClienta pro síťovou komunikaci
+     */
     public RemoteGameHandler(GameClient gameClient) {
         this.gameClient = gameClient;
     }
 
+    /**
+     * Inicializuje hru s daným objektem Game.
+     *
+     * @param game objekt Game reprezentující stav hry
+     */
     @Override
     public void initializeGame(Game game) {
         this.game = game;
     }
 
+    /**
+     * Odesílá akci hráče na základě stisku klávesy pomocí instance GameClienta.
+     *
+     * @param player číslo hráče
+     * @param key    kód stisknuté klávesy
+     */
     @Override
     public void sendPlayerAction(int player, int key) {
-        // Example: Send player action to server
         gameClient.sendMessage(player, key);
-
-
     }
 
+    /**
+     * Přijímá stav hry ve formátu řetězce a provádí odpovídající akce na základě přijatého příkazu.
+     * Aktualizuje směr hada hráče na základě příkazu "move".
+     *
+     * @param message zpráva obsahující stav hry ve formátu řetězce
+     */
     @Override
     public void receiveGameState(String message) {
-        // Parse the incoming message and update the game state accordingly
         String[] parts = message.split(" ", 3);
         String command = parts[0];
-        int playerId = Integer.parseInt(parts[1]); // Corrected from getInteger to parseInt
-        char parameter = 'A'; // Default value, if none provided
+        int playerId = Integer.parseInt(parts[1]);
+        char parameter = 'A';
         if (parts.length > 2) {
             parameter = parts[2].charAt(0);
         }
 
-        // Handle different types of commands from the server
         switch (command) {
             case "move":
-                // Example: "move playerId direction"
                 handleMoveCommand(playerId, parameter);
                 break;
-            // Add more cases for other commands as needed
             default:
-                // Handle unrecognized commands or log them
                 break;
         }
     }
 
+    /**
+     * Zpracovává příkaz "move" pro změnu směru hada hráče v rámci aktuální hry.
+     *
+     * @param playerId  číslo hráče
+     * @param direction nový směr hada
+     */
     private void handleMoveCommand(int playerId, char direction) {
-        // Update the direction of the player's snake in the game state
         if (game != null && game.getSnakes().length > playerId) {
             Snake[] snakes = game.getSnakes();
             snakes[playerId].setDirection(direction);
-            game.setSnakes(snakes); // Update the snakes array in the game
+            game.setSnakes(snakes);
         }
     }
 
+    /**
+     * Aktualizace stavu hry není potřeba pro vzdáleného hráče, provádí se přes síť.
+     */
     @Override
     public void updateGame() {
-        // Update the UI or perform other actions based on the updated game state
-        // This method could be used to trigger UI updates after receiving and processing a new game state
+        // Aktualizace hry není potřeba pro vzdáleného hráče, provádí se přes síť.
     }
 }

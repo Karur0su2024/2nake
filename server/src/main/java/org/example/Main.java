@@ -9,8 +9,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        log.info("Spouštím server");
         GameServer server = new GameServer();
-
+        Runtime.getRuntime().addShutdownHook(new Thread(server::terminate));
 
     }
 }

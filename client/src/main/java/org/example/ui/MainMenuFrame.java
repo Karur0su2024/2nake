@@ -1,53 +1,57 @@
-package org.example.gui;
+package org.example.ui;
 
 import javax.swing.*;
 import java.awt.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Hlavní okno aplikace obsahující hlavní menu pro výběr herních režimů a možností.
+ */
 public class MainMenuFrame extends JFrame {
 
+    /**
+     * Konstruktor pro inicializaci hlavního menu.
+     */
     public MainMenuFrame() {
-        // Set title and default close operation
+        // Nastavení titulku a výchozí operace při zavření
         setTitle("2nake");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 400);
         setLocationRelativeTo(null);
 
-        // Create a panel for the main menu
+        // Vytvoření panelu pro hlavní menu
         JPanel panel = new JPanel();
-
         panel.setLayout(new GridLayout(5, 1, 20, 10));
 
-        // Create buttons
+        // Vytvoření tlačítek
         JButton start1player = new JButton("Hra pro jednoho hráče");
         JButton start2players = new JButton("Hra pro dva hráče");
         JButton startServer = new JButton("Servery");
         JButton instructionsButton = new JButton("Nápověda");
         JButton exitButton = new JButton("Konec");
 
-        // Add action listeners
+        // Přidání posluchačů událostí pro tlačítka
         start1player.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Start the game
-                new SetGameWindow(MainMenuFrame.this, 1);
+                // Spuštění hry pro jednoho hráče
+                new SettingsFrame(MainMenuFrame.this, 1);
             }
         });
 
         start2players.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Start the game
-                new SetGameWindow(MainMenuFrame.this, 2);
+                // Spuštění hry pro dva hráče
+                new SettingsFrame(MainMenuFrame.this, 2);
             }
         });
 
         startServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Start the game
+                // Spuštění okna pro připojení k serveru
                 new JoinServerFrame(MainMenuFrame.this);
             }
         });
@@ -55,7 +59,7 @@ public class MainMenuFrame extends JFrame {
         instructionsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Show instructions
+                // Zobrazení nápovědy
                 JOptionPane.showMessageDialog(null, "Pro pohyb hada použijte klávesy šipek nebo ASDW.\nModré jídlo prodlužuje hada červené ho zkracuje.\nPokud nabouráte do překážky nebo těla hada prohráváte.", "Instructions", JOptionPane.INFORMATION_MESSAGE);
             }
         });
@@ -63,21 +67,19 @@ public class MainMenuFrame extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Exit the game
+                // Ukončení aplikace
                 System.exit(0);
             }
         });
 
-        // Add buttons to the panel
+        // Přidání tlačítek do panelu
         panel.add(start1player);
         panel.add(start2players);
         panel.add(startServer);
         panel.add(instructionsButton);
         panel.add(exitButton);
 
-        // Add panel to the frame
+        // Přidání panelu do rámečku
         add(panel);
     }
-
-
 }

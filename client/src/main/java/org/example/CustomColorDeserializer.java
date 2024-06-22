@@ -3,7 +3,7 @@ package org.example;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 
 public class CustomColorDeserializer extends StdDeserializer<Color> {

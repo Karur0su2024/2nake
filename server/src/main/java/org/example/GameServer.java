@@ -17,54 +17,23 @@ import javax.swing.*;
  * Třída GameServer představuje serverovou část hry, která spravuje spojení s klienty,
  * inicializuje a řídí průběh hry a komunikuje s klienty přes síť.
  */
-public class GameServer implements ActionListener {
+public class GameServer implements ActionListener, Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(Main.class);
-    private static final int PORT = 1000;
-    private static final Set<ClientHandler> clientHandlers = new HashSet<>();
+    private ClientHandler[] clientHandlers;
+    private boolean alive = true;
+
+
     private int time;
     private Timer timer;
-    private volatile boolean alive = true; // Make alive volatile for thread safety
 
     private Game game;
     private ServerSocket serverSocket;
 
-    /**
-     * Konstruktor pro vytvoření instance GameServeru, který naslouchá na specifikovaném portu.
-     * Spouští server a čeká na připojení klientů. Po připojení dvou klientů spouští hru.
-     */
-    public GameServer() {
-        try {
-            serverSocket = new ServerSocket(PORT);
-            log.info("Spouštím server");
-            while (alive) {
-                try {
-                    Socket clientSocket = serverSocket.accept();
-                    ClientHandler clientHandler = new ClientHandler(clientSocket, this);
-                    log.info("Hráč " + clientHandlers.size() + " se připojil do hry");
-                    clientHandlers.add(clientHandler);
-                    new Thread(clientHandler).start();
 
-                    if (clientHandlers.size() == 2) {
-                        startGame();
-                        int player = 0;
-                        for (ClientHandler clientHandler1 : clientHandlers) {
-                            clientHandler1.setGame(game);
-                            clientHandler1.setPlayer(player);
-                            player++;
-                        }
-                    }
-                } catch (IOException e) {
-                    if (alive) {
-                        log.error("Server accept error: " + e);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            log.error("Server socket error: " + e);
-        } finally {
-            terminate();
-        }
+    public GameServer(ClientHandler[] clientHandlers) {
+        this.clientHandlers = clientHandlers;
+
     }
 
     /**
@@ -128,7 +97,6 @@ public class GameServer implements ActionListener {
                         snake.move();
                         game.checkCollisions();
                         game.checkFood();
-                        System.out.println(game.toString());
                     }
                     if (game.getTime() == 0) {
                         game.setRunning(false);
@@ -159,15 +127,22 @@ public class GameServer implements ActionListener {
         log.info("Server stopped.");
     }
 
-    /**
-     * Metoda main pro spuštění instance GameServeru.
-     *
-     * @param args argumenty příkazové řádky (nejsou použity)
-     */
-    public static void main(String[] args) {
-        GameServer server = new GameServer();
+    @Override
+    public void run() {
+        startGame();
 
-        // Přidání hooku pro zachycení ukončení aplikace
-        Runtime.getRuntime().addShutdownHook(new Thread(server::terminate));
+        for(int i = 0; i < clientHandlers.length; i++){
+            clientHandlers[i].setGame(game);
+            clientHandlers[i].setPlayer(i);
+        }
+
+        while (alive){
+            for(ClientHandler ch : clientHandlers){
+                if(!ch.isAlive()){
+                    alive = false;
+                }
+            }
+        }
+        timer.stop();
     }
 }

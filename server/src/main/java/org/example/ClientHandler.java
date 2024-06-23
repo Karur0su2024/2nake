@@ -16,17 +16,18 @@ class ClientHandler implements Runnable {
     public PrintWriter out;
     private BufferedReader in;
     private Game game;
-    private final GameServer gameServer;
+    private final MainServer server;
+    private boolean alive;
 
     /**
      * Konstruktor pro vytvoření instance ClientHandler.
      *
      * @param socket     socket pro komunikaci s klientem
-     * @param gameServer instance GameServeru pro správu hry
      */
-    public ClientHandler(Socket socket, GameServer gameServer) {
+    public ClientHandler(Socket socket, MainServer server) {
         this.socket = socket;
-        this.gameServer = gameServer;
+        this.server = server;
+        this.alive = true;
     }
 
     /**
@@ -42,7 +43,6 @@ class ClientHandler implements Runnable {
             String message;
             while ((message = in.readLine()) != null) {
                 // Zpracování zpráv přijatých od klienta
-                System.out.println(message);
                 String[] parts = message.split(" ", 3);
                 String command = parts[0];
                 int playerId = Integer.parseInt(parts[1]);
@@ -54,17 +54,15 @@ class ClientHandler implements Runnable {
 
                 synchronized (game) {
                     if (command.equals("move")) {
-                        log.info(message);
                         game.getSnakes()[playerId].setDirection(parameter);
                     }
                 }
 
-                System.out.println("Přijato: " + message);
             }
         } catch (IOException e) {
             log.error("Chyba: " + e);
             game.setRunning(false);
-            gameServer.terminate();
+            server.terminate();
         } finally {
             closeConnection();
         }
@@ -95,10 +93,15 @@ class ClientHandler implements Runnable {
     public void closeConnection() {
         try {
             if (socket != null && !socket.isClosed()) {
+                alive = false;
                 socket.close();
             }
         } catch (IOException e) {
             log.error("Chyba při zavírání socketu: " + e);
         }
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 }

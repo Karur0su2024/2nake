@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * Panel pro zobrazení bočního panelu s informacemi o skóre hráčů a zbývajícím čase hry.
  */
-public class SidebarPanel extends JPanel implements ActionListener {
+public class Sidebar extends JPanel implements ActionListener {
     private final JLabel[] scoreLabel;
     private final JLabel timeLabel;
     private Game game;
@@ -20,7 +20,7 @@ public class SidebarPanel extends JPanel implements ActionListener {
      *
      * @param players Počet hráčů ve hře
      */
-    public SidebarPanel(int players) {
+    public Sidebar(int players) {
         setLayout(new GridLayout(10, 1));
         setPreferredSize(new Dimension(200, 600));
         setBackground(Color.LIGHT_GRAY);

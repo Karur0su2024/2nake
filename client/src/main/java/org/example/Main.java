@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.gui.MainMenuFrame;
+import org.example.gui.MainMenu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +14,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainMenuFrame().setVisible(true);
+                new MainMenu().setVisible(true);
             }
         });
     }

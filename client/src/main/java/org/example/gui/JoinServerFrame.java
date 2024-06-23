@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
  */
 public class JoinServerFrame extends JFrame {
 
-    private final MainMenuFrame mainMenuFrame;
+    private final MainMenu mainMenu;
 
     private GameClient gameClient;
     private JLabel message;
@@ -21,11 +21,11 @@ public class JoinServerFrame extends JFrame {
     /**
      * Konstruktor pro inicializaci okna připojení k serveru.
      *
-     * @param mainMenuFrame hlavní menu aplikace
+     * @param mainMenu hlavní menu aplikace
      */
-    public JoinServerFrame(MainMenuFrame mainMenuFrame) {
+    public JoinServerFrame(MainMenu mainMenu) {
         setTitle("Snake Game Settings");
-        this.mainMenuFrame = mainMenuFrame;
+        this.mainMenu = mainMenu;
         setSize(400, 500);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,7 +53,7 @@ public class JoinServerFrame extends JFrame {
      * Spustí klienta hry po stisknutí tlačítka "Start Game".
      */
     private void setGame() {
-        new GameClient(mainMenuFrame, this);
+        new GameClient(mainMenu, this);
     }
 
     /**

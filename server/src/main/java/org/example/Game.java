@@ -8,7 +8,7 @@ import org.example.objects.Food;
 import org.example.objects.GamePlan;
 import org.example.objects.Obstacle;
 import org.example.objects.Snake;
-import org.example.gui.SidebarPanel;
+import org.example.gui.Sidebar;
 
 import java.util.Random;
 
@@ -28,7 +28,7 @@ public class Game {
     private Random random = null;
 
     @JsonIgnore
-    private SidebarPanel sidebarPanel = null;
+    private Sidebar sidebar = null;
     private int size = 6;
 
     private boolean running = false;
@@ -74,7 +74,7 @@ public class Game {
         this.width = width;
         this.height = height;
         this.time = time;
-        this.sidebarPanel = sidebarPanel;
+        this.sidebar = sidebar;
         this.random = new Random();
         this.gamePlan = new GamePlan(width, height);
         this.obstacles = new Obstacle[obstacles];
@@ -479,8 +479,8 @@ public class Game {
      *
      * @return boční panel
      */
-    public SidebarPanel getSidebarPanel() {
-        return sidebarPanel;
+    public Sidebar getSidebarPanel() {
+        return sidebar;
     }
 
     /**
@@ -561,10 +561,10 @@ public class Game {
     /**
      * Nastaví boční panel ve hře s herními informacemi.
      *
-     * @param sidebarPanel boční panel
+     * @param sidebar boční panel
      */
-    public void setSidebarPanel(SidebarPanel sidebarPanel) {
-        this.sidebarPanel = sidebarPanel;
+    public void setSidebarPanel(Sidebar sidebar) {
+        this.sidebar = sidebar;
     }
 
     /**

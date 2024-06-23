@@ -1,5 +1,7 @@
 package org.example.gui;
 
+import org.example.GuiHandler;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,12 +10,16 @@ import java.awt.event.ActionListener;
 /**
  * Hlavní okno aplikace obsahující hlavní menu pro výběr herních režimů a možností.
  */
-public class MainMenuFrame extends JFrame {
+public class MainMenu extends JFrame {
 
     /**
      * Konstruktor pro inicializaci hlavního menu.
      */
-    public MainMenuFrame() {
+    public MainMenu() {
+        GuiHandler gui = new GuiHandler();
+        gui.setMainMenu(this);
+
+
         // Nastavení titulku a výchozí operace při zavření
         setTitle("2nake");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,7 +42,7 @@ public class MainMenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Spuštění hry pro jednoho hráče
-                new SettingsFrame(MainMenuFrame.this, 1);
+                new SettingsFrame(gui, 1);
             }
         });
 
@@ -44,7 +50,7 @@ public class MainMenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Spuštění hry pro dva hráče
-                new SettingsFrame(MainMenuFrame.this, 2);
+                new SettingsFrame(gui, 2);
             }
         });
 
@@ -52,7 +58,7 @@ public class MainMenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Spuštění okna pro připojení k serveru
-                new JoinServerFrame(MainMenuFrame.this);
+                new JoinServerFrame(MainMenu.this);
             }
         });
 

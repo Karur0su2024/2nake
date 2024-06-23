@@ -8,7 +8,7 @@ import org.example.objects.Food;
 import org.example.objects.GamePlan;
 import org.example.objects.Obstacle;
 import org.example.objects.Snake;
-import org.example.gui.SidebarPanel;
+import org.example.gui.Sidebar;
 
 import java.awt.*;
 import java.util.Random;
@@ -37,7 +37,7 @@ public class Game {
     private Random random = null;
 
     @JsonIgnore
-    private SidebarPanel sidebarPanel = null;
+    private Sidebar sidebar = null;
     private int size = 6;
 
     private boolean running = false;
@@ -118,14 +118,14 @@ public class Game {
     public void initializeGame() {
         running = true;
         updateSidebar();
-        sidebarPanel.setTime();
+        sidebar.setTime();
     }
 
     /**
      * Aktualizuje boční panel (SidebarPanel) hry zobrazující skóre a čas.
      */
     private void updateSidebar() {
-        sidebarPanel.setGame(this);
+        sidebar.setGame(this);
         //sidebarPanel.setScores();
     }
 
@@ -240,8 +240,8 @@ public class Game {
         return random;
     }
 
-    public SidebarPanel getSidebarPanel() {
-        return sidebarPanel;
+    public Sidebar getSidebarPanel() {
+        return sidebar;
     }
 
     public int getSize() {
@@ -292,8 +292,8 @@ public class Game {
         this.random = random;
     }
 
-    public void setSidebarPanel(SidebarPanel sidebarPanel) {
-        this.sidebarPanel = sidebarPanel;
+    public void setSidebarPanel(Sidebar sidebar) {
+        this.sidebar = sidebar;
     }
 
     public void setSize(int size) {

@@ -1,5 +1,7 @@
 package org.example.gui;
 
+import org.example.GuiHandler;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -9,16 +11,13 @@ import java.awt.event.ActionListener;
 /**
  * Okno zobrazené po ukončení hry. Zobrazuje možnosti pro restart, nastavení a ukončení hry.
  */
-public class GameOverFrame extends JFrame implements ActionListener {
+public class GameOverFrame extends JFrame {
 
     /**
      * Konstruktor pro vytvoření okna po ukončení hry.
      *
-     * @param gamePanel herní panel, ve kterém probíhala hra
-     * @param mainMenuFrame hlavní menu aplikace
-     * @param gameFrame instance hlavního herního okna
      */
-    public GameOverFrame(GamePanel gamePanel, MainMenuFrame mainMenuFrame, GameFrame gameFrame) {
+    public GameOverFrame(GuiHandler gui) {
         setTitle("Game Over");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,7 +35,7 @@ public class GameOverFrame extends JFrame implements ActionListener {
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gamePanel.getGame().restart(); // Restartovat hru
+                gui.getGameFrame().getGamePanel().getGame().restart(); // Restartovat hru
                 dispose(); // Zavřít okno po restartu
             }
         });
@@ -47,8 +46,8 @@ public class GameOverFrame extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Otevřít okno s nastavením
-                new SettingsFrame(mainMenuFrame, gamePanel.getGame().getPlayers());
-                gameFrame.dispose(); // Zavřít hlavní herní okno
+                new SettingsFrame(gui, gui.getGameFrame().getGamePanel().getGame().getPlayers());
+                gui.closeGameFrame();
                 dispose(); // Zavřít okno po ukončení
             }
         });
@@ -58,18 +57,13 @@ public class GameOverFrame extends JFrame implements ActionListener {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameFrame.dispose(); // Zavřít hlavní herní okno
+                gui.closeGameFrame();
                 dispose(); // Zavřít okno po ukončení
-                mainMenuFrame.setVisible(true); // Zobrazit hlavní menu
+                gui.toggleMainMenu();
             }
         });
         buttonPanel.add(exitButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Implementace metody z rozhraní ActionListener (není potřeba v této třídě)
     }
 }

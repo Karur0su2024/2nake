@@ -1,5 +1,6 @@
 package org.example.gui;
 
+import org.example.GuiHandler;
 import org.example.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,18 +19,19 @@ public class SettingsFrame extends JFrame {
     private final JTextField obstaclesField;
     private final JTextField foodField;
     private final JTextField timeField;
-    private final MainMenuFrame mainMenuFrame;
+
+    GuiHandler gui;
 
     /**
      * Konstruktor pro vytvoření okna s nastavením parametrů hry.
      *
-     * @param mainMenuFrame Reference na hlavní menu aplikace
      * @param players       Počet hráčů hry
      */
-    public SettingsFrame(MainMenuFrame mainMenuFrame, int players) {
+    public SettingsFrame(GuiHandler gui, int players) {
+        this.gui = gui;
+
         setTitle("Snake Game Settings");
         log.info("Otevírám nastavení hry");
-        this.mainMenuFrame = mainMenuFrame;
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -78,8 +80,8 @@ public class SettingsFrame extends JFrame {
         int snakeSize = parseField(snakeSizeField, 6, 1, (width * height) / 50);
         int time = parseField(timeField, 60, 30, 600);
 
-        new GameFrame(players, mainMenuFrame, width, height, obstacles, food, snakeSize, time, "local", null);
-        mainMenuFrame.setVisible(false);
+        new GameFrame(players, gui, width, height, obstacles, food, snakeSize, time, "local", null);
+        gui.toggleMainMenu();
         dispose();
     }
 

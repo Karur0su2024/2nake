@@ -4,7 +4,7 @@ import org.example.objects.Snake;
 import org.example.gui.GameFrame;
 import org.example.gui.GamePanel;
 import org.example.gui.JoinServerFrame;
-import org.example.gui.MainMenuFrame;
+import org.example.gui.MainMenu;
 
 import java.awt.event.KeyEvent;
 import java.io.*;
@@ -28,7 +28,7 @@ public class GameClient {
     private int player = 99;
     private boolean started = false;
     private Game game; // Reference na stav hry
-    public MainMenuFrame menuFrame;
+    public MainMenu menuFrame;
     private GameFrame gameFrame;
     public JoinServerFrame joinServerFrame;
 
@@ -38,7 +38,7 @@ public class GameClient {
      * @param menuFrame       hlavní menu hry
      * @param joinServerFrame okno pro připojení k serveru
      */
-    public GameClient(MainMenuFrame menuFrame, JoinServerFrame joinServerFrame) {
+    public GameClient(MainMenu menuFrame, JoinServerFrame joinServerFrame) {
         this.menuFrame = menuFrame;
         this.joinServerFrame = joinServerFrame;
         try {

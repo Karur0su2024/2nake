@@ -15,12 +15,9 @@ public class GamePanel extends JPanel {
 
     private Game game;
     private final GameClient gameClient;
-
-    private final SidebarPanel sidebarPanel;
-    private final MainMenuFrame menuFrame;
-    private final GameFrame gameFrame;
     private String gameMode;
     private final GameHandler gameHandler;
+    private final GuiHandler gui;
 
     private int player;
 
@@ -34,16 +31,11 @@ public class GamePanel extends JPanel {
      * @param food počet potravy
      * @param size velikost jednotky herní plochy
      * @param length délka hada
-     * @param sidebarPanel panel s informacemi o hře
-     * @param menuFrame hlavní menu aplikace
-     * @param gameFrame instance hlavního herního okna
      * @param gameMode režim hry ("local" nebo "remote")
      * @param gameClient instance klienta pro komunikaci se serverem (pouze pro režim "remote")
      */
-    public GamePanel(int players, int width, int height, int obstacles, int food, int size, int length, SidebarPanel sidebarPanel, MainMenuFrame menuFrame, GameFrame gameFrame, String gameMode, GameClient gameClient) {
-        this.sidebarPanel = sidebarPanel;
-        this.menuFrame = menuFrame;
-        this.gameFrame = gameFrame;
+    public GamePanel(int players, int width, int height, int obstacles, int food, int size, int length, GuiHandler gui, String gameMode, GameClient gameClient) {
+        this.gui = gui;
         this.gameClient = gameClient;
         this.gameMode = gameMode;
 
@@ -53,7 +45,7 @@ public class GamePanel extends JPanel {
         this.gameHandler = new LocalGameHandler(this);
         this.game = new Game(players, new GamePlan(width, height), obstacles, food, size, length);
         this.game.setGameHandler(gameHandler);
-        this.game.setSidebarPanel(sidebarPanel);
+        this.game.setSidebarPanel(gui.getSidebar());
 
         this.game.startGame();
 
@@ -66,24 +58,19 @@ public class GamePanel extends JPanel {
     /**
      * Konstruktor pro aktualizaci existující hry.
      *
-     * @param menuFrame hlavní menu aplikace
-     * @param sidebarPanel panel s informacemi o hře
-     * @param gameFrame instance hlavního herního okna
      * @param game instance aktuální hry
      * @param gameClient instance klienta pro komunikaci se serverem
      * @param player ID hráče
      */
-    public GamePanel(MainMenuFrame menuFrame, SidebarPanel sidebarPanel, GameFrame gameFrame, Game game, GameClient gameClient, int player) {
-        this.menuFrame = menuFrame;
-        this.sidebarPanel = sidebarPanel;
-        this.gameFrame = gameFrame;
+    public GamePanel(GuiHandler gui, Game game, GameClient gameClient, int player) {
+        this.gui = gui;
         this.game = game;
         this.gameClient = gameClient;
         this.gameHandler = new RemoteGameHandler(gameClient);
         this.player = player;
 
         this.game.setGameHandler(gameHandler);
-        this.game.setSidebarPanel(sidebarPanel);
+        this.game.setSidebarPanel(gui.getSidebar());
 
         this.setPreferredSize(new Dimension(game.getGamePlan().getWidth() * GameSettings.UNIT_SIZE, game.getGamePlan().getHeight() * GameSettings.UNIT_SIZE));
         this.setFocusable(true);
@@ -136,6 +123,6 @@ public class GamePanel extends JPanel {
      * Zobrazí dialogové okno s informací o konci hry.
      */
     public void showGameOverDialog() {
-        SwingUtilities.invokeLater(() -> new GameOverFrame(this, menuFrame, gameFrame).setVisible(true));
+        SwingUtilities.invokeLater(() -> new GameOverFrame(gui).setVisible(true));
     }
 }

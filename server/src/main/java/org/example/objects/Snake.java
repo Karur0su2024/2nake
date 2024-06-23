@@ -2,7 +2,7 @@ package org.example.objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.example.gui.SidebarPanel;
+import org.example.gui.Sidebar;
 
 /**
  * Třída reprezentující hada ve hře.
@@ -16,7 +16,7 @@ public class Snake {
     private int speed;
 
     @JsonIgnore
-    private SidebarPanel sidebarPanel;
+    private Sidebar sidebar;
 
     /**
      * Výchozí konstruktor pro třídu Snake, potřebný pro Jackson.
@@ -80,8 +80,8 @@ public class Snake {
             speed = 1;
         }
 
-        if (sidebarPanel != null) {
-            sidebarPanel.setScores();
+        if (sidebar != null) {
+            sidebar.setScores();
         }
     }
 
@@ -185,18 +185,18 @@ public class Snake {
      *
      * @return panel bočního menu
      */
-    public SidebarPanel getSidebarPanel() {
-        return sidebarPanel;
+    public Sidebar getSidebarPanel() {
+        return sidebar;
     }
 
     /**
      * Nastaví panel bočního menu pro hada.
      * Pro server část nepotřebný ale je tu aby se mi nerozpadl server
      *
-     * @param sidebarPanel panel bočního menu
+     * @param sidebar panel bočního menu
      */
-    public void setSidebarPanel(SidebarPanel sidebarPanel) {
-        this.sidebarPanel = sidebarPanel;
+    public void setSidebarPanel(Sidebar sidebar) {
+        this.sidebar = sidebar;
     }
 
     /**

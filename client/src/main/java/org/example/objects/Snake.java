@@ -3,7 +3,7 @@ package org.example.objects;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.example.GameSettings;
-import org.example.gui.SidebarPanel;
+import org.example.gui.Sidebar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +23,7 @@ public class Snake {
     private int speed; // Rychlost hada
 
     @JsonIgnore
-    SidebarPanel sidebarPanel; // Boční panel, ve kterém je had zobrazen
+    Sidebar sidebar; // Boční panel, ve kterém je had zobrazen
 
     /**
      * Konstruktor pro vytvoření hada s určitou maximální velikostí a počátečním počtem částí.
@@ -216,10 +216,10 @@ public class Snake {
     /**
      * Metoda pro nastavení bočního panelu, ve kterém je had zobrazen.
      *
-     * @param sidebarPanel boční panel
+     * @param sidebar boční panel
      */
-    public void setSidebarPanel(SidebarPanel sidebarPanel) {
-        this.sidebarPanel = sidebarPanel;
+    public void setSidebarPanel(Sidebar sidebar) {
+        this.sidebar = sidebar;
     }
 
     /**
@@ -245,8 +245,8 @@ public class Snake {
      *
      * @return boční panel
      */
-    public SidebarPanel getSidebarPanel() {
-        return sidebarPanel;
+    public Sidebar getSidebarPanel() {
+        return sidebar;
     }
 
     /**

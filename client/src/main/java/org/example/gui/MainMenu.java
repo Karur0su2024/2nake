@@ -31,11 +31,14 @@ public class MainMenu extends JFrame {
 
         // Vytvoření tlačítek
         JButton startLocalGameButton = createButton("Lokální hra");
-        startLocalGameButton.addActionListener(e -> new SettingsFrame(gui));
+        startLocalGameButton.addActionListener(e -> {
+            gui.toggleMainMenu();
+            new SettingsFrame(gui);
+        });
 
 
         JButton startServerButton = createButton("Servery");
-        startServerButton.addActionListener(e -> new JoinServerFrame(MainMenu.this));
+        startServerButton.addActionListener(e -> new JoinServerFrame(gui));
 
         JButton instructionsButton = createButton("Nápověda");
         instructionsButton.addActionListener(e -> showInstructions());

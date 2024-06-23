@@ -1,17 +1,18 @@
 package org.example.gui;
 
-import org.example.Game;
 import org.example.objects.Snake;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 /**
  * Panel pro zobrazení bočního panelu s informacemi o skóre hráčů a zbývajícím čase hry.
  */
-public class Sidebar extends JPanel implements ActionListener {
+public class Sidebar extends JPanel {
     private final JLabel[] scoreLabel;
     private final JLabel timeLabel;
     /**
@@ -39,18 +40,15 @@ public class Sidebar extends JPanel implements ActionListener {
         add(timeLabel);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Prázdná metoda pro implementaci rozhraní ActionListener
-    }
-
 
     /**
      * Metoda pro aktualizaci zobrazení skóre hráčů v bočním panelu.
      */
-    public void setScores(Snake[] snakes) {
-        for (int i = 0; i < snakes.length; i++) {
-            scoreLabel[i].setText("Snake " + (i + 1) + ": " + snakes[i].getBodyParts());
+    public void setScores(List<Snake> snakes) {
+        int i = 0;
+        for (Snake snake : snakes) {
+            scoreLabel[i].setText(snake.getName() + ": " + (i + 1) + ": " + snake.getBodyParts());
+            i++;
         }
     }
 

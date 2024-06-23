@@ -1,35 +1,91 @@
 package org.example.objects;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.example.GameSettings;
 import org.example.gui.Sidebar;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.Arrays;
+
 /**
- * Třída reprezentující hada ve hře.
+ * Třída reprezentující hada v herním prostředí.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Snake {
-    private char direction = 'R';
-    private int bodyParts = 6;
-    private int[] x;
-    private int[] y;
-    private int speed;
+    private char direction = 'R'; // Směr hada ('U' pro nahoru, 'D' pro dolů, 'L' pro doleva, 'R' pro doprava)
+    private int bodyParts = 6; // Počet částí hada
+    private int[] x; // Pole obsahující x-ové souřadnice jednotlivých částí hada
+    private int[] y; // Pole obsahující y-ové souřadnice jednotlivých částí hada
+    private String name;
 
     @JsonIgnore
-    private Sidebar sidebar;
+    private int maxSize; // Maximální velikost hada
+
+    private int speed; // Rychlost hada
+
 
     /**
-     * Výchozí konstruktor pro třídu Snake, potřebný pro Jackson.
+     * Konstruktor pro vytvoření hada s určitou maximální velikostí a počátečním počtem částí.
+     *
+     * @param maxSize  maximální velikost hada
+     * @param bodySize počáteční počet částí hada
      */
+
+
+    public Snake(int maxSize, int bodySize, int x, int y, char dir, String name) {
+        this.maxSize = maxSize;
+        this.x = new int[maxSize];
+        this.y = new int[maxSize];
+        direction = dir;
+        setHead(x, y);
+        bodyParts = bodySize;
+        setSpeed();
+        this.name = name;
+    }
+
+    @JsonCreator
+    public Snake(
+            @JsonProperty("direction") char direction,
+            @JsonProperty("bodyParts") int bodyParts,
+            @JsonProperty("x") int[] x,
+            @JsonProperty("y") int[] y,
+            @JsonProperty("name") String name,
+            @JsonProperty("speed") int speed) {
+        this.direction = direction;
+        this.bodyParts = bodyParts;
+        this.x = x;
+        this.y = y;
+        this.name = name;
+        this.speed = speed;
+        this.maxSize = x.length*y.length;
+    }
+
+    public Snake(String name){
+        this.name = name;
+    }
+
+
+    /**
+     * Prázdný konstruktor pro serializaci pomocí Jackson ObjectMapper.
+     */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public Snake() {
-        // Default constructor needed for Jackson
+        x = new int[maxSize];
+        y = new int[maxSize];
+    }
+
+    public Snake(Snake snake){
+        this.name = snake.name;
     }
 
     /**
-     * Konstruktor pro vytvoření hada se zadanými polohami x a y.
+     * Konstruktor pro vytvoření hada s určitými x-ovými a y-ovými souřadnicemi.
      *
-     * @param x pole obsahující souřadnice x hada
-     * @param y pole obsahující souřadnice y hada
+     * @param x pole x-ových souřadnic částí hada
+     * @param y pole y-ových souřadnic částí hada
      */
     public Snake(int[] x, int[] y) {
         this.x = x;
@@ -37,38 +93,23 @@ public class Snake {
     }
 
     /**
-     * Konstruktor pro vytvoření hada s maximální velikostí a počtem tělíček.
+     * Metoda pro získání počtu částí hada.
      *
-     * @param maxSize maximální velikost hada
-     * @param bodySize počet tělíček hada
+     * @return počet částí hada
      */
-    public Snake(int maxSize, int bodySize) {
-        this.x = new int[maxSize / 2];
-        this.y = new int[maxSize / 2];
-        bodyParts = bodySize;
-        setSpeed();
+    public int getBodyParts() {
+        return bodyParts;
     }
 
     /**
-     * Nastaví hlavu hada na zadané souřadnice x a y.
+     * Metoda pro zvýšení počtu částí hada o určitý počet bodů.
+     * Pokud je počet částí hada 1 a počet bodů je menší než 0, had neztratí tělo.
      *
-     * @param x souřadnice x hlavy hada
-     * @param y souřadnice y hlavy hada
-     */
-    public void setHead(int x, int y) {
-        this.x[0] = x;
-        this.y[0] = y;
-    }
-
-    /**
-     * Zvětší počet tělíček hada o zadaný počet bodů, pokud to není jednobodový had.
-     * Nastaví rychlost hada a aktualizuje skóre na panelu.
-     *
-     * @param points počet bodů, které had získá
+     * @param points počet bodů, o který se má zvýšit počet částí hada
      */
     public void eat(int points) {
         if (!(bodyParts == 1 && points < 0)) {
-            this.bodyParts += points;
+            this.bodyParts = this.bodyParts + points;
         }
         if (bodyParts < 1) {
             bodyParts = 1;
@@ -80,140 +121,171 @@ public class Snake {
             speed = 1;
         }
 
-        if (sidebar != null) {
-            sidebar.setScores();
-        }
+        //this.sidebarPanel.setScores();
     }
 
     /**
-     * Nastaví směr hada.
+     * Metoda pro nastavení směru hada.
      *
-     * @param direction směr hada ('U', 'D', 'L', 'R')
+     * @param direction nový směr hada ('U' pro nahoru, 'D' pro dolů, 'L' pro doleva, 'R' pro doprava)
      */
     public void setDirection(char direction) {
         this.direction = direction;
     }
 
     /**
-     * Vrací aktuální směr hada.
+     * Metoda pro získání směru hada.
      *
-     * @return směr hada ('U', 'D', 'L', 'R')
+     * @return směr hada
      */
     public char getDirection() {
         return direction;
     }
 
     /**
-     * Vrací pole souřadnic x hada.
-     *
-     * @return pole souřadnic x
+     * Metoda pro pohyb hada podle jeho směru.
+     * Každá část hada se posune na místo předchozí části.
      */
-    public int[] getX() {
-        return x;
+    public void move() {
+        for (int i = bodyParts; i > 0; i--) {
+            x[i] = x[i - 1];
+            y[i] = y[i - 1];
+        }
+        switch (direction) {
+            case 'U':
+                y[0] = y[0] - 1;
+                break;
+            case 'D':
+                y[0] = y[0] + 1;
+                break;
+            case 'L':
+                x[0] = x[0] + 1;
+                break;
+            case 'R':
+                x[0] = x[0] - 1;
+                break;
+        }
     }
 
     /**
-     * Vrací pole souřadnic y hada.
+     * Metoda pro vykreslení hada na zadaném grafickém kontextu.
      *
-     * @return pole souřadnic y
+     * @param g     grafický kontext, na kterém se má had vykreslit
+     * @param panel panel, na kterém se had vykresluje
      */
-    public int[] getY() {
-        return y;
+    public void paint(Graphics g, JPanel panel) {
+        if (this.x != null && this.y != null && x.length > 0 && y.length > 0) {
+            for (int i = 0; i < bodyParts; i++) {
+                if (i == 0) {
+                    g.setColor(Color.yellow); // Barva hlavy hada
+                } else {
+                    g.setColor(new Color(221, 221, 119)); // Barva těla hada
+                }
+
+                g.fillRect(x[i] * GameSettings.UNIT_SIZE, y[i] * GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
+            }
+        } else {
+            // Handle the case when x or y is null (optional based on your logic)
+        }
     }
 
     /**
-     * Nastaví pole souřadnic x hada.
+     * Metoda pro získání rychlosti hada.
      *
-     * @param x pole souřadnic x
+     * @return rychlost hada
+     */
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    /**
+     * Metoda pro nastavení rychlosti hada na základě počtu jeho částí.
+     * Čím více částí hada, tím nižší je jeho rychlost.
+     */
+    public void setSpeed() {
+        this.speed = (90 - (bodyParts / 10));
+    }
+
+    /**
+     * Metoda pro nastavení počtu částí hada.
+     *
+     * @param bodyParts nový počet částí hada
+     */
+    public void setBodyParts(int bodyParts) {
+        this.bodyParts = bodyParts;
+    }
+
+    /**
+     * Metoda pro nastavení x-ových souřadnic částí hada.
+     *
+     * @param x pole x-ových souřadnic částí hada
      */
     public void setX(int[] x) {
         this.x = x;
     }
 
     /**
-     * Nastaví pole souřadnic y hada.
+     * Metoda pro nastavení y-ových souřadnic částí hada.
      *
-     * @param y pole souřadnic y
+     * @param y pole y-ových souřadnic částí hada
      */
     public void setY(int[] y) {
         this.y = y;
     }
 
     /**
-     * Pohne hadem podle aktuálního směru.
-     */
-    public void move() {
-        for (int i = bodyParts - 1; i > 0; i--) {
-            x[i] = x[i - 1];
-            y[i] = y[i - 1];
-        }
-        switch (direction) {
-            case 'U':
-                y[0]--;
-                break;
-            case 'D':
-                y[0]++;
-                break;
-            case 'L':
-                x[0]--;
-                break;
-            case 'R':
-                x[0]++;
-                break;
-        }
-    }
-
-    /**
-     * Vrací rychlost hada.
+     * Metoda pro nastavení rychlosti hada.
      *
-     * @return rychlost hada
+     * @param speed nová rychlost hada
      */
-    public int getSpeed() {
-        return speed;
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     /**
-     * Nastaví rychlost hada na základě počtu tělíček.
-     */
-    public void setSpeed() {
-        this.speed = (22 - (bodyParts / 7));
-    }
-
-    /**
-     * Vrací panel bočního menu, který zobrazuje skóre a další informace o hře.
-     * Pro server část nepotřebný ale je tu aby se mi nerozpadl server
+     * Metoda pro získání x-ových souřadnic částí hada.
      *
-     * @return panel bočního menu
+     * @return pole x-ových souřadnic částí hada
      */
-    public Sidebar getSidebarPanel() {
-        return sidebar;
+    public int[] getX() {
+        return x;
     }
 
     /**
-     * Nastaví panel bočního menu pro hada.
-     * Pro server část nepotřebný ale je tu aby se mi nerozpadl server
+     * Metoda pro získání y-ových souřadnic částí hada.
      *
-     * @param sidebar panel bočního menu
+     * @return pole y-ových souřadnic částí hada
      */
-    public void setSidebarPanel(Sidebar sidebar) {
-        this.sidebar = sidebar;
+    public int[] getY() {
+        return y;
     }
 
-    /**
-     * Vrací počet tělíček hada.
-     *
-     * @return počet tělíček
-     */
-    public int getBodyParts() {
-        return bodyParts;
-    }
 
     /**
-     * Nastaví počet tělíček hada.
+     * Metoda pro nastavení hlavy hada na zadané x-ové a y-ové souřadnice.
      *
-     * @param bodyParts počet tělíček
+     * @param x x-ová souřadnice hlavy hada
+     * @param y y-ová souřadnice hlavy hada
      */
-    public void setBodyParts(int bodyParts) {
-        this.bodyParts = bodyParts;
+    public void setHead(int x, int y) {
+        this.x[0] = x;
+        this.y[0] = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Snake{" +
+                "direction=" + direction +
+                ", bodyParts=" + bodyParts +
+                ", x=" + Arrays.toString(x) +
+                ", y=" + Arrays.toString(y) +
+                ", name='" + name + '\'' +
+                ", maxSize=" + maxSize +
+                ", speed=" + speed +
+                '}';
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

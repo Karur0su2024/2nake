@@ -8,14 +8,10 @@ import org.example.objects.Food;
 import org.example.objects.GamePlan;
 import org.example.objects.Obstacle;
 import org.example.objects.Snake;
-import org.example.gui.Sidebar;
 
-import java.awt.*;
-import java.util.Random;
-import javax.swing.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import java.util.*;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,12 +22,10 @@ import org.slf4j.LoggerFactory;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Game {
     private static final Logger log = LoggerFactory.getLogger(Game.class);
-    private Snake[] snakes = null;
-    private Food[] foods = null;
-    private Obstacle[] obstacles = null;
-    private GamePlan gamePlan = null;
-
-    private int size = 6;
+    private final List<Snake> snakes;
+    private final Food[] foods;
+    private final Obstacle[] obstacles;
+    private final GamePlan gamePlan;
 
     private int time;
 
@@ -41,20 +35,13 @@ public class Game {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public Game(){
-
-    }
-
     @JsonCreator
     public Game(@JsonProperty("obstacles") Obstacle[] obstacles,
-                @JsonProperty("size") int size,
                 @JsonProperty("time") int time,
-                @JsonProperty("snakes") Snake[] snakes,
+                @JsonProperty("snakes") List<Snake> snakes,
                 @JsonProperty("foods") Food[] foods,
                 @JsonProperty("gamePlan") GamePlan gamePlan) {
         this.obstacles = obstacles;
-        this.size = size;
         this.time = time;
         this.snakes = snakes;
         this.foods = foods;
@@ -66,26 +53,16 @@ public class Game {
         this.gamePlan = gameSettings.getGamePlan();
         this.obstacles = gameSettings.getObstacles();
         this.foods = gameSettings.getFoods();
-        this.snakes = new Snake[gameSettings.getNoPlayers()];
-        this.size = gameSettings.getInitialSnakeSize();
+        this.snakes = new ArrayList<>();
     }
 
-
-    public void paint(Graphics g, JPanel panel) {
-        gamePlan.paint(g);
-        for (Food food : foods) {
-            if (food != null) {
-                food.paint(g, panel);
-            }
-        }
-        for (Obstacle obstacle : obstacles) {
-            obstacle.paint(g);
-        }
-        for (Snake snake : snakes) {
-            snake.paint(g, panel);
-        }
+    public Game(Game game){
+        this.time = game.time;
+        this.gamePlan = game.getGamePlan();
+        this.obstacles = game.getObstacles();
+        this.foods = game.getFoods();
+        this.snakes = game.snakes;
     }
-
 
     public void decreaseTime() {
         time--;
@@ -111,8 +88,7 @@ public class Game {
         }
     }
 
-
-    public Snake[] getSnakes() {
+    public List<Snake> getSnakes() {
         return snakes;
     }
 
@@ -128,16 +104,7 @@ public class Game {
         return gamePlan;
     }
 
-    public int getSize() {
-        return size;
-    }
-
-
     public int getTime() {
         return time;
-    }
-
-    public void setSnakes(Snake[] snakes) {
-        this.snakes = snakes;
     }
 }

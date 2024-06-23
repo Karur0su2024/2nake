@@ -1,6 +1,8 @@
 package org.example.objects;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.GameSettings;
 
 import java.awt.*;
@@ -12,15 +14,12 @@ public class Obstacle {
     int x;
     int y;
 
-    /**
-     * Konstruktor pro vytvoření nové instance překážky se zadanou pozicí.
-     *
-     * @param X x-ová souřadnice překážky
-     * @param Y y-ová souřadnice překážky
-     */
-    public Obstacle(int X, int Y){
-        this.x = X;
-        this.y = Y;
+    @JsonCreator
+    public Obstacle(
+            @JsonProperty("x") int x,
+            @JsonProperty("y") int y) {
+        this.x = x;
+        this.y = y;
     }
 
     /**

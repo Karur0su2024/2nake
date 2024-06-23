@@ -17,7 +17,7 @@ public class GameWindow extends JFrame {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     private final GuiHandler gui;
-    private final GamePanel gamePanel;
+    private GamePanel gamePanel;
 
     public GameWindow(GameSettings gameSettings, GuiHandler gui) {
         log.info("Spouštím hru...");
@@ -48,21 +48,21 @@ public class GameWindow extends JFrame {
     /**
      * Konstruktor pro aktualizaci existující hry.
      *
-     * @param game instance hry
-     * @param gameClient klient pro hru
-     * @param menuFrame hlavní menu aplikace
-     * @param player pořadové číslo hráče
      */
-    public GameWindow(Game game, GameClient gameClient, MainMenu menuFrame, int player) {
-        this.gui = new GuiHandler(); // Opravit
+    public GameWindow(GameLogicHandler gameLogic, GameClient client, GuiHandler gui) {
+        this.gui = gui;
+        gui.setSidebar(new Sidebar(2));
         this.setLayout(new BorderLayout());
 
-        Sidebar sidebar = new Sidebar(2); // Vytvoření bočního panelu pro 2 hráče
-        gamePanel = new GamePanel(gui, game, gameClient, player);
-        gameClient.setGamePanel(gamePanel); // Nastavení herního panelu v GameClient
-        this.add(gamePanel, BorderLayout.CENTER);
 
-        this.add(sidebar, BorderLayout.EAST);
+        this.gamePanel = new GamePanel(gui, gameLogic, client);
+
+
+
+
+
+        this.add(gamePanel, BorderLayout.CENTER);
+        this.add(gui.getSidebar(), BorderLayout.EAST);
 
         this.setTitle("2nake");
         this.setResizable(false);
@@ -73,7 +73,8 @@ public class GameWindow extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                menuFrame.setVisible(true); // Při zavření okna zobrazí hlavní menu
+                gui.getMainMenu().setVisible(true);
+                client.sendMessage("left " + client.getName());
             }
         });
     }

@@ -4,64 +4,67 @@ import org.example.objects.Food;
 import org.example.objects.Obstacle;
 import org.example.objects.Snake;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.Random;
 
 public class GameLogicHandler {
 
-    private GuiHandler gui;
     private Game game;
     private Game OGGame;
     private int initialSize;
-    private Random random = null;
-    private int currentFood = 0;
-    private boolean running = false;
     private int players;
 
-    private GameHandler gameHandler;
+    private Random random;
+    private int currentFood = 0;
+    private boolean running = false;
 
-    public GameLogicHandler(GameSettings gameSettings, GuiHandler gui, int players){
-        OGGame = new Game(gameSettings);
-        game = OGGame;
-
-        this.gui = gui;
+    public GameLogicHandler(Game game, int initialSize, int players){
+        //OGGame = new Game(game);
+        this.game = game;
         this.random = new Random();
-        this.initialSize = gameSettings.getInitialSnakeSize();
+        this.initialSize = initialSize;
         this.players = players;
     }
 
-    public GameLogicHandler(GuiHandler gui){
-        this.gui = gui;
+    public GameLogicHandler(Game game){
+        //OGGame = new Game(game);
+        this.game = game;
     }
 
     public void initializeGame() {
-        game.getSnakes().clear();
-        setPlayers();
         initializeObstacles();
         clearFoods();
         running = true;
-        updateSidebar();
-    }
-
-    public void setHandler(GameHandler gameHandler) {
-        this.gameHandler = gameHandler;
     }
 
     public void startGame(){
-        this.gameHandler.initializeGame();
+        initializeGame();
     }
 
 
     public void restart(Game game) {
-        this.game = new Game(game);
+        //this.game = new Game(game);
         initializeGame();
 
     }
 
-    public void updateSidebar() {
-        gui.getSidebar().setScores(game.getSnakes());
-        gui.getSidebar().setTime(game.getTime());
+
+    public void addSnake(Snake snake){
+        if (game.getSnakes().isEmpty()) {
+            snake.setX(new int[game.getGamePlan().getWidth() * game.getGamePlan().getHeight()]);
+            snake.setY(new int[game.getGamePlan().getWidth() * game.getGamePlan().getHeight()]);
+            snake.setBodyParts(initialSize);
+            snake.setHead(0, 0);
+            snake.setDirection('L');
+            snake.setSpeed();
+        } else {
+            snake.setX(new int[game.getGamePlan().getWidth() * game.getGamePlan().getHeight()]);
+            snake.setY(new int[game.getGamePlan().getWidth() * game.getGamePlan().getHeight()]);
+            snake.setBodyParts(initialSize);
+            snake.setHead(game.getGamePlan().getWidth() - 1, game.getGamePlan().getHeight() - 1);
+            snake.setDirection('R');
+            snake.setSpeed();
+        }
+        game.getSnakes().add(snake);
     }
 
 
@@ -224,10 +227,6 @@ public class GameLogicHandler {
         this.running = running;
     }
 
-    public void setGameHandler(GameHandler gameHandler) {
-        this.gameHandler = gameHandler;
-    }
-
     public Game getGame() {
         return game;
     }
@@ -238,30 +237,5 @@ public class GameLogicHandler {
 
     public Game getOGGame() {
         return OGGame;
-    }
-
-    public void refreshGame(Game game){
-        this.game = game;
-        updateSidebar();
-
-    }
-
-    public int getPlayers() {
-        return players;
-    }
-
-    public void paint(Graphics g, JPanel panel) {
-        game.getGamePlan().paint(g);
-        for (Food food : game.getFoods()) {
-            if (food != null) {
-                food.paint(g, panel);
-            }
-        }
-        for (Obstacle obstacle : game.getObstacles()) {
-            obstacle.paint(g);
-        }
-        for (Snake snake : getGame().getSnakes()) {
-            snake.paint(g, panel);
-        }
     }
 }

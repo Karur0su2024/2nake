@@ -14,7 +14,6 @@ import java.awt.event.KeyEvent;
  */
 public class LocalGameHandler implements GameHandler, ActionListener {
 
-    private Game game;
     private GameLogicHandler gameLogic;
     private Timer timer;
     private int time = 0;
@@ -30,33 +29,35 @@ public class LocalGameHandler implements GameHandler, ActionListener {
         this.gameLogic = gameLogic;
     }
 
-    /**
-     * Inicializuje hru s daným objektem Game a spustí časovač pro pravidelnou aktualizaci hry.
-     *
-     */
-    @Override
-    public void initializeGame() {
-        this.game = gameLogic.getGame();
-        gameLogic.initializeGame();
-
+    public void resetTime(){
         if (timer != null) {
             timer.stop();
         }
 
         timer = new Timer(GameSettings.DELAY, this);
         timer.start();
+    }
+
+    /**
+     * Inicializuje hru s daným objektem Game a spustí časovač pro pravidelnou aktualizaci hry.
+     *
+     */
+    @Override
+    public void initializeGame() {
+        gameLogic.restart(gameLogic.getOGGame());
+
+        resetTime();
 
     }
 
     /**
      * Odesílá akci hráče na základě stisku klávesy.
      *
-     * @param player číslo hráče
      * @param key    kód stisknuté klávesy
      */
     @Override
-    public void sendPlayerAction(int player, int key) {
-        Snake snake = game.getSnakes()[player];
+    public void sendPlayerAction(int key) {
+        Snake snake = gameLogic.getGame().getSnakes().iterator().next();
         char direction = snake.getDirection();
 
         switch (key) {
@@ -101,7 +102,7 @@ public class LocalGameHandler implements GameHandler, ActionListener {
             }
 
             if (time % 80 == 0) {
-                game.decreaseTime();
+                gameLogic.getGame().decreaseTime();
             }
 
             for (Snake snake : gameLogic.getGame().getSnakes()) {
@@ -111,7 +112,7 @@ public class LocalGameHandler implements GameHandler, ActionListener {
                     gameLogic.checkFood();
 
                 }
-                if (game.getTime() == 0) {
+                if (gameLogic.getGame().getTime() == 0) {
                     gameLogic.setRunning(false);
                 }
             }

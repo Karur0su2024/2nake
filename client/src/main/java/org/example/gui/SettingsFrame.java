@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  * Okno pro nastavení parametrů hry hada a jejich zahájení.
@@ -32,7 +35,7 @@ public class SettingsFrame extends JFrame {
      */
     public SettingsFrame(GuiHandler gui) {
         this.gui = gui;
-
+        this.gui.setSettingsFrame(this);
         setTitle("Snake Game Settings");
         log.info("Otevírám nastavení hry");
         setSize(400, 500);
@@ -62,6 +65,17 @@ public class SettingsFrame extends JFrame {
         panel.add(submitButton);
 
         setVisible(true);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e);
+                gui.setSettingsFrame(null);
+                gui.toggleMainMenu();
+                dispose();
+            }
+        });
+
     }
 
 
@@ -101,8 +115,8 @@ public class SettingsFrame extends JFrame {
 
         new GameWindow(gs, gui);
 
-        gui.toggleMainMenu();
-        dispose();
+        setVisible(false);
+
     }
 
     /**

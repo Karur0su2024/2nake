@@ -1,6 +1,8 @@
 package org.example.objects;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.example.GameSettings;
 
@@ -18,6 +20,18 @@ public class Food {
     private int points = 0;
 
     private Color color;
+
+    @JsonCreator
+    public Food(
+            @JsonProperty("x") int x,
+            @JsonProperty("y") int y,
+            @JsonProperty("points") int points,
+            @JsonProperty("color") Color color) {
+        this.x = x;
+        this.y = y;
+        this.points = points;
+        this.color = color;
+    }
 
     public Food(int X, int Y, int r){
         this.x = X;

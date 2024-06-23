@@ -1,8 +1,10 @@
 package org.example;
 
+import org.example.objects.Snake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.*;
 
@@ -15,18 +17,21 @@ class ClientHandler implements Runnable {
     private final Socket socket;
     public PrintWriter out;
     private BufferedReader in;
-    private Game game;
-    private final MainServer server;
+
+    private GameServer server;
     private boolean alive;
+    private String name;
+    private Snake OGsnake;
+    private Snake snake;
 
     /**
      * Konstruktor pro vytvoření instance ClientHandler.
      *
      * @param socket     socket pro komunikaci s klientem
      */
-    public ClientHandler(Socket socket, MainServer server) {
+    public ClientHandler(Socket socket) {
         this.socket = socket;
-        this.server = server;
+        this.snake = new Snake("newSnake");
         this.alive = true;
     }
 
@@ -45,47 +50,79 @@ class ClientHandler implements Runnable {
                 // Zpracování zpráv přijatých od klienta
                 String[] parts = message.split(" ", 3);
                 String command = parts[0];
-                int playerId = Integer.parseInt(parts[1]);
-                char parameter = 'A'; // Výchozí hodnota, pokud není poskytnuta žádná
+                String player = parts[1];
+                String parameter;
 
-                if (parts.length > 2) {
-                    parameter = parts[2].charAt(0);
+                if(command.equals("join")){
+                    name = player;
+                    snake.setName(name);
+
+                    //snake = new Snake(OGsnake);
+                    log.info(name + " joined the game");
+
                 }
 
-                synchronized (game) {
-                    if (command.equals("move")) {
-                        game.getSnakes()[playerId].setDirection(parameter);
+                if(command.equals("move")){
+                    log.info(message);
+                    parameter = parts[2];
+
+                    char dir = parameter.charAt(0);
+
+
+                    switch (dir) {
+                        case 'R':
+                            if(snake.getDirection() != 'L') snake.setDirection('R');
+                            break;
+                        case 'L':
+                            if(snake.getDirection() != 'R') snake.setDirection('L');
+                            break;
+                        case 'U':
+                            if(snake.getDirection() != 'D') snake.setDirection('U');
+                            break;
+                        case 'D':
+                            if(snake.getDirection() != 'U') snake.setDirection('D');
+                            break;
                     }
+
+                    System.out.println(snake.toString());
                 }
+
+                if(command.equals("left")){
+                    server.terminate();
+                }
+
+
+
+
+
+
+                /*synchronized (game) {
+                    if (command.equals("move")) {
+                        //game.getSnakes()[playerId].setDirection(parameter);
+                    }
+                }*/
+
+
+
 
             }
         } catch (IOException e) {
             log.error("Chyba: " + e);
-            game.setRunning(false);
+            //game.setRunning(false);
             server.terminate();
         } finally {
             closeConnection();
         }
     }
 
-    /**
-     * Nastaví instanci hry, se kterou bude tento handler pracovat.
-     *
-     * @param game instance hry
-     */
-    public void setGame(Game game) {
-        this.game = game;
+    public void sendGame(Game game){
+        sendMessage("game " + game);
     }
 
-    /**
-     * Nastaví číslo hráče a odešle tuto informaci klientovi.
-     *
-     * @param player číslo hráče
-     */
-    public void setPlayer(int player) {
-        log.info("Nastavení hráče: " + player);
-        out.println("player " + player);
+    public void sendMessage(String message){
+        out.println(message);
     }
+
 
     /**
      * Uzavře spojení s klientem.
@@ -95,6 +132,7 @@ class ClientHandler implements Runnable {
             if (socket != null && !socket.isClosed()) {
                 alive = false;
                 socket.close();
+
             }
         } catch (IOException e) {
             log.error("Chyba při zavírání socketu: " + e);
@@ -103,5 +141,21 @@ class ClientHandler implements Runnable {
 
     public boolean isAlive() {
         return alive;
+    }
+
+    public void setServer(GameServer server) {
+        this.server = server;
+    }
+
+    public Snake getSnake() {
+        return snake;
+    }
+
+    public void resetSnake(){
+        this.snake = new Snake(OGsnake);
+    }
+
+    public String getName() {
+        return name;
     }
 }

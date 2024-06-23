@@ -1,7 +1,6 @@
 package org.example.gui;
 
 import org.example.*;
-import org.example.objects.GamePlan;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,35 +21,28 @@ public class GamePanel extends JPanel {
 
     public GamePanel(GameSettings gameSettings, GuiHandler gui) {
         this.gui = gui;
-        this.gameLogic = new GameLogicHandler(new Game(gameSettings), gui);
+        this.gameLogic = new GameLogicHandler(gameSettings, gui, gameSettings.getNoPlayers());
         this.gameHandler = new LocalGameHandler(this, gameLogic);
         this.gameLogic.setGameHandler(gameHandler);
         this.gameLogic.startGame();
         setPanel(gameSettings);
-
-
     }
 
-    public GamePanel(GuiHandler gui, Game game, GameClient gameClient, int player) {
+
+
+    public GamePanel(GuiHandler gui, GameLogicHandler gameLogic, GameClient gameClient) {
         this.gui = gui;
-        this.gameLogic.setGame(game);
+        this.gameLogic = gameLogic;
         this.gameClient = gameClient;
         this.gameHandler = new RemoteGameHandler(gameClient);
-        this.player = player;
-
-        //setPanel(new GameSettings());
-    }
-
-    public void updateGame(Game game) {
-        this.gameLogic.setGame(game);
-        repaint();
+        setPanel(gameLogic);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (gameLogic.getGame() != null) {
-            gameLogic.getGame().paint(g, this);
+            gameLogic.paint(g, this);
         }
     }
 
@@ -60,9 +52,9 @@ public class GamePanel extends JPanel {
             int key = e.getKeyCode();
 
             if ("remote".equals(gameMode)) {
-                gameHandler.sendPlayerAction(player, key);
+                gameHandler.sendPlayerAction(key);
             } else {
-                gameHandler.sendPlayerAction(0, key);
+                gameHandler.sendPlayerAction(key);
                 if (key == KeyEvent.VK_R) {
                     //game.restart();
                 }
@@ -72,11 +64,19 @@ public class GamePanel extends JPanel {
 
 
     public void showGameOverDialog() {
-        SwingUtilities.invokeLater(() -> new GameOverFrame(gui).setVisible(true));
+        SwingUtilities.invokeLater(() -> new GameOverScreen(gui).setVisible(true));
     }
 
     private void setPanel(GameSettings gameSettings){
         this.setPreferredSize(new Dimension(gameSettings.getGamePlan().getWidth() * GameSettings.UNIT_SIZE, gameSettings.getGamePlan().getHeight() * GameSettings.UNIT_SIZE));
+        this.setFocusable(true);
+        this.addKeyListener(new MyKeyAdapter());
+        setFocusTraversalKeysEnabled(false);
+        this.requestFocusInWindow();
+    }
+
+    private void setPanel(GameLogicHandler gameLogic){
+        this.setPreferredSize(new Dimension(gameLogic.getGame().getGamePlan().getWidth() * GameSettings.UNIT_SIZE, gameLogic.getGame().getGamePlan().getHeight() * GameSettings.UNIT_SIZE));
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         setFocusTraversalKeysEnabled(false);

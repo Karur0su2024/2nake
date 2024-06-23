@@ -1,15 +1,14 @@
 package org.example;
 
-import org.example.gui.GameWindow;
-import org.example.gui.MainMenu;
-import org.example.gui.Sidebar;
+import org.example.gui.*;
 
 public class GuiHandler {
 
     private Sidebar sidebar;
     private MainMenu mainMenu;
     private GameWindow gameWindow;
-
+    private SettingsFrame settingsFrame;
+    private JoinServerFrame joinServerFrame;
 
     public GuiHandler(){
 
@@ -43,8 +42,26 @@ public class GuiHandler {
         return gameWindow;
     }
 
+    public void setSettingsFrame(SettingsFrame settingsFrame) {
+        this.settingsFrame = settingsFrame;
+    }
+
+    public SettingsFrame getSettingsFrame() {
+        return settingsFrame;
+    }
+
+    public void setJoinServerFrame(JoinServerFrame joinServerFrame) {
+        this.joinServerFrame = joinServerFrame;
+    }
+
+    public JoinServerFrame getJoinServerFrame() {
+        return joinServerFrame;
+    }
+
+
     public void closeGameFrame(){
         this.gameWindow.dispose();
         this.gameWindow = null;
+        this.settingsFrame.setVisible(true);
     }
 }

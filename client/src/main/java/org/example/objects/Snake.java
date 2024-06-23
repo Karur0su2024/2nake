@@ -1,9 +1,10 @@
 package org.example.objects;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.GameSettings;
-import org.example.gui.Sidebar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,14 +17,33 @@ public class Snake {
     private int bodyParts = 6; // Počet částí hada
     private int[] x; // Pole obsahující x-ové souřadnice jednotlivých částí hada
     private int[] y; // Pole obsahující y-ové souřadnice jednotlivých částí hada
+    private String name;
 
     @JsonIgnore
     private int maxSize; // Maximální velikost hada
 
     private int speed; // Rychlost hada
 
-    @JsonIgnore
-    Sidebar sidebar; // Boční panel, ve kterém je had zobrazen
+
+    @JsonCreator
+    public Snake(
+            @JsonProperty("direction") char direction,
+            @JsonProperty("bodyParts") int bodyParts,
+            @JsonProperty("x") int[] x,
+            @JsonProperty("y") int[] y,
+            @JsonProperty("name") String name,
+            @JsonProperty("speed") int speed) {
+        this.direction = direction;
+        this.bodyParts = bodyParts;
+        this.x = x;
+        this.y = y;
+        this.name = name;
+        this.speed = speed;
+        this.maxSize = x.length*y.length;
+    }
+
+
+
 
     /**
      * Konstruktor pro vytvoření hada s určitou maximální velikostí a počátečním počtem částí.
@@ -31,17 +51,18 @@ public class Snake {
      * @param maxSize  maximální velikost hada
      * @param bodySize počáteční počet částí hada
      */
-    public Snake(int maxSize, int bodySize) {
-        //this.sidebarPanel = sidebarPanel;
+    public Snake(int maxSize, int bodySize, int x, int y, char dir, String name) {
         this.maxSize = maxSize;
-        x = new int[maxSize];
-        y = new int[maxSize];
-
+        this.x = new int[maxSize];
+        this.y = new int[maxSize];
+        direction = dir;
+        setHead(x, y);
         bodyParts = bodySize;
-
         setSpeed();
-
+        this.name = name;
     }
+
+
 
     /**
      * Prázdný konstruktor pro serializaci pomocí Jackson ObjectMapper.
@@ -214,15 +235,6 @@ public class Snake {
     }
 
     /**
-     * Metoda pro nastavení bočního panelu, ve kterém je had zobrazen.
-     *
-     * @param sidebar boční panel
-     */
-    public void setSidebarPanel(Sidebar sidebar) {
-        this.sidebar = sidebar;
-    }
-
-    /**
      * Metoda pro získání x-ových souřadnic částí hada.
      *
      * @return pole x-ových souřadnic částí hada
@@ -241,15 +253,6 @@ public class Snake {
     }
 
     /**
-     * Metoda pro získání bočního panelu, ve kterém je had zobrazen.
-     *
-     * @return boční panel
-     */
-    public Sidebar getSidebarPanel() {
-        return sidebar;
-    }
-
-    /**
      * Metoda pro nastavení hlavy hada na zadané x-ové a y-ové souřadnice.
      *
      * @param x x-ová souřadnice hlavy hada
@@ -258,5 +261,9 @@ public class Snake {
     public void setHead(int x, int y) {
         this.x[0] = x;
         this.y[0] = y;
+    }
+
+    public String getName() {
+        return name;
     }
 }

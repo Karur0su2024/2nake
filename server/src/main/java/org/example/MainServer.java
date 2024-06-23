@@ -1,17 +1,13 @@
 package org.example;
 
-import org.example.objects.Snake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
-import javax.swing.*;
 
 /**
  * Třída GameServer představuje serverovou část hry, která spravuje spojení s klienty,
@@ -34,18 +30,16 @@ public class MainServer {
         try {
             serverSocket = new ServerSocket(PORT);
             log.info("Spouštím server");
+
             while (alive) {
                 try {
                     Socket clientSocket = serverSocket.accept();
-                    ClientHandler clientHandler = new ClientHandler(clientSocket, this);
+                    ClientHandler clientHandler = new ClientHandler(clientSocket);
 
-
-                    log.info("Hráč " + clientHandlers.size() + " se připojil do hry");
                     clientHandlers.add(clientHandler);
                     new Thread(clientHandler).start();
 
-                    System.out.println(clientHandlers.size());
-                    if (clientHandlers.size() == 2) {
+                    if (clientHandlers.size() % 2 == 0) {
                         int i = 0;
                         ClientHandler[] ch = new ClientHandler[2];
                         for (ClientHandler clientHandler1 : clientHandlers) {
@@ -53,17 +47,13 @@ public class MainServer {
                             i++;
                         }
 
-                        GameServer gm = new GameServer(ch);
+                        GameServer gm = new GameServer(ch, serverSocket, servers.size());
                         new Thread(gm).start();
-                        servers.add(gm);
 
                         clientHandlers.clear();
+                    }
+                } catch (IOException _) {
 
-                    }
-                } catch (IOException e) {
-                    if (alive) {
-                        log.error("Server accept error: " + e);
-                    }
                 }
             }
         } catch (IOException e) {

@@ -1,6 +1,7 @@
 package org.example.gui;
 
 import org.example.GameClient;
+import org.example.GuiHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,20 +13,17 @@ import java.awt.event.WindowEvent;
  */
 public class JoinServerFrame extends JFrame {
 
-    private final MainMenu mainMenu;
-
     private GameClient gameClient;
     private JLabel message;
     private JButton submitButton;
+    private JTextField nameTextField;
+    private GuiHandler gui;
 
-    /**
-     * Konstruktor pro inicializaci okna připojení k serveru.
-     *
-     * @param mainMenu hlavní menu aplikace
-     */
-    public JoinServerFrame(MainMenu mainMenu) {
+
+    public JoinServerFrame(GuiHandler gui) {
         setTitle("Snake Game Settings");
-        this.mainMenu = mainMenu;
+        this.gui = gui;
+        this.gui.setJoinServerFrame(this);
         setSize(400, 500);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +32,10 @@ public class JoinServerFrame extends JFrame {
         message = new JLabel("");
 
         // Tlačítko pro odeslání požadavku na připojení
+
+        nameTextField = new JTextField("aaa");
+        add(nameTextField);
+
         submitButton = new JButton("Start Game");
         submitButton.addActionListener(e -> setGame());
         add(submitButton);
@@ -53,7 +55,7 @@ public class JoinServerFrame extends JFrame {
      * Spustí klienta hry po stisknutí tlačítka "Start Game".
      */
     private void setGame() {
-        new GameClient(mainMenu, this);
+        new GameClient(gui, nameTextField.getText());
     }
 
     /**

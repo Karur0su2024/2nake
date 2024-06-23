@@ -15,10 +15,9 @@ public interface GameHandler {
     /**
      * Odesílá akci určenou konkrétnímu hráči identifikovanému indexem hráče.
      *
-     * @param player Index hráče, který vykonává akci
      * @param key    Kód klávesy reprezentující akci hráče
      */
-    void sendPlayerAction(int player, int key);
+    void sendPlayerAction(int key);
 
     /**
      * Přijímá aktuální stav hry ve formě řetězce.
@@ -31,4 +30,6 @@ public interface GameHandler {
      * Aktualizuje stav hry na straně klienta.
      */
     void updateGame();
+
+    void resetTime();
 }

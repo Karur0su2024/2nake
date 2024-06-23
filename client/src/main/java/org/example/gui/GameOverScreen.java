@@ -11,18 +11,23 @@ import java.awt.event.ActionListener;
 /**
  * Okno zobrazené po ukončení hry. Zobrazuje možnosti pro restart, nastavení a ukončení hry.
  */
-public class GameOverFrame extends JFrame {
+public class GameOverScreen extends JFrame {
 
     /**
      * Konstruktor pro vytvoření okna po ukončení hry.
      *
      */
-    public GameOverFrame(GuiHandler gui) {
+
+    private GuiHandler gui;
+
+    public GameOverScreen(GuiHandler gui) {
         setTitle("Game Over");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
+
+        this.gui = gui;
 
         JLabel messageLabel = new JLabel("Game Over", SwingConstants.CENTER);
         messageLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -35,7 +40,7 @@ public class GameOverFrame extends JFrame {
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //gui.getGameFrame().getGamePanel()..restart(); // Restartovat hru
+                gui.getGameFrame().getGamePanel().getGameLogic().restart(gui.getGameFrame().getGamePanel().getGameLogic().getOGGame()); // Restartovat hru
                 dispose(); // Zavřít okno po restartu
             }
         });
@@ -58,8 +63,10 @@ public class GameOverFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gui.closeGameFrame();
+                gui.getSettingsFrame().dispose();
+                gui.setSettingsFrame(null);
                 dispose(); // Zavřít okno po ukončení
-                gui.toggleMainMenu();
+
             }
         });
         buttonPanel.add(exitButton);

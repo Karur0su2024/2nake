@@ -1,11 +1,15 @@
 package org.example;
 
+import org.example.objects.Food;
+import org.example.objects.GamePlan;
+import org.example.objects.Obstacle;
 import org.example.objects.Snake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -18,9 +22,11 @@ public class GameServer implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(GameServer.class);
     private final ClientHandler[] clientHandlers;
-    private volatile boolean alive = true;
+    private boolean alive = true;
+    private int id;
     private int time;
-    private Game game;
+
+    private GameLogicHandler gameLogic;
     private ServerSocket serverSocket;
     private final ScheduledExecutorService scheduler;
 
@@ -30,12 +36,19 @@ public class GameServer implements Runnable {
      *
      * @param clientHandlers array of ClientHandler instances representing connected clients
      */
-    public GameServer(ClientHandler[] clientHandlers) {
+    public GameServer(ClientHandler[] clientHandlers, ServerSocket serverSocket, int id) {
+        this.alive = true;
         this.clientHandlers = clientHandlers;
+        this.serverSocket = serverSocket;
         this.scheduler = Executors.newScheduledThreadPool(1);
+        this.id = id;
+
+        for(ClientHandler ch : clientHandlers){
+            ch.setServer(this);
+        }
 
         startGame();
-        initializeClients();
+
     }
 
     /**
@@ -43,8 +56,11 @@ public class GameServer implements Runnable {
      */
     private void initializeClients() {
         for (int i = 0; i < clientHandlers.length; i++) {
-            clientHandlers[i].setGame(game);
-            clientHandlers[i].setPlayer(i);
+
+            clientHandlers[i].out.println("start " + gameLogic.getGame().toString());
+
+            //clientHandlers[i].sendGame(game);
+
         }
     }
 
@@ -54,32 +70,42 @@ public class GameServer implements Runnable {
      */
     private void startGame() {
         time = 0;
-        game = new Game(2, 60, 50, 20, 10, 6, 240); // Predefined game parameters
-        broadcastMessage("start");
-        log.info("Game started");
-        game.startGame();
-        scheduler.scheduleAtFixedRate(this, 5, 25, TimeUnit.MILLISECONDS);
-        broadcastGame();
-    }
+        gameLogic = new GameLogicHandler(new Game(new GamePlan(45, 30), new Obstacle[60], new Food[6]), 6, 2);
 
-    /**
-     * Sends a message to all clients connected to the server.
-     *
-     * @param message message to send
-     */
-    private synchronized void broadcastMessage(String message) {
-        for (ClientHandler client : clientHandlers) {
-            client.out.println(message);
+        for(ClientHandler ch : clientHandlers){
+            gameLogic.addSnake(ch.getSnake());
+            System.out.println(ch.getSnake().toString());
         }
+
+        initializeClients();
+        gameLogic.startGame();
+
+        scheduler.scheduleAtFixedRate(this, 0, 200, TimeUnit.MILLISECONDS);
+        broadcastGame();
+
+
+
+        log.info("Game started");
     }
 
     /**
      * Sends the current game state to all clients connected to the server.
      */
     private synchronized void broadcastGame() {
-        String gameState = game.toString();
+        String gameState = gameLogic.getGame().toString();
         for (ClientHandler client : clientHandlers) {
-            client.out.println(gameState);
+            client.out.println("game " + gameState);
+        }
+    }
+
+    /**
+     * Sends the current game state to all clients connected to the server.
+     */
+    private synchronized void broadcastMessage(String message) {
+        for (ClientHandler client : clientHandlers) {
+            if(client.isAlive()){
+                client.out.println(message);
+            }
         }
     }
 
@@ -89,46 +115,51 @@ public class GameServer implements Runnable {
      */
     @Override
     public void run() {
-        if (!alive) {
-            return;
-        }
 
-        time++;
-        synchronized (game) {
-            if (game.isRunning()) {
-                if (time % (100 * game.getPlayers()) == 0) {
-                    game.generateAction();
-                }
+            while(alive){
+                synchronized (gameLogic.getGame()) {
+                while(gameLogic.isRunning()){
+                    time++;
 
-                if (time % (40 * game.getPlayers()) == 0) {
-                    game.decreaseTime();
-                }
-
-                for (Snake snake : game.getSnakes()) {
-                    if (time % snake.getSpeed() == 0) {
-                        snake.move();
-                        game.checkCollisions();
-                        game.checkFood();
-                        System.out.println(game.toString());
+                    if (time % 10000 == 0) {
+                        gameLogic.generateAction();
                     }
-                    if (game.getTime() == 0) {
-                        game.setRunning(false);
-                        log.info("Game ended");
+
+                    if (time % 8000 == 0) {
+                        gameLogic.getGame().decreaseTime();
                     }
+
+                    for (Snake snake : gameLogic.getGame().getSnakes()) {
+                        if (time % (snake.getSpeed()*10) == 0) {
+                            snake.move();
+                            gameLogic.checkCollisions();
+                            gameLogic.checkFood();
+
+                        }
+                        if (gameLogic.getGame().getTime() == 0) {
+
+                        }
+                    }
+                    broadcastGame();
+
+
+                    for(ClientHandler ch: clientHandlers){
+
+                    }
+
+                    //log.info("Test: " + gameLogic.getGame().toString());
                 }
             }
-            broadcastGame();
+                for (ClientHandler ch : clientHandlers) {
+                    if (!ch.isAlive()) {
+                        terminate();
+                        log.info("Shutting down game server due to client disconnection.");
+                        //terminate();
+                    }
+                }
+
         }
 
-        // Check if any client handlers are not alive
-        for (ClientHandler ch : clientHandlers) {
-            if (!ch.isAlive()) {
-                alive = false;
-                scheduler.shutdown();
-                log.info("Shutting down game server due to client disconnection.");
-                break;
-            }
-        }
     }
 
     /**
@@ -136,17 +167,25 @@ public class GameServer implements Runnable {
      */
     public void terminate() {
         alive = false;
+
         scheduler.shutdown();
         try {
-            if (serverSocket != null) {
-                serverSocket.close();
-            }
             for (ClientHandler clientHandler : clientHandlers) {
                 clientHandler.closeConnection();
             }
+            if (serverSocket != null) {
+                broadcastMessage("stop");
+                serverSocket.close();
+            }
+
         } catch (IOException e) {
             log.error("Error during server termination: ", e);
         }
         log.info("Server stopped.");
+    }
+
+
+    public GameLogicHandler getGameLogic() {
+        return gameLogic;
     }
 }

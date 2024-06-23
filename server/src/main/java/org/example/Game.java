@@ -4,15 +4,12 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.example.objects.Food;
 import org.example.objects.GamePlan;
 import org.example.objects.Obstacle;
 import org.example.objects.Snake;
-import org.example.ui.SidebarPanel;
+import org.example.gui.SidebarPanel;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.Random;
 
 import org.slf4j.Logger;

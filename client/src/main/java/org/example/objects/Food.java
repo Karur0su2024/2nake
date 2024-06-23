@@ -2,7 +2,6 @@ package org.example.objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.example.CustomColorDeserializer;
 import org.example.GameSettings;
 
 import javax.swing.*;
@@ -18,24 +17,13 @@ public class Food {
     private int y = 0;
     private int points = 0;
 
-    @JsonDeserialize(using = CustomColorDeserializer.class)
     private Color color;
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    private Random r;
-
-    /**
-     * Konstruktor pro vytvoření nové instance jídla na zadaných souřadnicích.
-     *
-     * @param X X souřadnice jídla
-     * @param Y Y souřadnice jídla
-     */
-    public Food(int X, int Y){
+    public Food(int X, int Y, int r){
         this.x = X;
         this.y = Y;
 
-        r = new Random();
-        if(r.nextInt(30)-5 > 0){
+        if(r > 0){
             this.points = 1;
         }
         else {

@@ -1,13 +1,12 @@
 package org.example;
 
 import org.example.objects.Snake;
-import org.example.ui.GamePanel;
+import org.example.gui.GamePanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.Random;
 
 /**
  * Třída zajišťující lokální obsluhu hry, implementuje rozhraní GameHandler a ActionListener.

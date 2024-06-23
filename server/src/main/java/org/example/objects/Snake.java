@@ -2,9 +2,7 @@ package org.example.objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.example.ui.SidebarPanel;
-
-import java.awt.*;
+import org.example.gui.SidebarPanel;
 
 /**
  * Třída reprezentující hada ve hře.

@@ -1,4 +1,4 @@
-package org.example.ui;
+package org.example.gui;
 
 import org.example.Main;
 import org.slf4j.Logger;

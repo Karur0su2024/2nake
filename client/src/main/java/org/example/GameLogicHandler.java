@@ -33,13 +33,13 @@ public class GameLogicHandler {
 
 
     private void setPlayers() {
-        for (int i = 0; i < game.getPlayers(); i++) {
-            game.getSnakes()[i] = new Snake(game.getWidth()*game.getHeight(), game.getSize());
+        for (int i = 0; i < game.getSnakes().length; i++) {
+            game.getSnakes()[i] = new Snake(game.getGamePlan().getWidth() * game.getGamePlan().getHeight(), game.getSize());
             if (i == 0) {
                 game.getSnakes()[i].setHead(0, 0);
                 game.getSnakes()[i].setDirection('R');
             } else if (i == 1) {
-                game.getSnakes()[i].setHead(game.getWidth() - 1, game.getHeight() - 1);
+                game.getSnakes()[i].setHead(game.getGamePlan().getWidth() - 1, game.getGamePlan().getHeight() - 1);
                 game.getSnakes()[i].setDirection('L');
             }
         }
@@ -61,7 +61,7 @@ public class GameLogicHandler {
             y = random.nextInt(game.getGamePlan().getHeight());
             empty = isPositionEmpty(x, y);
         }
-        game.getFoods()[index] = new Food(x, y);
+        game.getFoods()[index] = new Food(x, y, random.nextInt(30)-5);
     }
 
     /**
@@ -184,6 +184,8 @@ public class GameLogicHandler {
             game.getFoods()[i] = null;
         }
     }
+
+
 
 
 }

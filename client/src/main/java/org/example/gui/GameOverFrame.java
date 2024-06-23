@@ -1,7 +1,6 @@
-package org.example.ui;
+package org.example.gui;
 
 import javax.swing.*;
-import org.example.Game;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

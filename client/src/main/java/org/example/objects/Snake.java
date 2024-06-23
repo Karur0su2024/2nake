@@ -3,7 +3,7 @@ package org.example.objects;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.example.GameSettings;
-import org.example.ui.SidebarPanel;
+import org.example.gui.SidebarPanel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,7 @@
-package org.example.ui;
+package org.example.gui;
 
 import org.example.*;
-import org.example.objects.Snake;
+import org.example.objects.GamePlan;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel {
         this.setFocusable(true);
 
         this.gameHandler = new LocalGameHandler(this);
-        this.game = new Game(players, width, height, obstacles, food, size, length);
+        this.game = new Game(players, new GamePlan(width, height), obstacles, food, size, length);
         this.game.setGameHandler(gameHandler);
         this.game.setSidebarPanel(sidebarPanel);
 
@@ -85,7 +85,7 @@ public class GamePanel extends JPanel {
         this.game.setGameHandler(gameHandler);
         this.game.setSidebarPanel(sidebarPanel);
 
-        this.setPreferredSize(new Dimension(game.getWidth() * GameSettings.UNIT_SIZE, game.getHeight() * GameSettings.UNIT_SIZE));
+        this.setPreferredSize(new Dimension(game.getGamePlan().getWidth() * GameSettings.UNIT_SIZE, game.getGamePlan().getHeight() * GameSettings.UNIT_SIZE));
         this.setFocusable(true);
 
         this.addKeyListener(new MyKeyAdapter());

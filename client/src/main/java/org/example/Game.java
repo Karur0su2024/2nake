@@ -4,15 +4,11 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
 import org.example.objects.Food;
 import org.example.objects.GamePlan;
 import org.example.objects.Obstacle;
 import org.example.objects.Snake;
-import org.example.ui.GameOverFrame;
-import org.example.ui.SidebarPanel;
+import org.example.gui.SidebarPanel;
 
 import java.awt.*;
 import java.util.Random;
@@ -20,7 +16,6 @@ import javax.swing.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import com.google.gson.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,8 +43,7 @@ public class Game {
     private boolean running = false;
     private int currentFood = 0;
     private int players = 1;
-    private int width = 45;
-    private int height = 30;
+
     private int time;
 
     @JsonIgnore
@@ -68,8 +62,6 @@ public class Game {
 
     @JsonCreator
     public Game(@JsonProperty("players") int players,
-                @JsonProperty("width") int width,
-                @JsonProperty("height") int height,
                 @JsonProperty("obstacles") Obstacle[] obstacles,
                 @JsonProperty("size") int size,
                 @JsonProperty("time") int time,
@@ -80,8 +72,6 @@ public class Game {
                 @JsonProperty("running") boolean running,
                 @JsonProperty("currentFood") int currentFood) {
         this.players = players;
-        this.width = width;
-        this.height = height;
         this.obstacles = obstacles;
         this.size = size;
         this.time = time;
@@ -97,20 +87,16 @@ public class Game {
      * Konstruktor pro vytvoření instance hry s implicitně zadanými parametry.
      *
      * @param players počet hráčů ve hře
-     * @param width šířka herní plochy
-     * @param height výška herní plochy
      * @param obstacles počet překážek ve hře
      * @param food počet jídel ve hře
      * @param size počáteční velikost hada
      * @param time čas na hru
      */
-    public Game(int players, int width, int height, int obstacles, int food, int size, int time) {
+    public Game(int players, GamePlan gamePlan, int obstacles, int food, int size, int time) {
         this.players = players;
-        this.width = width;
-        this.height = height;
         this.time = time;
         this.random = new Random();
-        this.gamePlan = new GamePlan(width, height);
+        this.gamePlan = gamePlan;
         this.obstacles = new Obstacle[obstacles];
         this.foods = new Food[food];
         this.snakes = new Snake[players];
@@ -130,7 +116,6 @@ public class Game {
      * Inicializuje hru nastavením hráčů, překážek a vyčištěním jídel.
      */
     public void initializeGame() {
-        setPlayers();
         running = true;
         updateSidebar();
         sidebarPanel.setTime();
@@ -141,7 +126,7 @@ public class Game {
      */
     private void updateSidebar() {
         sidebarPanel.setGame(this);
-        sidebarPanel.setScores();
+        //sidebarPanel.setScores();
     }
 
 
@@ -189,18 +174,7 @@ public class Game {
      * Nastaví počet hráčů v hře.
      **/
 
-    private void setPlayers() {
-        for (int i = 0; i < players; i++) {
-            snakes[i] = new Snake(width * height, size);
-            if (i == 0) {
-                snakes[i].setHead(0, 0);
-                snakes[i].setDirection('R');
-            } else if (i == 1) {
-                snakes[i].setHead(width - 1, height - 1);
-                snakes[i].setDirection('L');
-            }
-        }
-    }
+
 
 
     /**
@@ -286,14 +260,6 @@ public class Game {
         return players;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
     public int getTime() {
         return time;
     }
@@ -344,14 +310,6 @@ public class Game {
 
     public void setPlayers(int players) {
         this.players = players;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public void setTime(int time) {

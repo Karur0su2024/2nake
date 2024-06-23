@@ -55,8 +55,11 @@ public class Obstacle {
      * @param g grafický kontext, na kterém se má překážka vykreslit
      */
     public void paint(Graphics g){
-        g.setColor(Color.gray);
+        g.setColor(new Color(156, 123, 76));
         g.fillRect(this.x * GameSettings.UNIT_SIZE, this.y * GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
+        g.setColor(Color.BLACK);
+        g.drawLine(this.x * GameSettings.UNIT_SIZE, this.y * GameSettings.UNIT_SIZE, (this.x+1) * GameSettings.UNIT_SIZE, (this.y+1) * GameSettings.UNIT_SIZE);
+        g.drawLine((this.x+1) * GameSettings.UNIT_SIZE, this.y * GameSettings.UNIT_SIZE, this.x * GameSettings.UNIT_SIZE, (this.y+1) * GameSettings.UNIT_SIZE);
     }
 
     /**

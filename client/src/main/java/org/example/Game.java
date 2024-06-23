@@ -33,12 +33,7 @@ public class Game {
 
     private int size = 6;
 
-    private int players = 1;
-
     private int time;
-
-    @JsonIgnore
-    private GameHandler gameHandler;
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -52,14 +47,12 @@ public class Game {
     }
 
     @JsonCreator
-    public Game(@JsonProperty("players") int players,
-                @JsonProperty("obstacles") Obstacle[] obstacles,
+    public Game(@JsonProperty("obstacles") Obstacle[] obstacles,
                 @JsonProperty("size") int size,
                 @JsonProperty("time") int time,
                 @JsonProperty("snakes") Snake[] snakes,
                 @JsonProperty("foods") Food[] foods,
                 @JsonProperty("gamePlan") GamePlan gamePlan) {
-        this.players = players;
         this.obstacles = obstacles;
         this.size = size;
         this.time = time;
@@ -69,7 +62,6 @@ public class Game {
     }
 
     public Game(GameSettings gameSettings) {
-        this.players = gameSettings.getNoPlayers();
         this.time = gameSettings.getTimeLimit();
         this.gamePlan = gameSettings.getGamePlan();
         this.obstacles = gameSettings.getObstacles();
@@ -140,9 +132,6 @@ public class Game {
         return size;
     }
 
-    public int getPlayers() {
-        return players;
-    }
 
     public int getTime() {
         return time;
@@ -150,9 +139,5 @@ public class Game {
 
     public void setSnakes(Snake[] snakes) {
         this.snakes = snakes;
-    }
-
-    public void setGameHandler(GameHandler gameHandler) {
-        this.gameHandler = gameHandler;
     }
 }

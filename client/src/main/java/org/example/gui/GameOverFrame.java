@@ -46,7 +46,7 @@ public class GameOverFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Otevřít okno s nastavením
-                new SettingsFrame(gui, gui.getGameFrame().getGamePanel().getGame().getPlayers());
+                new SettingsFrame(gui);
                 gui.closeGameFrame();
                 dispose(); // Zavřít okno po ukončení
             }

@@ -579,3 +579,46 @@ java.net.ConnectException: Connection refused: connect
 2024-06-23 14:50:55 [main] INFO  org.example.Main - Spouštím program
 2024-06-23 14:50:56 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
 2024-06-23 14:50:56 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru
+2024-06-23 14:52:15 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 14:52:16 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 14:52:17 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru
+2024-06-23 14:54:20 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 14:54:21 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 14:54:30 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 14:54:31 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 14:54:31 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru
+2024-06-23 14:54:35 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 14:54:37 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru
+2024-06-23 14:55:59 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 14:56:01 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 14:56:02 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru
+2024-06-23 15:04:01 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:04:05 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:04:23 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:04:29 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:05:59 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:06:00 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:06:35 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:06:36 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:06:38 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru
+2024-06-23 15:10:58 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:10:59 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:11:00 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru
+2024-06-23 15:24:59 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:25:00 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:25:01 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru...
+2024-06-23 15:26:24 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:26:26 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:26:27 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru...
+2024-06-23 15:30:00 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:30:11 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:30:11 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru...
+2024-06-23 15:30:39 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:30:40 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:30:41 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru...
+2024-06-23 15:31:24 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:31:25 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:31:25 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru...
+2024-06-23 15:37:16 [main] INFO  org.example.Main - Spouštím program
+2024-06-23 15:37:17 [AWT-EventQueue-0] INFO  org.example.Main - Otevírám nastavení hry
+2024-06-23 15:37:17 [AWT-EventQueue-0] INFO  org.example.Main - Spouštím hru...

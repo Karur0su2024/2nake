@@ -12,33 +12,25 @@ import java.awt.event.WindowEvent;
 /**
  * Okno aplikace pro zobrazení hry. Obsahuje herní panel a boční panel s informacemi.
  */
-public class GameFrame extends JFrame {
+public class GameWindow extends JFrame {
 
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     private final GuiHandler gui;
     private final GamePanel gamePanel;
 
+    public GameWindow(GameSettings gameSettings, GuiHandler gui) {
+        log.info("Spouštím hru...");
 
-    /**
-     * Konstruktor pro spuštění nové hry.
-     *
-     * @param gameMode herní režim (lokální nebo vzdálený)
-     * @param gameClient klient pro vzdálenou hru
-     */
-    public GameFrame(GameSettings gameSettings, GuiHandler gui, String gameMode, GameClient gameClient) {
         this.gui = gui;
         gui.setGameFrame(this);
-        this.setLayout(new BorderLayout());
-        log.info("Spouštím hru");
-
         gui.setSidebar(new Sidebar(gameSettings.getNoPlayers()));
+        this.setLayout(new BorderLayout());
 
-        gamePanel = new GamePanel(gameSettings, gui, gameMode, gameClient);
+        gamePanel = new GamePanel(gameSettings, gui);
+
         this.add(gamePanel, BorderLayout.CENTER);
-
         this.add(gui.getSidebar(), BorderLayout.EAST);
-
         this.setTitle("2nake");
         this.setResizable(false);
         this.pack();
@@ -61,7 +53,7 @@ public class GameFrame extends JFrame {
      * @param menuFrame hlavní menu aplikace
      * @param player pořadové číslo hráče
      */
-    public GameFrame(Game game, GameClient gameClient, MainMenu menuFrame, int player) {
+    public GameWindow(Game game, GameClient gameClient, MainMenu menuFrame, int player) {
         this.gui = new GuiHandler(); // Opravit
         this.setLayout(new BorderLayout());
 

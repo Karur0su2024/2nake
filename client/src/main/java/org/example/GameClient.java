@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.objects.Snake;
-import org.example.gui.GameFrame;
+import org.example.gui.GameWindow;
 import org.example.gui.GamePanel;
 import org.example.gui.JoinServerFrame;
 import org.example.gui.MainMenu;
@@ -29,7 +29,7 @@ public class GameClient {
     private boolean started = false;
     private Game game; // Reference na stav hry
     public MainMenu menuFrame;
-    private GameFrame gameFrame;
+    private GameWindow gameWindow;
     public JoinServerFrame joinServerFrame;
 
     /**
@@ -82,7 +82,7 @@ public class GameClient {
      * @param key    klíčová událost klávesy
      */
     public void sendMessage(int player, int key) {
-        Snake snake = gamePanel.getGame().getSnakes()[player];
+        Snake snake = gamePanel.getGameLogic().getGame().getSnakes()[player];
         char direction = snake.getDirection();
 
         switch (key) {
@@ -128,12 +128,12 @@ public class GameClient {
             try {
                 String message;
                 while ((message = in.readLine()) != null) {
-                    if (started && gameFrame != null) {
+                    if (started && gameWindow != null) {
                         updateGameState(message);
                     }
-                    if (started && gameFrame == null && player != 99) {
+                    if (started && gameWindow == null && player != 99) {
                         game = Game.fromString(message);
-                        gameFrame = new GameFrame(game, GameClient.this, menuFrame, player);
+                        gameWindow = new GameWindow(game, GameClient.this, menuFrame, player);
                     }
                     if (message.equals("start")) {
                         started = true;

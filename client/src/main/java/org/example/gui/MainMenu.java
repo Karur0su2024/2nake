@@ -5,7 +5,6 @@ import org.example.GuiHandler;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Hlavní okno aplikace obsahující hlavní menu pro výběr herních režimů a možností.
@@ -19,7 +18,6 @@ public class MainMenu extends JFrame {
         GuiHandler gui = new GuiHandler();
         gui.setMainMenu(this);
 
-
         // Nastavení titulku a výchozí operace při zavření
         setTitle("2nake");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,64 +26,69 @@ public class MainMenu extends JFrame {
 
         // Vytvoření panelu pro hlavní menu
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(5, 1, 20, 10));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Vytvoření tlačítek
-        JButton start1player = new JButton("Hra pro jednoho hráče");
-        JButton start2players = new JButton("Hra pro dva hráče");
-        JButton startServer = new JButton("Servery");
-        JButton instructionsButton = new JButton("Nápověda");
-        JButton exitButton = new JButton("Konec");
+        JButton startLocalGameButton = createButton("Lokální hra");
+        startLocalGameButton.addActionListener(e -> new SettingsFrame(gui));
 
-        // Přidání posluchačů událostí pro tlačítka
-        start1player.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Spuštění hry pro jednoho hráče
-                new SettingsFrame(gui, 1);
-            }
-        });
 
-        start2players.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Spuštění hry pro dva hráče
-                new SettingsFrame(gui, 2);
-            }
-        });
+        JButton startServerButton = createButton("Servery");
+        startServerButton.addActionListener(e -> new JoinServerFrame(MainMenu.this));
 
-        startServer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Spuštění okna pro připojení k serveru
-                new JoinServerFrame(MainMenu.this);
-            }
-        });
+        JButton instructionsButton = createButton("Nápověda");
+        instructionsButton.addActionListener(e -> showInstructions());
 
-        instructionsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Zobrazení nápovědy
-                JOptionPane.showMessageDialog(null, "Pro pohyb hada použijte klávesy šipek nebo ASDW.\nModré jídlo prodlužuje hada červené ho zkracuje.\nPokud nabouráte do překážky nebo těla hada prohráváte.", "Instructions", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Ukončení aplikace
-                System.exit(0);
-            }
-        });
+        JButton exitButton = createButton("Konec");
+        exitButton.addActionListener(e -> System.exit(0));
 
         // Přidání tlačítek do panelu
-        panel.add(start1player);
-        panel.add(start2players);
-        panel.add(startServer);
+        panel.add(startLocalGameButton);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(startServerButton);
+        panel.add(Box.createVerticalStrut(10));
         panel.add(instructionsButton);
+        panel.add(Box.createVerticalStrut(10));
         panel.add(exitButton);
 
         // Přidání panelu do rámečku
         add(panel);
+    }
+
+    /**
+     * Vytvoří tlačítko s daným textem a akcí.
+     *
+     * @param text text tlačítka
+     * @return vytvořené tlačítko
+     */
+    private JButton createButton(String text) {
+        JButton button = new JButton(text);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setMaximumSize(new Dimension(200, 40));
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        return button;
+    }
+
+    /**
+     * Zobrazuje instrukce k ovládání hry.
+     */
+    private void showInstructions() {
+        String instructions = "Pro pohyb hada použijte klávesy šipek nebo ASDW.\n" +
+                "Modré jídlo prodlužuje hada, červené ho zkracuje.\n" +
+                "Pokud nabouráte do překážky nebo těla hada, prohráváte.";
+        JOptionPane.showMessageDialog(this, instructions, "Nápověda", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Hlavní metoda pro spuštění hlavního menu.
+     *
+     * @param args argumenty příkazového řádku
+     */
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.setVisible(true);
+        });
     }
 }

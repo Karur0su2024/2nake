@@ -109,6 +109,7 @@ public class LocalGameHandler implements GameHandler, ActionListener {
                     snake.move();
                     gameLogic.checkCollisions();
                     gameLogic.checkFood();
+
                 }
                 if (game.getTime() == 0) {
                     gameLogic.setRunning(false);
@@ -119,6 +120,7 @@ public class LocalGameHandler implements GameHandler, ActionListener {
                 gamePanel.showGameOverDialog();
             }
         }
+        gameLogic.updateSidebar();
         gamePanel.repaint();
     }
 

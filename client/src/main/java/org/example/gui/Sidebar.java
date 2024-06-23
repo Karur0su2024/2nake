@@ -1,6 +1,7 @@
 package org.example.gui;
 
 import org.example.Game;
+import org.example.objects.Snake;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +14,6 @@ import java.awt.event.ActionListener;
 public class Sidebar extends JPanel implements ActionListener {
     private final JLabel[] scoreLabel;
     private final JLabel timeLabel;
-    private Game game;
-
     /**
      * Konstruktor pro vytvoření bočního panelu s informacemi o skóre hráčů a času.
      *
@@ -45,28 +44,20 @@ public class Sidebar extends JPanel implements ActionListener {
         // Prázdná metoda pro implementaci rozhraní ActionListener
     }
 
-    /**
-     * Metoda pro nastavení instance hry, která poskytuje informace o skóre hráčů.
-     *
-     * @param game Instance hry, která obsahuje informace o hráčích
-     */
-    public void setGame(Game game) {
-        this.game = game;
-    }
 
     /**
      * Metoda pro aktualizaci zobrazení skóre hráčů v bočním panelu.
      */
-    public void setScores() {
-        for (int i = 0; i < game.getSnakes().length; i++) {
-            scoreLabel[i].setText("Snake " + (i + 1) + ": " + game.getSnakes()[i].getBodyParts());
+    public void setScores(Snake[] snakes) {
+        for (int i = 0; i < snakes.length; i++) {
+            scoreLabel[i].setText("Snake " + (i + 1) + ": " + snakes[i].getBodyParts());
         }
     }
 
     /**
      * Metoda pro aktualizaci zobrazení zbývajícího času hry v bočním panelu.
      */
-    public void setTime() {
-        timeLabel.setText("Time left: " + game.getTime() + "s");
+    public void setTime(int time) {
+        timeLabel.setText("Time left: " + time + "s");
     }
 }

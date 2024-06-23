@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.gui.GameFrame;
+import org.example.gui.GameWindow;
 import org.example.gui.MainMenu;
 import org.example.gui.Sidebar;
 
@@ -8,7 +8,7 @@ public class GuiHandler {
 
     private Sidebar sidebar;
     private MainMenu mainMenu;
-    private GameFrame gameFrame;
+    private GameWindow gameWindow;
 
 
     public GuiHandler(){
@@ -35,16 +35,16 @@ public class GuiHandler {
         return sidebar;
     }
 
-    public void setGameFrame(GameFrame gameFrame) {
-        this.gameFrame = gameFrame;
+    public void setGameFrame(GameWindow gameWindow) {
+        this.gameWindow = gameWindow;
     }
 
-    public GameFrame getGameFrame() {
-        return gameFrame;
+    public GameWindow getGameFrame() {
+        return gameWindow;
     }
 
     public void closeGameFrame(){
-        this.gameFrame.dispose();
-        this.gameFrame = null;
+        this.gameWindow.dispose();
+        this.gameWindow = null;
     }
 }

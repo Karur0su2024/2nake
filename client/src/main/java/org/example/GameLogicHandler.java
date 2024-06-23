@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class GameLogicHandler {
 
+    private GuiHandler gui;
     private Game game;
     private Timer timer;
     private Random random = null;
@@ -18,9 +19,9 @@ public class GameLogicHandler {
 
     private GameHandler gameHandler;
 
-    public GameLogicHandler(Game game){
+    public GameLogicHandler(Game game, GuiHandler gui){
         this.game = game;
-        //this.gameHandler = gameHandler;
+        this.gui = gui;
         this.random = new Random();
     }
 
@@ -44,10 +45,9 @@ public class GameLogicHandler {
         initializeGame();
     }
 
-    private void updateSidebar() {
-        //sidebar.setGame(this);
-        //sidebarPanel.setScores();
-        //sidebarPanel.setTime();
+    public void updateSidebar() {
+        gui.getSidebar().setScores(game.getSnakes());
+        gui.getSidebar().setTime(game.getTime());
     }
 
 
@@ -219,5 +219,9 @@ public class GameLogicHandler {
 
     public Game getGame() {
         return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

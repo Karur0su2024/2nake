@@ -196,3 +196,34 @@
 2024-06-23 12:25:35 [Thread-1] INFO  org.example.Main - Server stopped.
 2024-06-23 12:25:35 [main] INFO  org.example.Main - Server stopped.
 2024-06-23 12:25:38 [Thread-9] INFO  org.example.Main - Server stopped.
+2024-06-23 12:27:24 [main] INFO  org.example.Main - Spouštím server
+2024-06-23 12:27:24 [main] INFO  org.example.Main - Spouštím server
+2024-06-23 12:27:30 [main] INFO  org.example.Main - Hráč 0 se připojil do hry
+2024-06-23 12:27:33 [main] INFO  org.example.Main - Hráč 1 se připojil do hry
+2024-06-23 12:27:33 [main] INFO  org.example.GameServer - Game started
+2024-06-23 12:27:33 [main] INFO  org.example.Main - Nastavení hráče: 0
+2024-06-23 12:27:33 [main] INFO  org.example.Main - Nastavení hráče: 1
+2024-06-23 12:27:43 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-23 12:27:43 [Thread-1] INFO  org.example.Main - Server stopped.
+2024-06-23 12:27:43 [main] INFO  org.example.Main - Server stopped.
+2024-06-23 12:27:43 [pool-1-thread-1] INFO  org.example.GameServer - Shutting down game server due to client disconnection.
+2024-06-23 12:31:13 [Thread-3] INFO  org.example.Main - Server stopped.
+2024-06-23 12:31:24 [main] INFO  org.example.Main - Spouštím server
+2024-06-23 12:31:24 [main] INFO  org.example.Main - Spouštím server
+2024-06-23 12:31:27 [main] INFO  org.example.Main - Hráč 0 se připojil do hry
+2024-06-23 12:31:31 [main] INFO  org.example.Main - Hráč 1 se připojil do hry
+2024-06-23 12:31:31 [main] INFO  org.example.GameServer - Game started
+2024-06-23 12:31:31 [main] INFO  org.example.Main - Nastavení hráče: 0
+2024-06-23 12:31:31 [main] INFO  org.example.Main - Nastavení hráče: 1
+2024-06-23 12:32:06 [main] INFO  org.example.Main - Spouštím server
+2024-06-23 12:32:06 [main] INFO  org.example.Main - Spouštím server
+2024-06-23 12:32:10 [main] INFO  org.example.Main - Hráč 0 se připojil do hry
+2024-06-23 12:32:12 [main] INFO  org.example.Main - Hráč 1 se připojil do hry
+2024-06-23 12:32:12 [main] INFO  org.example.GameServer - Game started
+2024-06-23 12:32:12 [main] INFO  org.example.Main - Nastavení hráče: 0
+2024-06-23 12:32:12 [main] INFO  org.example.Main - Nastavení hráče: 1
+2024-06-23 12:32:25 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-23 12:32:25 [Thread-1] INFO  org.example.Main - Server stopped.
+2024-06-23 12:32:25 [main] INFO  org.example.Main - Server stopped.
+2024-06-23 12:32:25 [pool-1-thread-1] INFO  org.example.GameServer - Shutting down game server due to client disconnection.
+2024-06-23 12:32:32 [Thread-3] INFO  org.example.Main - Server stopped.

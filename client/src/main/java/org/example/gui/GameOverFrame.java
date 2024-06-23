@@ -35,7 +35,7 @@ public class GameOverFrame extends JFrame {
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gui.getGameFrame().getGamePanel().getGame().restart(); // Restartovat hru
+                //gui.getGameFrame().getGamePanel()..restart(); // Restartovat hru
                 dispose(); // Zavřít okno po restartu
             }
         });

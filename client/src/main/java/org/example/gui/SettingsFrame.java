@@ -1,7 +1,11 @@
 package org.example.gui;
 
+import org.example.GameSettings;
 import org.example.GuiHandler;
 import org.example.Main;
+import org.example.objects.Food;
+import org.example.objects.GamePlan;
+import org.example.objects.Obstacle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,7 +84,8 @@ public class SettingsFrame extends JFrame {
         int snakeSize = parseField(snakeSizeField, 6, 1, (width * height) / 50);
         int time = parseField(timeField, 60, 30, 600);
 
-        new GameFrame(players, gui, width, height, obstacles, food, snakeSize, time, "local", null);
+        new GameFrame(new GameSettings(players, time, new GamePlan(width, height), new Obstacle[obstacles], new Food[food], snakeSize), gui, "local", null);
+
         gui.toggleMainMenu();
         dispose();
     }

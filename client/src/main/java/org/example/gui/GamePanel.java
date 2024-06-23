@@ -14,6 +14,9 @@ import java.awt.event.KeyEvent;
 public class GamePanel extends JPanel {
 
     private Game game;
+    private GameLogicHandler gameLogic;
+
+
     private final GameClient gameClient;
     private String gameMode;
     private final GameHandler gameHandler;
@@ -24,30 +27,24 @@ public class GamePanel extends JPanel {
     /**
      * Konstruktor pro vytvoření nové hry.
      *
-     * @param players počet hráčů
-     * @param width šířka herní plochy
-     * @param height výška herní plochy
-     * @param obstacles počet překážek
-     * @param food počet potravy
-     * @param size velikost jednotky herní plochy
-     * @param length délka hada
      * @param gameMode režim hry ("local" nebo "remote")
      * @param gameClient instance klienta pro komunikaci se serverem (pouze pro režim "remote")
      */
-    public GamePanel(int players, int width, int height, int obstacles, int food, int size, int length, GuiHandler gui, String gameMode, GameClient gameClient) {
+    public GamePanel(GameSettings gameSettings, GuiHandler gui, String gameMode, GameClient gameClient) {
         this.gui = gui;
         this.gameClient = gameClient;
         this.gameMode = gameMode;
 
-        this.setPreferredSize(new Dimension(width * GameSettings.UNIT_SIZE, height * GameSettings.UNIT_SIZE));
+        this.setPreferredSize(new Dimension(gameSettings.getGamePlan().getWidth() * GameSettings.UNIT_SIZE, gameSettings.getGamePlan().getHeight() * GameSettings.UNIT_SIZE));
         this.setFocusable(true);
+        this.game = new Game(gameSettings);
 
-        this.gameHandler = new LocalGameHandler(this);
-        this.game = new Game(players, new GamePlan(width, height), obstacles, food, size, length);
-        this.game.setGameHandler(gameHandler);
-        this.game.setSidebarPanel(gui.getSidebar());
+        this.gameLogic = new GameLogicHandler(game);
+        this.gameHandler = new LocalGameHandler(this, gameLogic);
+        this.gameLogic.setGameHandler(gameHandler);
 
-        this.game.startGame();
+        this.gameLogic.startGame();
+        //this.game.setSidebarPanel(gui.getSidebar());
 
         this.addKeyListener(new MyKeyAdapter());
         setFocusTraversalKeysEnabled(false);
@@ -70,7 +67,7 @@ public class GamePanel extends JPanel {
         this.player = player;
 
         this.game.setGameHandler(gameHandler);
-        this.game.setSidebarPanel(gui.getSidebar());
+        //this.game.setSidebarPanel(gui.getSidebar());
 
         this.setPreferredSize(new Dimension(game.getGamePlan().getWidth() * GameSettings.UNIT_SIZE, game.getGamePlan().getHeight() * GameSettings.UNIT_SIZE));
         this.setFocusable(true);
@@ -109,7 +106,7 @@ public class GamePanel extends JPanel {
             } else {
                 gameHandler.sendPlayerAction(0, key);
                 if (key == KeyEvent.VK_R) {
-                    game.restart();
+                    //game.restart();
                 }
             }
         }

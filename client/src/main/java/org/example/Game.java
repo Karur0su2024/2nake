@@ -30,18 +30,9 @@ public class Game {
     private Food[] foods = null;
     private Obstacle[] obstacles = null;
     private GamePlan gamePlan = null;
-    @JsonIgnore
-    private boolean deprecated;
 
-    @JsonIgnore
-    private Random random = null;
-
-    @JsonIgnore
-    private Sidebar sidebar = null;
     private int size = 6;
 
-    private boolean running = false;
-    private int currentFood = 0;
     private int players = 1;
 
     private int time;
@@ -67,10 +58,7 @@ public class Game {
                 @JsonProperty("time") int time,
                 @JsonProperty("snakes") Snake[] snakes,
                 @JsonProperty("foods") Food[] foods,
-                @JsonProperty("gamePlan") GamePlan gamePlan,
-                @JsonProperty("random") Random random,
-                @JsonProperty("running") boolean running,
-                @JsonProperty("currentFood") int currentFood) {
+                @JsonProperty("gamePlan") GamePlan gamePlan) {
         this.players = players;
         this.obstacles = obstacles;
         this.size = size;
@@ -78,67 +66,19 @@ public class Game {
         this.snakes = snakes;
         this.foods = foods;
         this.gamePlan = gamePlan;
-        this.random = random;
-        this.running = running;
-        this.currentFood = currentFood;
     }
 
-    /**
-     * Konstruktor pro vytvoření instance hry s implicitně zadanými parametry.
-     *
-     * @param players počet hráčů ve hře
-     * @param obstacles počet překážek ve hře
-     * @param food počet jídel ve hře
-     * @param size počáteční velikost hada
-     * @param time čas na hru
-     */
-    public Game(int players, GamePlan gamePlan, int obstacles, int food, int size, int time) {
-        this.players = players;
-        this.time = time;
-        this.random = new Random();
-        this.gamePlan = gamePlan;
-        this.obstacles = new Obstacle[obstacles];
-        this.foods = new Food[food];
-        this.snakes = new Snake[players];
-        this.size = size;
-        this.gameHandler = gameHandler;
-    }
-
-    /**
-     * Spustí hru, inicializuje ji a volá metodu GameHandler.initializeGame(Game)
-     */
-    public void startGame() {
-        gameHandler.initializeGame(this);
+    public Game(GameSettings gameSettings) {
+        this.players = gameSettings.getNoPlayers();
+        this.time = gameSettings.getTimeLimit();
+        this.gamePlan = gameSettings.getGamePlan();
+        this.obstacles = gameSettings.getObstacles();
+        this.foods = gameSettings.getFoods();
+        this.snakes = new Snake[gameSettings.getNoPlayers()];
+        this.size = gameSettings.getInitialSnakeSize();
     }
 
 
-    /**
-     * Inicializuje hru nastavením hráčů, překážek a vyčištěním jídel.
-     */
-    public void initializeGame() {
-        running = true;
-        updateSidebar();
-        sidebar.setTime();
-    }
-
-    /**
-     * Aktualizuje boční panel (SidebarPanel) hry zobrazující skóre a čas.
-     */
-    private void updateSidebar() {
-        sidebar.setGame(this);
-        //sidebarPanel.setScores();
-    }
-
-
-
-
-
-    /**
-     * Vykreslí herní stav do daného grafického kontextu (Graphics).
-     *
-     * @param g grafický kontext pro vykreslení
-     * @param panel panel, na který se má vykreslit
-     */
     public void paint(Graphics g, JPanel panel) {
         gamePlan.paint(g);
         for (Food food : foods) {
@@ -154,42 +94,12 @@ public class Game {
         }
     }
 
-    /**
-     * Zjistí, zda je daná pozice (x, y) na herní ploše prázdná (není na ní had ani překážka).
-     *
-     * @param x x-ová souřadnice pozice
-     * @param y y-ová souřadnice pozice
-     * @return true, pokud je pozice prázdná; false jinak
-     */
 
-
-    /**
-     * Restartuje hru, inicializuje ji do počátečního stavu.
-     */
-    public void restart() {
-        initializeGame();
-    }
-
-    /**
-     * Nastaví počet hráčů v hře.
-     **/
-
-
-
-
-    /**
-     * Sníží čas na hru o jednu jednotku.
-     */
     public void decreaseTime() {
         time--;
     }
 
 
-    /**
-     * Vrací JSON reprezentaci aktuální instance hry.
-     *
-     * @return JSON reprezentace aktuální instance hry
-     */
     @Override
     public String toString() {
         try {
@@ -200,12 +110,6 @@ public class Game {
         }
     }
 
-    /**
-     * Vytváří instanci hry na základě JSON řetězce.
-     *
-     * @param jsonString JSON reprezentace instance hry
-     * @return instance hry vytvořená z JSON řetězce
-     */
     public static Game fromString(String jsonString) {
         try {
             return mapper.readValue(jsonString, Game.class);
@@ -232,28 +136,8 @@ public class Game {
         return gamePlan;
     }
 
-    public boolean isDeprecated() {
-        return deprecated;
-    }
-
-    public Random getRandom() {
-        return random;
-    }
-
-    public Sidebar getSidebarPanel() {
-        return sidebar;
-    }
-
     public int getSize() {
         return size;
-    }
-
-    public boolean isRunning() {
-        return running;
-    }
-
-    public int getCurrentFood() {
-        return currentFood;
     }
 
     public int getPlayers() {
@@ -264,56 +148,8 @@ public class Game {
         return time;
     }
 
-    public GameHandler getGameHandler() {
-        return gameHandler;
-    }
-
     public void setSnakes(Snake[] snakes) {
         this.snakes = snakes;
-    }
-
-    public void setFoods(Food[] foods) {
-        this.foods = foods;
-    }
-
-    public void setObstacles(Obstacle[] obstacles) {
-        this.obstacles = obstacles;
-    }
-
-    public void setGamePlan(GamePlan gamePlan) {
-        this.gamePlan = gamePlan;
-    }
-
-    public void setDeprecated(boolean deprecated) {
-        this.deprecated = deprecated;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
-    public void setSidebarPanel(Sidebar sidebar) {
-        this.sidebar = sidebar;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public void setRunning(boolean running) {
-        this.running = running;
-    }
-
-    public void setCurrentFood(int currentFood) {
-        this.currentFood = currentFood;
-    }
-
-    public void setPlayers(int players) {
-        this.players = players;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
     }
 
     public void setGameHandler(GameHandler gameHandler) {

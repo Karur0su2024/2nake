@@ -1,9 +1,6 @@
 package org.example.gui;
 
-import org.example.Game;
-import org.example.GameClient;
-import org.example.GuiHandler;
-import org.example.Main;
+import org.example.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,25 +23,18 @@ public class GameFrame extends JFrame {
     /**
      * Konstruktor pro spuštění nové hry.
      *
-     * @param players počet hráčů ve hře
-     * @param width šířka herního plánu
-     * @param height výška herního plánu
-     * @param obstacles počet překážek ve hře
-     * @param food počet jídel ve hře
-     * @param size počáteční délka hada
-     * @param length délka hry
      * @param gameMode herní režim (lokální nebo vzdálený)
      * @param gameClient klient pro vzdálenou hru
      */
-    public GameFrame(int players, GuiHandler gui, int width, int height, int obstacles, int food, int size, int length, String gameMode, GameClient gameClient) {
+    public GameFrame(GameSettings gameSettings, GuiHandler gui, String gameMode, GameClient gameClient) {
         this.gui = gui;
         gui.setGameFrame(this);
         this.setLayout(new BorderLayout());
         log.info("Spouštím hru");
 
-        gui.setSidebar(new Sidebar(players));
+        gui.setSidebar(new Sidebar(gameSettings.getNoPlayers()));
 
-        gamePanel = new GamePanel(players, width, height, obstacles, food, size, length, gui, gameMode, gameClient);
+        gamePanel = new GamePanel(gameSettings, gui, gameMode, gameClient);
         this.add(gamePanel, BorderLayout.CENTER);
 
         this.add(gui.getSidebar(), BorderLayout.EAST);

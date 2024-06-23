@@ -13,12 +13,14 @@ public class GameLogicHandler {
     private Timer timer;
     private Random random = null;
     private int currentFood = 0;
+    private boolean running = false;
 
 
     private GameHandler gameHandler;
 
     public GameLogicHandler(Game game){
         this.game = game;
+        //this.gameHandler = gameHandler;
         this.random = new Random();
     }
 
@@ -26,9 +28,26 @@ public class GameLogicHandler {
         setPlayers();
         initializeObstacles();
         clearFoods();
-//        running = true;
-//        updateSidebar();
-//        sidebarPanel.setTime();
+        running = true;
+        updateSidebar();
+    }
+
+    public void setHandler(GameHandler gameHandler) {
+        this.gameHandler = gameHandler;
+    }
+
+    public void startGame(){
+        this.gameHandler.initializeGame();
+    }
+
+    public void restart() {
+        initializeGame();
+    }
+
+    private void updateSidebar() {
+        //sidebar.setGame(this);
+        //sidebarPanel.setScores();
+        //sidebarPanel.setTime();
     }
 
 
@@ -116,7 +135,7 @@ public class GameLogicHandler {
         for (Snake otherSnake : game.getSnakes()) {
             for (int i = otherSnake.getBodyParts(); i > 0; i--) {
                 if (snake.getX()[0] == otherSnake.getX()[i] && snake.getY()[0] == otherSnake.getY()[i]) {
-                    game.setRunning(false);
+                    running = false;
                     break;
                 }
             }
@@ -131,7 +150,7 @@ public class GameLogicHandler {
     private void checkObstacleCollisions(Snake snake) {
         for (Obstacle obstacle : game.getObstacles()) {
             if (snake.getX()[0] == obstacle.getX() && snake.getY()[0] == obstacle.getY()) {
-                game.setRunning(false);
+                running = false;
                 break;
             }
         }
@@ -186,6 +205,19 @@ public class GameLogicHandler {
     }
 
 
+    public boolean isRunning() {
+        return running;
+    }
 
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
 
+    public void setGameHandler(GameHandler gameHandler) {
+        this.gameHandler = gameHandler;
+    }
+
+    public Game getGame() {
+        return game;
+    }
 }

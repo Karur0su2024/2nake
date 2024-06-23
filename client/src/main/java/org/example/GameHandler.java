@@ -9,9 +9,8 @@ public interface GameHandler {
     /**
      * Inicializuje hru s konkrétní instancí {@link Game}.
      *
-     * @param game Instance hry, která má být inicializována
      */
-    void initializeGame(Game game);
+    void initializeGame();
 
     /**
      * Odesílá akci určenou konkrétnímu hráči identifikovanému indexem hráče.

@@ -23,11 +23,10 @@ public class RemoteGameHandler implements GameHandler {
     /**
      * Inicializuje hru s daným objektem Game.
      *
-     * @param game objekt Game reprezentující stav hry
      */
     @Override
-    public void initializeGame(Game game) {
-        this.game = game;
+    public void initializeGame() {
+
     }
 
     /**

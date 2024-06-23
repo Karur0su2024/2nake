@@ -25,27 +25,27 @@ public class LocalGameHandler implements GameHandler, ActionListener {
      *
      * @param gamePanel herní panel pro vykreslení grafiky hry
      */
-    public LocalGameHandler(GamePanel gamePanel) {
+    public LocalGameHandler(GamePanel gamePanel, GameLogicHandler gameLogic) {
         this.gamePanel = gamePanel;
+        this.gameLogic = gameLogic;
     }
 
     /**
      * Inicializuje hru s daným objektem Game a spustí časovač pro pravidelnou aktualizaci hry.
      *
-     * @param game objekt Game reprezentující stav hry
      */
     @Override
-    public void initializeGame(Game game) {
-        this.game = game;
-        this.gameLogic = new GameLogicHandler(game);
-        game.initializeGame();
+    public void initializeGame() {
+        this.game = gameLogic.getGame();
         gameLogic.initializeGame();
 
         if (timer != null) {
             timer.stop();
         }
+
         timer = new Timer(GameSettings.DELAY, this);
         timer.start();
+
     }
 
     /**
@@ -94,7 +94,7 @@ public class LocalGameHandler implements GameHandler, ActionListener {
      */
     @Override
     public void updateGame() {
-        if (game.isRunning()) {
+        if (gameLogic.isRunning()) {
             time++;
             if (time % 200 == 0) {
                 gameLogic.generateAction();
@@ -104,18 +104,18 @@ public class LocalGameHandler implements GameHandler, ActionListener {
                 game.decreaseTime();
             }
 
-            for (Snake snake : game.getSnakes()) {
+            for (Snake snake : gameLogic.getGame().getSnakes()) {
                 if (time % snake.getSpeed() == 0) {
                     snake.move();
                     gameLogic.checkCollisions();
                     gameLogic.checkFood();
                 }
                 if (game.getTime() == 0) {
-                    game.setRunning(false);
+                    gameLogic.setRunning(false);
                 }
             }
 
-            if (!game.isRunning()) {
+            if (!gameLogic.isRunning()) {
                 gamePanel.showGameOverDialog();
             }
         }
@@ -129,7 +129,7 @@ public class LocalGameHandler implements GameHandler, ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (game.isRunning()) {
+        if (gameLogic.isRunning()) {
             updateGame();
         }
     }

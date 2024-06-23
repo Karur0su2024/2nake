@@ -16,9 +16,9 @@ import java.util.Random;
 public class LocalGameHandler implements GameHandler, ActionListener {
 
     private Game game;
+    private GameLogicHandler gameLogic;
     private Timer timer;
     private int time = 0;
-    private final Random random;
     private final GamePanel gamePanel;
 
     /**
@@ -28,7 +28,6 @@ public class LocalGameHandler implements GameHandler, ActionListener {
      */
     public LocalGameHandler(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-        random = new Random();
     }
 
     /**
@@ -39,7 +38,9 @@ public class LocalGameHandler implements GameHandler, ActionListener {
     @Override
     public void initializeGame(Game game) {
         this.game = game;
+        this.gameLogic = new GameLogicHandler(game);
         game.initializeGame();
+        gameLogic.initializeGame();
 
         if (timer != null) {
             timer.stop();
@@ -97,7 +98,7 @@ public class LocalGameHandler implements GameHandler, ActionListener {
         if (game.isRunning()) {
             time++;
             if (time % 200 == 0) {
-                game.generateAction();
+                gameLogic.generateAction();
             }
 
             if (time % 80 == 0) {
@@ -107,8 +108,8 @@ public class LocalGameHandler implements GameHandler, ActionListener {
             for (Snake snake : game.getSnakes()) {
                 if (time % snake.getSpeed() == 0) {
                     snake.move();
-                    game.checkCollisions();
-                    game.checkFood();
+                    gameLogic.checkCollisions();
+                    gameLogic.checkFood();
                 }
                 if (game.getTime() == 0) {
                     game.setRunning(false);

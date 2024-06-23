@@ -66,22 +66,6 @@ public class Game {
 
     }
 
-    /**
-     * Konstruktor pro vytvoření instance hry s explicitně zadanými vlastnostmi.
-     *
-     * @param players počet hráčů ve hře
-     * @param width šířka herní plochy
-     * @param height výška herní plochy
-     * @param obstacles pole překážek ve hře
-     * @param size počáteční velikost hada
-     * @param time čas na hru
-     * @param snakes pole hadů v hře
-     * @param foods pole jídel v hře
-     * @param gamePlan herní plán hry
-     * @param random instance generátoru náhodných čísel
-     * @param running stav hry (true pokud běží, jinak false)
-     * @param currentFood index aktuálního jídla
-     */
     @JsonCreator
     public Game(@JsonProperty("players") int players,
                 @JsonProperty("width") int width,
@@ -125,7 +109,6 @@ public class Game {
         this.width = width;
         this.height = height;
         this.time = time;
-        this.sidebarPanel = sidebarPanel;
         this.random = new Random();
         this.gamePlan = new GamePlan(width, height);
         this.obstacles = new Obstacle[obstacles];
@@ -135,10 +118,6 @@ public class Game {
         this.gameHandler = gameHandler;
     }
 
-    public void setSidebarPanel(){
-        this.sidebarPanel = sidebarPanel;
-    }
-
     /**
      * Spustí hru, inicializuje ji a volá metodu GameHandler.initializeGame(Game)
      */
@@ -146,22 +125,12 @@ public class Game {
         gameHandler.initializeGame(this);
     }
 
-    /**
-     * Zpracuje stav hry na základě přijatých hadů.
-     *
-     * @param snakes pole hadů, které reprezentuje stav hry
-     */
-    public void processGameState(Snake[] snakes) {
-        // Aktualizuje lokální stav hry na základě přijatého stavu hry
-    }
 
     /**
      * Inicializuje hru nastavením hráčů, překážek a vyčištěním jídel.
      */
     public void initializeGame() {
         setPlayers();
-        initializeObstacles();
-        clearFoods();
         running = true;
         updateSidebar();
         sidebarPanel.setTime();
@@ -175,121 +144,9 @@ public class Game {
         sidebarPanel.setScores();
     }
 
-    /**
-     * Vyčistí pole jídel (foods), nastaví všechny prvky na null.
-     */
-    private void clearFoods() {
-        for (int i = 0; i < foods.length; i++) {
-            foods[i] = null;
-        }
-    }
 
-    /**
-     * Inicializuje překážky na herní ploše.
-     */
-    private void initializeObstacles() {
-        for (int i = 0; i < obstacles.length; i++) {
-            newObstacle(i);
-        }
-    }
 
-    /**
-     * Vytvoří nové jídlo na základě indexu a umístí jej na náhodnou volnou pozici.
-     *
-     * @param index index v poli jídel (foods)
-     */
-    private void newFood(int index) {
-        int x = 0, y = 0;
-        boolean empty = false;
-        while (!empty) {
-            x = random.nextInt(width);
-            y = random.nextInt(height);
-            empty = isPositionEmpty(x, y);
-        }
-        foods[index] = new Food(x, y);
-    }
 
-    /**
-     * Vytvoří novou překážku na základě indexu a umístí ji na náhodnou volnou pozici.
-     *
-     * @param index index v poli překážek (obstacles)
-     */
-    private void newObstacle(int index) {
-        obstacles[index] = new Obstacle(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1);
-    }
-
-    /**
-     * Zkontroluje, zda hadi snědli nějaké jídlo a aktualizuje stav hry podle toho.
-     */
-    public void checkFood() {
-        for (Snake snake : snakes) {
-            for (int i = 0; i < foods.length; i++) {
-                if (foods[i] != null && snake.getX()[0] == foods[i].getX() && snake.getY()[0] == foods[i].getY()) {
-                    snake.eat(foods[i].getPoints());
-                    newFood(i);
-                }
-            }
-        }
-    }
-
-    /**
-     * Zkontroluje kolize hadů s překážkami, sebou navzájem a s okrajem herní plochy.
-     */
-    public void checkCollisions() {
-        for (Snake snake : snakes) {
-            checkSnakeCollisions(snake);
-            checkObstacleCollisions(snake);
-            checkBorderCollisions(snake);
-        }
-    }
-    /**
-     * Zkontroluje kolize hada s ostatními hady (sebou navzájem).
-     *
-     * @param snake had, jehož kolize se kontrolují
-     */
-    private void checkSnakeCollisions(Snake snake) {
-        for (Snake otherSnake : snakes) {
-            for (int i = otherSnake.getBodyParts(); i > 0; i--) {
-                if (snake.getX()[0] == otherSnake.getX()[i] && snake.getY()[0] == otherSnake.getY()[i]) {
-                    running = false;
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
-     * Zkontroluje kolize hada s překážkami na herní ploše.
-     *
-     * @param snake had, jehož kolize s překážkami se kontrolují
-     */
-    private void checkObstacleCollisions(Snake snake) {
-        for (Obstacle obstacle : obstacles) {
-            if (snake.getX()[0] == obstacle.getX() && snake.getY()[0] == obstacle.getY()) {
-                running = false;
-                break;
-            }
-        }
-    }
-
-    /**
-     * Zkontroluje kolize hada s okrajem herní plochy.
-     *
-     * @param snake had, jehož kolize s okrajem se kontrolují
-     */
-    private void checkBorderCollisions(Snake snake) {
-        if (snake.getX()[0] < 0) {
-            snake.setHead(width - 1, snake.getY()[0]);
-        } else if (snake.getX()[0] >= width) {
-            snake.setHead(0, snake.getY()[0]);
-        }
-
-        if (snake.getY()[0] < 0) {
-            snake.setHead(snake.getX()[0], height - 1);
-        } else if (snake.getY()[0] >= height) {
-            snake.setHead(snake.getX()[0], 0);
-        }
-    }
 
     /**
      * Vykreslí herní stav do daného grafického kontextu (Graphics).
@@ -319,23 +176,7 @@ public class Game {
      * @param y y-ová souřadnice pozice
      * @return true, pokud je pozice prázdná; false jinak
      */
-    private boolean isPositionEmpty(int x, int y) {
-        for (Snake snake : snakes) {
-            for (int i = 0; i < snake.getBodyParts(); i++) {
-                if (x == snake.getX()[i] && y == snake.getY()[i]) {
-                    return false;
-                }
-            }
-        }
 
-        for (Obstacle obstacle : obstacles) {
-            if (x == obstacle.getX() && y == obstacle.getY()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 
     /**
      * Restartuje hru, inicializuje ji do počátečního stavu.
@@ -361,54 +202,6 @@ public class Game {
         }
     }
 
-    /**
-     * Generuje akci v rámci hry.
-     * Inkrementuje index aktuálního jídla a v případě dosažení maximálního indexu, nastaví na začátek.
-     * Následně generuje nové jídlo na základě aktuálního indexu.
-     */
-    public void generateAction() {
-        currentFood++;
-        if (currentFood == foods.length) {
-            currentFood = 0;
-        }
-        newFood(currentFood);
-    }
-
-    /**
-     * Vrací stav hry.
-     *
-     * @return true, pokud hra běží; false jinak
-     */
-    public boolean isRunning() {
-        return running;
-    }
-
-    /**
-     * Nastaví stav běhu hry.
-     *
-     * @param running true, pokud má hra běžet; false jinak
-     */
-    public void setRunning(boolean running) {
-        this.running = running;
-    }
-
-    /**
-     * Vrací pole hadů ve hře.
-     *
-     * @return pole hadů
-     */
-    public Snake[] getSnakes() {
-        return snakes;
-    }
-
-    /**
-     * Vrací čas na hru.
-     *
-     * @return čas na hru
-     */
-    public int getTime() {
-        return time;
-    }
 
     /**
      * Sníží čas na hru o jednu jednotku.
@@ -417,146 +210,6 @@ public class Game {
         time--;
     }
 
-    /**
-     * Vrací počet hráčů ve hře.
-     *
-     * @return počet hráčů
-     */
-    public int getPlayers() {
-        return players;
-    }
-
-    /**
-     * Vrací šířku herní plochy.
-     *
-     * @return šířka herní plochy
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Vrací výšku herní plochy.
-     *
-     * @return výška herní plochy
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    /**
-     * Vrací pole překážek ve hře.
-     *
-     * @return pole překážek
-     */
-    public Obstacle[] getObstacles() {
-        return obstacles;
-    }
-
-    /**
-     * Vrací pole jídel ve hře.
-     *
-     * @return pole jídel
-     */
-    public Food[] getFoods() {
-        return foods;
-    }
-
-    /**
-     * Vrací herní plán.
-     *
-     * @return herní plán
-     */
-    public GamePlan getGamePlan() {
-        return gamePlan;
-    }
-
-    /**
-     * Nastaví pole hadů ve hře.
-     *
-     * @param snakes pole hadů
-     */
-    public void setSnakes(Snake[] snakes) {
-        this.snakes = snakes;
-    }
-
-    /**
-     * Nastaví pole překážek ve hře.
-     *
-     * @param obstacles pole překážek
-     */
-    public void setObstacles(Obstacle[] obstacles) {
-        this.obstacles = obstacles;
-    }
-
-    /**
-     * Nastaví pole jídel ve hře.
-     *
-     * @param foods pole jídel
-     */
-    public void setFoods(Food[] foods) {
-        this.foods = foods;
-    }
-
-    /**
-     * Nastaví velikost hada.
-     *
-     * @param size velikost hada
-     */
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    /**
-     * Nastaví aktuální jídlo.
-     *
-     * @param currentFood aktuální jídlo
-     */
-    public void setCurrentFood(int currentFood) {
-        this.currentFood = currentFood;
-    }
-
-    /**
-     * Vrací instanci generátoru náhodných čísel.
-     *
-     * @return instance generátoru náhodných čísel
-     */
-    public Random getRandom() {
-        return random;
-    }
-
-    /**
-     * Vrací boční panel (SidebarPanel) hry.
-     *
-     * @return boční panel (SidebarPanel)
-     */
-    public SidebarPanel getSidebarPanel() {
-        return sidebarPanel;
-    }
-
-    /**
-     * Vrací počáteční velikost hada.
-     *
-     * @return počáteční velikost hada
-     */
-    public int getSize() {
-        return size;
-    }
-
-     /** @return aktuální jídlo
-     **/
-    public int getCurrentFood() {
-        return currentFood;
-    }
-
-    /**
-     * Vrací herního handleru (GameHandler).
-     *
-     * @return herní handler (GameHandler)
-     */
-    public GameHandler getGameHandler() {
-        return gameHandler;
-    }
 
     /**
      * Vrací JSON reprezentaci aktuální instance hry.
@@ -588,74 +241,123 @@ public class Game {
         }
     }
 
-    /**
-     * Nastaví herní plán.
-     *
-     * @param gamePlan herní plán
-     */
+
+    public Snake[] getSnakes() {
+        return snakes;
+    }
+
+    public Food[] getFoods() {
+        return foods;
+    }
+
+    public Obstacle[] getObstacles() {
+        return obstacles;
+    }
+
+    public GamePlan getGamePlan() {
+        return gamePlan;
+    }
+
+    public boolean isDeprecated() {
+        return deprecated;
+    }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public SidebarPanel getSidebarPanel() {
+        return sidebarPanel;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public int getCurrentFood() {
+        return currentFood;
+    }
+
+    public int getPlayers() {
+        return players;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public GameHandler getGameHandler() {
+        return gameHandler;
+    }
+
+    public void setSnakes(Snake[] snakes) {
+        this.snakes = snakes;
+    }
+
+    public void setFoods(Food[] foods) {
+        this.foods = foods;
+    }
+
+    public void setObstacles(Obstacle[] obstacles) {
+        this.obstacles = obstacles;
+    }
+
     public void setGamePlan(GamePlan gamePlan) {
         this.gamePlan = gamePlan;
     }
 
-    /**
-     * Nastaví instanci generátoru náhodných čísel.
-     *
-     * @param random instance generátoru náhodných čísel
-     */
+    public void setDeprecated(boolean deprecated) {
+        this.deprecated = deprecated;
+    }
+
     public void setRandom(Random random) {
         this.random = random;
     }
 
-    /**
-     * Nastaví boční panel (SidebarPanel) hry.
-     *
-     * @param sidebarPanel boční panel (SidebarPanel)
-     */
     public void setSidebarPanel(SidebarPanel sidebarPanel) {
         this.sidebarPanel = sidebarPanel;
     }
 
-    /**
-     * Nastaví počet hráčů ve hře.
-     *
-     * @param players počet hráčů
-     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public void setCurrentFood(int currentFood) {
+        this.currentFood = currentFood;
+    }
+
     public void setPlayers(int players) {
         this.players = players;
     }
 
-    /**
-     * Nastaví šířku herní plochy.
-     *
-     * @param width šířka herní plochy
-     */
     public void setWidth(int width) {
         this.width = width;
     }
 
-    /**
-     * Nastaví výšku herní plochy.
-     *
-     * @param height výška herní plochy
-     */
     public void setHeight(int height) {
         this.height = height;
     }
 
-    /**
-     * Nastaví čas na hru.
-     *
-     * @param time čas na hru
-     */
     public void setTime(int time) {
         this.time = time;
     }
 
-    /**
-     * Nastaví herní handler (GameHandler).
-     *
-     * @param gameHandler herní handler (GameHandler)
-     */
     public void setGameHandler(GameHandler gameHandler) {
         this.gameHandler = gameHandler;
     }

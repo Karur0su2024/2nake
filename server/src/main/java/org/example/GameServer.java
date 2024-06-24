@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -21,10 +22,12 @@ import java.util.concurrent.TimeUnit;
 public class GameServer implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(GameServer.class);
-    private final ClientHandler[] clientHandlers;
+    private final List<ClientHandler> clientHandlers;
     private boolean alive = true;
     private int id;
     private int time;
+
+    private int reset;
 
     private GameLogicHandler gameLogic;
     private ServerSocket serverSocket;
@@ -36,8 +39,9 @@ public class GameServer implements Runnable {
      *
      * @param clientHandlers array of ClientHandler instances representing connected clients
      */
-    public GameServer(ClientHandler[] clientHandlers, ServerSocket serverSocket, int id) {
+    public GameServer(List<ClientHandler> clientHandlers, ServerSocket serverSocket, int id) {
         this.alive = true;
+        this.reset = 0;
         this.clientHandlers = clientHandlers;
         this.serverSocket = serverSocket;
         this.scheduler = Executors.newScheduledThreadPool(1);
@@ -45,6 +49,7 @@ public class GameServer implements Runnable {
 
         for(ClientHandler ch : clientHandlers){
             ch.setServer(this);
+            ch.setMainServer(null);
         }
 
         startGame();
@@ -55,9 +60,9 @@ public class GameServer implements Runnable {
      * Initializes the game and sets up clients with their respective game and player index.
      */
     private void initializeClients() {
-        for (int i = 0; i < clientHandlers.length; i++) {
+        for (ClientHandler clientHandler : clientHandlers) {
 
-            clientHandlers[i].out.println("start " + gameLogic.getGame().toString());
+            clientHandler.out.println("start " + gameLogic.getGame().toString());
 
             //clientHandlers[i].sendGame(game);
 
@@ -70,7 +75,7 @@ public class GameServer implements Runnable {
      */
     private void startGame() {
         time = 0;
-        gameLogic = new GameLogicHandler(new Game(new GamePlan(45, 30), new Obstacle[60], new Food[6]), 6, 2);
+        gameLogic = new GameLogicHandler(new Game(new GamePlan(45, 30), new Obstacle[60], new Food[6], 120), 6, 2);
 
         for(ClientHandler ch : clientHandlers){
             gameLogic.addSnake(ch.getSnake());
@@ -137,29 +142,27 @@ public class GameServer implements Runnable {
 
                         }
                         if (gameLogic.getGame().getTime() == 0) {
-
+                            gameLogic.setRunning(false);
                         }
                     }
                     broadcastGame();
-
-
-                    for(ClientHandler ch: clientHandlers){
-
-                    }
-
-                    //log.info("Test: " + gameLogic.getGame().toString());
                 }
+                if(gameLogic.isEnded()){
+                    broadcastMessage("end");
+                    gameLogic.setEnded(false);
+                }
+
             }
-                for (ClientHandler ch : clientHandlers) {
-                    if (!ch.isAlive()) {
-                        terminate();
-                        log.info("Shutting down game server due to client disconnection.");
-                        //terminate();
-                    }
-                }
-
         }
 
+    }
+
+    public void reset(){
+        reset++;
+        if(reset == clientHandlers.size()){
+            gameLogic.restart();
+            reset = 0;
+        }
     }
 
     /**
@@ -167,25 +170,17 @@ public class GameServer implements Runnable {
      */
     public void terminate() {
         alive = false;
-
         scheduler.shutdown();
-        try {
-            for (ClientHandler clientHandler : clientHandlers) {
-                clientHandler.closeConnection();
-            }
-            if (serverSocket != null) {
-                broadcastMessage("stop");
-                serverSocket.close();
-            }
-
-        } catch (IOException e) {
-            log.error("Error during server termination: ", e);
-        }
+        broadcastMessage("stop");
         log.info("Server stopped.");
     }
 
 
     public GameLogicHandler getGameLogic() {
         return gameLogic;
+    }
+
+    public List<ClientHandler> getClientHandlers() {
+        return clientHandlers;
     }
 }

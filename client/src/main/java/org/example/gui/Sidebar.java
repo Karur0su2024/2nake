@@ -47,7 +47,7 @@ public class Sidebar extends JPanel {
     public void setScores(List<Snake> snakes) {
         int i = 0;
         for (Snake snake : snakes) {
-            scoreLabel[i].setText(snake.getName() + ": " + (i + 1) + ": " + snake.getBodyParts());
+            scoreLabel[i].setText(snake.getName() + ": " + snake.getBodyParts());
             i++;
         }
     }

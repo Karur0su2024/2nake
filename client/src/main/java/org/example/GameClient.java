@@ -1,12 +1,11 @@
 package org.example;
 
+import org.example.gui.*;
 import org.example.objects.Snake;
-import org.example.gui.GameWindow;
-import org.example.gui.GamePanel;
-import org.example.gui.JoinServerFrame;
-import org.example.gui.MainMenu;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 import org.slf4j.Logger;
@@ -54,15 +53,19 @@ public class GameClient {
             gui.getJoinServerFrame().hideJoinButton();
             sendMessage("join " + name);
 
+            gui.getJoinServerFrame().addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    super.windowClosing(e);
+                    sendMessage("left " + name);
+                }
+            });
+
             //log.info("Client connected to server at {}:{}", SERVER_ADDRESS, SERVER_PORT);
         } catch (IOException e) {
             gui.getJoinServerFrame().setMessage("Server není dostupný");
-            log.error("Failed to connect to server", e);
+            //log.error("Failed to connect to server", e);
         }
-    }
-
-    public void startServer(){
-
     }
 
     /**
@@ -88,45 +91,13 @@ public class GameClient {
         out.println(message);
     }
 
-
-    /**
-     * Odesílá zprávu o hráčově akci na server.
-     *
-     * @param player číslo hráče
-     * @param key    klíčová událost klávesy
-     */
-    public void sendPMessage(int player, int key) {
-
-
-        //Snake snake = gamePanel.getGameLogic().getGame().getSnakes()[player];
-        /*char direction = snake.getDirection();
-
-        switch (key) {
-            case KeyEvent.VK_LEFT:
-            case KeyEvent.VK_A:
-                if (direction != 'R') sendMove('L');
-                break;
-            case KeyEvent.VK_RIGHT:
-            case KeyEvent.VK_D:
-                if (direction != 'L') sendMove('R');
-                break;
-            case KeyEvent.VK_UP:
-            case KeyEvent.VK_W:
-                if (direction != 'D') sendMove('U');
-                break;
-            case KeyEvent.VK_DOWN:
-            case KeyEvent.VK_S:
-                if (direction != 'U') sendMove('D');
-                break;
-        }*/
-    }
-
     /**
      * Aktualizuje stav hry na základě přijaté zprávy.
      *
      */
     public void updateGameState(String game) {
         this.gameLogic.refreshGame(Game.fromString(game));
+
 
         gui.getGameFrame().getGamePanel().repaint();
         //this.gameLogic.updateSidebar();
@@ -173,6 +144,11 @@ public class GameClient {
                     if(command.equals("stop")){
                         gui.getGameFrame().dispose();
                         gui.toggleMainMenu();
+                    }
+
+                    if(command.equals("end")){
+                        GameOverScreen gameOverScreen = new GameOverScreen(gui, GameClient.this);
+                        gameOverScreen.setVisible(true);
                     }
 
 

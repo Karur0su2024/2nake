@@ -288,4 +288,13 @@ public class Snake {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void resetBody(int maxSize){
+        this.x = new int[maxSize];
+        this.y = new int[maxSize];
+    }
+
+    public String getName() {
+        return name;
+    }
 }

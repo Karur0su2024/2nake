@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,17 +36,15 @@ public class MainServer {
             while (alive) {
                 try {
                     Socket clientSocket = serverSocket.accept();
-                    ClientHandler clientHandler = new ClientHandler(clientSocket);
+                    ClientHandler clientHandler = new ClientHandler(clientSocket, this);
 
                     clientHandlers.add(clientHandler);
                     new Thread(clientHandler).start();
 
                     if (clientHandlers.size() % 2 == 0) {
-                        int i = 0;
-                        ClientHandler[] ch = new ClientHandler[2];
+                        List<ClientHandler> ch = new ArrayList<>();
                         for (ClientHandler clientHandler1 : clientHandlers) {
-                            ch[i] = clientHandler1;
-                            i++;
+                            ch.add(clientHandler1);
                         }
 
                         GameServer gm = new GameServer(ch, serverSocket, servers.size());
@@ -79,5 +79,9 @@ public class MainServer {
             log.error("Error during server termination: " + e);
         }
         log.info("Server stopped.");
+    }
+
+    public Set<ClientHandler> getClientHandlers() {
+        return clientHandlers;
     }
 }

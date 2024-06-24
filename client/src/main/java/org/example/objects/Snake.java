@@ -8,6 +8,7 @@ import org.example.GameSettings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * Třída reprezentující hada v herním prostředí.
@@ -265,5 +266,12 @@ public class Snake {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Snake{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

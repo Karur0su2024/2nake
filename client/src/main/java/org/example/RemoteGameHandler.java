@@ -72,35 +72,7 @@ public class RemoteGameHandler implements GameHandler {
      */
     @Override
     public void receiveGameState(String message) {
-        String[] parts = message.split(" ", 3);
-        String command = parts[0];
-        int playerId = Integer.parseInt(parts[1]);
-        char parameter = 'A';
-        if (parts.length > 2) {
-            parameter = parts[2].charAt(0);
-        }
 
-        switch (command) {
-            case "move":
-                handleMoveCommand(playerId, parameter);
-                break;
-            default:
-                break;
-        }
-    }
-
-    /**
-     * Zpracovává příkaz "move" pro změnu směru hada hráče v rámci aktuální hry.
-     *
-     * @param playerId  číslo hráče
-     * @param direction nový směr hada
-     */
-    private void handleMoveCommand(int playerId, char direction) {
-        /*if (gameLogic.getGame() != null && gameLogic.getGame().getSnakes().length > playerId) {
-            Snake[] snakes = gameLogic.getGame().getSnakes();
-            snakes[playerId].setDirection(direction);
-            //game.setSnakes(snakes);
-        }*/
     }
 
     /**

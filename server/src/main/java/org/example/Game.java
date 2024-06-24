@@ -23,7 +23,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Game {
     private static final Logger log = LoggerFactory.getLogger(Game.class);
-    private final List<Snake> snakes;
+    private List<Snake> snakes;
     private final Food[] foods;
     private final Obstacle[] obstacles;
     private final GamePlan gamePlan;
@@ -49,15 +49,22 @@ public class Game {
         this.gamePlan = gamePlan;
     }
 
-    public Game(GamePlan gamePlan, Obstacle[] obstacles, Food[] food){
+    public Game(GamePlan gamePlan, Obstacle[] obstacles, Food[] food, int time){
         this.gamePlan = gamePlan;
         this.obstacles = obstacles;
         this.foods = food;
+        this.time = time;
         this.snakes = new ArrayList<>();
     }
 
 
-
+    public Game(Game game){
+        this.time = game.time;
+        this.gamePlan = game.getGamePlan();
+        this.obstacles = game.getObstacles();
+        this.foods = game.getFoods();
+        this.snakes = game.snakes;
+    }
 
 
 
@@ -106,4 +113,7 @@ public class Game {
     }
 
 
+    public void setSnakes(List<Snake> snakes) {
+        this.snakes = snakes;
+    }
 }

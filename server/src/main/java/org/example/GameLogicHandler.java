@@ -12,17 +12,19 @@ public class GameLogicHandler {
     private Game OGGame;
     private int initialSize;
     private int players;
+    private boolean ended;
 
     private Random random;
     private int currentFood = 0;
     private boolean running = false;
 
     public GameLogicHandler(Game game, int initialSize, int players){
-        //OGGame = new Game(game);
+        OGGame = new Game(game);
         this.game = game;
         this.random = new Random();
         this.initialSize = initialSize;
         this.players = players;
+        this.ended = false;
     }
 
     public GameLogicHandler(Game game){
@@ -41,8 +43,9 @@ public class GameLogicHandler {
     }
 
 
-    public void restart(Game game) {
-        //this.game = new Game(game);
+    public void restart() {
+        game = new Game(OGGame);
+        resetSnakes();
         initializeGame();
 
     }
@@ -67,16 +70,30 @@ public class GameLogicHandler {
         game.getSnakes().add(snake);
     }
 
-
-    private void setPlayers() {
-        for(int i = 0; i < players; i++){
-            if (i == 0) {
-                game.getSnakes().add(new Snake(game.getGamePlan().getWidth() * game.getGamePlan().getHeight(), initialSize, 0, 0, 'R', "Snake 1"));
-            } else if (i == 1) {
-                game.getSnakes().add(new Snake(game.getGamePlan().getWidth() * game.getGamePlan().getHeight(), initialSize, game.getGamePlan().getWidth() - 1, game.getGamePlan().getHeight() - 1, 'L', "Snake 2"));
+    public void resetSnakes(){
+        int snek = 0;
+        for(Snake snake : game.getSnakes()){
+            if(snek == 0){
+                snake.setX(new int[game.getGamePlan().getWidth() * game.getGamePlan().getHeight()]);
+                snake.setY(new int[game.getGamePlan().getWidth() * game.getGamePlan().getHeight()]);
+                snake.setBodyParts(initialSize);
+                snake.setHead(0, 0);
+                snake.setDirection('L');
+                snake.setSpeed();
             }
+            else {
+                snake.setX(new int[game.getGamePlan().getWidth() * game.getGamePlan().getHeight()]);
+                snake.setY(new int[game.getGamePlan().getWidth() * game.getGamePlan().getHeight()]);
+                snake.setBodyParts(initialSize);
+                snake.setHead(game.getGamePlan().getWidth() - 1, game.getGamePlan().getHeight() - 1);
+                snake.setDirection('R');
+                snake.setSpeed();
+            }
+            snek++;
         }
     }
+
+
 
     public void generateAction() {
         currentFood++;
@@ -150,6 +167,7 @@ public class GameLogicHandler {
             for (int i = otherSnake.getBodyParts(); i > 0; i--) {
                 if (snake.getX()[0] == otherSnake.getX()[i] && snake.getY()[0] == otherSnake.getY()[i]) {
                     running = false;
+                    ended = true;
                     break;
                 }
             }
@@ -165,6 +183,7 @@ public class GameLogicHandler {
         for (Obstacle obstacle : game.getObstacles()) {
             if (snake.getX()[0] == obstacle.getX() && snake.getY()[0] == obstacle.getY()) {
                 running = false;
+                ended = true;
                 break;
             }
         }
@@ -237,5 +256,13 @@ public class GameLogicHandler {
 
     public Game getOGGame() {
         return OGGame;
+    }
+
+    public boolean isEnded() {
+        return ended;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
     }
 }

@@ -1,0 +1,296 @@
+2024-06-24 09:29:27 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:29:27 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:29:31 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:29:34 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:29:34 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:29:37 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 09:29:37 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 09:29:38 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 09:29:39 [Thread-1] INFO  org.example.Main - move aaa R
+2024-06-24 09:29:40 [Thread-1] INFO  org.example.Main - move aaa U
+2024-06-24 09:29:42 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 09:29:46 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Socket closed
+2024-06-24 09:29:46 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:29:46 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Socket closed
+2024-06-24 09:29:46 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:29:46 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:34:25 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:34:25 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:34:30 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:34:33 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:34:34 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:34:36 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:36:36 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:36:36 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:36:38 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:36:41 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:36:41 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:36:46 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:36:46 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:36:50 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:36:53 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:36:53 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:36:59 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:37:00 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 09:37:00 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:38:31 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:38:31 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:38:35 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:38:38 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:38:38 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:38:40 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:38:42 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 09:38:42 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:39:48 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:39:48 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:39:52 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:39:56 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:39:56 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:42:08 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:42:08 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:42:12 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:42:15 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:42:15 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:42:20 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Socket closed
+2024-06-24 09:42:20 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:42:20 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:42:20 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Socket closed
+2024-06-24 09:42:20 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:42:48 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:42:48 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:42:51 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:42:54 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:42:54 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:42:57 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:42:57 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Socket closed
+2024-06-24 09:42:57 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:43:39 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:43:39 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:43:43 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:43:46 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:43:46 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:43:49 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:44:03 [Thread-3] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:44:05 [Thread-4] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:44:05 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:44:08 [Thread-4] INFO  org.example.Main - move aaa D
+2024-06-24 09:44:08 [Thread-4] INFO  org.example.Main - move aaa L
+2024-06-24 09:44:09 [Thread-4] INFO  org.example.Main - move aaa U
+2024-06-24 09:44:09 [Thread-4] INFO  org.example.Main - move aaa L
+2024-06-24 09:44:17 [Thread-4] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:44:19 [Thread-6] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:44:22 [Thread-7] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:44:22 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:44:33 [Thread-7] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:44:37 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 09:44:37 [Thread-3] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 09:44:37 [Thread-7] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 09:44:37 [Thread-3] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:44:37 [Thread-7] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:44:37 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:45:23 [Thread-9] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:45:27 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:45:27 [Thread-10] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:45:28 [Thread-10] INFO  org.example.Main - move aaa D
+2024-06-24 09:45:29 [Thread-10] INFO  org.example.Main - move aaa L
+2024-06-24 09:48:12 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:48:12 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:48:16 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:48:19 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:48:19 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:48:21 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 09:48:51 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:48:51 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:48:56 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:48:59 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:49:00 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:49:01 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 09:49:07 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 09:49:57 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:49:57 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:50:01 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:50:04 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:50:04 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:50:06 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 09:54:05 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:54:05 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:54:10 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:54:13 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:54:13 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:54:15 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 09:54:26 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 09:54:26 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:54:31 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 09:54:31 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 09:59:04 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:59:04 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 09:59:09 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:59:17 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 09:59:17 [main] INFO  org.example.GameServer - Game started
+2024-06-24 09:59:19 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:00:16 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:00:16 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:00:20 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:00:25 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:00:25 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:00:27 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:02:48 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:02:48 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:03:16 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:03:16 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:03:19 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:03:23 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:03:23 [main] INFO  org.example.Main - Server stopped.
+2024-06-24 10:03:23 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Socket closed
+2024-06-24 10:03:23 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Socket closed
+2024-06-24 10:03:23 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 10:03:23 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 10:03:55 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:03:55 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:03:59 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:04:01 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:04:02 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:04:02 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:04:03 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:04:04 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:04:04 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:05:55 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:05:55 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:05:58 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:06:01 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:06:01 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:06:03 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:06:11 [Thread-0] INFO  org.example.Main - move aaa R
+2024-06-24 10:06:17 [Thread-0] INFO  org.example.Main - move aaa L
+2024-06-24 10:06:18 [Thread-0] INFO  org.example.Main - move aaa U
+2024-06-24 10:06:18 [Thread-0] INFO  org.example.Main - move aaa R
+2024-06-24 10:06:19 [Thread-0] INFO  org.example.Main - move aaa D
+2024-06-24 10:06:20 [Thread-0] INFO  org.example.Main - move aaa L
+2024-06-24 10:06:22 [Thread-0] INFO  org.example.Main - move aaa U
+2024-06-24 10:06:22 [Thread-0] INFO  org.example.Main - move aaa L
+2024-06-24 10:06:35 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 10:06:35 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 10:11:27 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:11:27 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:11:30 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:11:33 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:11:34 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:11:35 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:12:09 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:12:09 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:12:15 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:12:19 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:12:19 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:12:23 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:12:23 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:12:24 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:14 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:15:14 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:15:20 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:15:21 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:15:22 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:15:23 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:28 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:28 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:15:29 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:29 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:15:30 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:31 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:15:32 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:34 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:15:36 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:37 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:15:37 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:38 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:15:39 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:41 [Thread-1] INFO  org.example.Main - move aaa R
+2024-06-24 10:15:42 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:43 [Thread-1] INFO  org.example.Main - move aaa R
+2024-06-24 10:15:45 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:15:47 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:15:59 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:16:00 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:16:01 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:16:03 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:16:04 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:16:07 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:16:10 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:16:12 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:16:15 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:16:19 [Thread-1] INFO  org.example.Main - move aaa R
+2024-06-24 10:20:32 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:20:32 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:20:34 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:20:42 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:20:43 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:20:45 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:22:50 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:22:50 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:22:55 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:22:58 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:22:59 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:23:00 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:23:19 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:27:01 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:27:01 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:27:05 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:27:08 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:27:09 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:37:39 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:37:39 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:37:43 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:37:46 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:37:46 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:38:03 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:38:10 [Thread-1] INFO  org.example.Main - move aaa L
+2024-06-24 10:38:11 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:38:12 [Thread-1] INFO  org.example.Main - move aaa R
+2024-06-24 10:38:12 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:38:30 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 10:38:30 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 10:38:43 [Thread-3] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:38:52 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:38:52 [Thread-4] INFO  org.example.Main - ahojda joined the game
+2024-06-24 10:38:54 [Thread-4] INFO  org.example.Main - move ahojda D
+2024-06-24 10:38:55 [Thread-4] INFO  org.example.Main - move ahojda L
+2024-06-24 10:38:56 [Thread-4] INFO  org.example.Main - move ahojda D
+2024-06-24 10:38:57 [Thread-4] INFO  org.example.Main - move ahojda L
+2024-06-24 10:39:06 [Thread-4] INFO  org.example.GameServer - Server stopped.
+2024-06-24 10:39:10 [Thread-6] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:39:11 [Thread-3] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 10:39:11 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 10:39:11 [Thread-6] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 10:39:11 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 10:39:11 [Thread-3] INFO  org.example.GameServer - Server stopped.
+2024-06-24 10:39:12 [Thread-7] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:39:12 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:39:13 [Thread-7] INFO  org.example.Main - move aaa D
+2024-06-24 10:44:37 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:44:37 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:44:41 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:44:47 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:44:47 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:44:49 [Thread-1] INFO  org.example.Main - move aaa D
+2024-06-24 10:45:50 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:45:50 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:45:53 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:46:08 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:46:09 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:47:18 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:47:18 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:47:21 [Thread-0] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:47:23 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 10:47:29 [Thread-1] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:47:32 [Thread-2] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:47:33 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:47:34 [Thread-2] INFO  org.example.Main - move aaa D
+2024-06-24 10:47:36 [Thread-2] INFO  org.example.Main - move aaa R
+2024-06-24 10:47:38 [Thread-2] INFO  org.example.Main - move aaa D
+2024-06-24 10:47:39 [Thread-2] INFO  org.example.Main - move aaa L
+2024-06-24 10:48:42 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:48:42 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:48:48 [Thread-0] INFO  org.example.Main - aaaasdasdasd joined the game
+2024-06-24 10:49:00 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 10:49:02 [Thread-1] INFO  org.example.Main - aaaa joined the game
+2024-06-24 10:49:05 [Thread-2] INFO  org.example.Main - aaa joined the game
+2024-06-24 10:49:06 [main] INFO  org.example.GameServer - Game started

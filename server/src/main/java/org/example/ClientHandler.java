@@ -23,13 +23,15 @@ class ClientHandler implements Runnable {
     private String name;
     private Snake OGsnake;
     private Snake snake;
+    private MainServer mainServer;
 
     /**
      * Konstruktor pro vytvoření instance ClientHandler.
      *
      * @param socket     socket pro komunikaci s klientem
      */
-    public ClientHandler(Socket socket) {
+    public ClientHandler(Socket socket, MainServer mainServer) {
+        this.mainServer = mainServer;
         this.socket = socket;
         this.snake = new Snake("newSnake");
         this.alive = true;
@@ -56,8 +58,6 @@ class ClientHandler implements Runnable {
                 if(command.equals("join")){
                     name = player;
                     snake.setName(name);
-
-                    //snake = new Snake(OGsnake);
                     log.info(name + " joined the game");
 
                 }
@@ -88,21 +88,19 @@ class ClientHandler implements Runnable {
                 }
 
                 if(command.equals("left")){
-                    server.terminate();
+                    if(mainServer != null){
+                        mainServer.getClientHandlers().remove(this);
+                    }
+                    else {
+                        server.getClientHandlers().remove(this);
+                        server.terminate();
+                    }
+
                 }
 
-
-
-
-
-
-                /*synchronized (game) {
-                    if (command.equals("move")) {
-                        //game.getSnakes()[playerId].setDirection(parameter);
-                    }
-                }*/
-
-
+                if(command.equals("reset")){
+                    server.reset();
+                }
 
 
             }
@@ -157,5 +155,9 @@ class ClientHandler implements Runnable {
 
     public String getName() {
         return name;
+    }
+
+    public void setMainServer(MainServer mainServer) {
+        this.mainServer = mainServer;
     }
 }

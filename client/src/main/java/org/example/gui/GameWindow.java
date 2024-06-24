@@ -73,8 +73,8 @@ public class GameWindow extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                gui.getMainMenu().setVisible(true);
                 client.sendMessage("left " + client.getName());
+                gui.closeGameWindowToMainMenu();
             }
         });
     }

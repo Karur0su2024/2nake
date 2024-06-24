@@ -38,7 +38,10 @@ public class MainMenu extends JFrame {
 
 
         JButton startServerButton = createButton("Servery");
-        startServerButton.addActionListener(e -> new JoinServerFrame(gui));
+        startServerButton.addActionListener(e -> {
+            gui.toggleMainMenu();
+            new JoinServerFrame(gui);
+        });
 
         JButton instructionsButton = createButton("Nápověda");
         instructionsButton.addActionListener(e -> showInstructions());

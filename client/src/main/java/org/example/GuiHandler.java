@@ -9,6 +9,7 @@ public class GuiHandler {
     private GameWindow gameWindow;
     private SettingsFrame settingsFrame;
     private JoinServerFrame joinServerFrame;
+    private GameOverScreen gameOverScreen;
 
     public GuiHandler(){
 
@@ -63,5 +64,23 @@ public class GuiHandler {
         this.gameWindow.dispose();
         this.gameWindow = null;
         this.settingsFrame.setVisible(true);
+    }
+
+    public void closeGameWindowToMainMenu(){
+        if(gameOverScreen != null){
+            gameOverScreen.dispose();
+            gameOverScreen = null;
+        }
+        this.gameWindow.dispose();
+        this.gameWindow = null;
+        this.mainMenu.setVisible(true);
+    }
+
+    public GameOverScreen getGameOverScreen() {
+        return gameOverScreen;
+    }
+
+    public void setGameOverScreen(GameOverScreen gameOverScreen) {
+        this.gameOverScreen = gameOverScreen;
     }
 }

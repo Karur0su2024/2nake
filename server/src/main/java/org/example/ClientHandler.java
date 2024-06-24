@@ -54,6 +54,7 @@ class ClientHandler implements Runnable {
                 String command = parts[0];
                 String player = parts[1];
                 String parameter;
+                log.info(name + " sent message: [ " + message + " ]");
 
                 if(command.equals("join")){
                     name = player;
@@ -63,7 +64,6 @@ class ClientHandler implements Runnable {
                 }
 
                 if(command.equals("move")){
-                    log.info(message);
                     parameter = parts[2];
 
                     char dir = parameter.charAt(0);
@@ -83,8 +83,6 @@ class ClientHandler implements Runnable {
                             if(snake.getDirection() != 'U') snake.setDirection('D');
                             break;
                     }
-
-                    System.out.println(snake.toString());
                 }
 
                 if(command.equals("left")){
@@ -95,10 +93,12 @@ class ClientHandler implements Runnable {
                         server.getClientHandlers().remove(this);
                         server.terminate();
                     }
+                    log.info("Player " + name + " left");
 
                 }
 
                 if(command.equals("reset")){
+                    log.info("Player " + name + " wants reset");
                     server.reset();
                 }
 

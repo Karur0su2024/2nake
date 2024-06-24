@@ -98,7 +98,8 @@ public class GameOverScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 client.sendMessage("reset " + client.getName());
-                dispose(); // Zavřít okno po restartu
+                gui.getGameOverScreen().dispose();
+                gui.setGameOverScreen(null);
             }
         });
         buttonPanel.add(restartButton);
@@ -107,9 +108,8 @@ public class GameOverScreen extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gui.getGameFrame().dispose();
-                dispose(); // Zavřít okno po ukončení
-                gui.toggleMainMenu();
+                client.sendMessage("left " + client.getName());
+                gui.closeGameWindowToMainMenu();
             }
         });
         buttonPanel.add(exitButton);

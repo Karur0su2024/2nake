@@ -75,7 +75,7 @@ public class GameServer implements Runnable {
      */
     private void startGame() {
         time = 0;
-        gameLogic = new GameLogicHandler(new Game(new GamePlan(45, 30), new Obstacle[60], new Food[6], 120), 6, 2);
+        gameLogic = new GameLogicHandler(new Game(new GamePlan(45, 30), new Obstacle[60], new Food[6], 180), 6, 2);
 
         for(ClientHandler ch : clientHandlers){
             gameLogic.addSnake(ch.getSnake());
@@ -130,7 +130,7 @@ public class GameServer implements Runnable {
                         gameLogic.generateAction();
                     }
 
-                    if (time % 8000 == 0) {
+                    if (time % 4000 == 0) {
                         gameLogic.getGame().decreaseTime();
                     }
 
@@ -143,6 +143,7 @@ public class GameServer implements Runnable {
                         }
                         if (gameLogic.getGame().getTime() == 0) {
                             gameLogic.setRunning(false);
+                            gameLogic.setEnded(true);
                         }
                     }
                     broadcastGame();

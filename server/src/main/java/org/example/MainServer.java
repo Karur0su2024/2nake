@@ -31,7 +31,7 @@ public class MainServer {
     public MainServer() {
         try {
             serverSocket = new ServerSocket(PORT);
-            log.info("Spouštím server");
+            log.info("Starting server...");
 
             while (alive) {
                 try {

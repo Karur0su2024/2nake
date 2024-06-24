@@ -294,3 +294,392 @@
 2024-06-24 10:49:02 [Thread-1] INFO  org.example.Main - aaaa joined the game
 2024-06-24 10:49:05 [Thread-2] INFO  org.example.Main - aaa joined the game
 2024-06-24 10:49:06 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:53:37 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:53:37 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:53:39 [Thread-0] INFO  org.example.Main - Carlos joined the game
+2024-06-24 10:53:45 [Thread-1] INFO  org.example.Main - aaaa joined the game
+2024-06-24 10:53:45 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:53:50 [Thread-1] INFO  org.example.Main - move aaaa D
+2024-06-24 10:53:52 [Thread-1] INFO  org.example.Main - move aaaa L
+2024-06-24 10:53:53 [Thread-1] INFO  org.example.Main - move aaaa D
+2024-06-24 10:53:54 [Thread-1] INFO  org.example.Main - move aaaa L
+2024-06-24 10:54:00 [Thread-1] INFO  org.example.Main - move aaaa D
+2024-06-24 10:54:02 [Thread-1] INFO  org.example.Main - move aaaa L
+2024-06-24 10:54:02 [Thread-1] INFO  org.example.Main - move aaaa D
+2024-06-24 10:54:07 [Thread-1] INFO  org.example.Main - move aaaa R
+2024-06-24 10:54:07 [Thread-1] INFO  org.example.Main - move aaaa D
+2024-06-24 10:54:24 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 10:54:24 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 10:54:50 [Thread-3] INFO  org.example.Main - sad joined the game
+2024-06-24 10:54:56 [main] INFO  org.example.GameServer - Game started
+2024-06-24 10:54:56 [Thread-4] INFO  org.example.Main - asdad joined the game
+2024-06-24 10:59:57 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 10:59:57 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:00:06 [Thread-0] INFO  org.example.Main - aaaaaaaaaaa joined the game
+2024-06-24 11:00:11 [Thread-1] INFO  org.example.Main - aaaaaaaaaaa joined the game
+2024-06-24 11:00:13 [Thread-2] INFO  org.example.Main - aaaaaaaaa joined the game
+2024-06-24 11:00:16 [Thread-3] INFO  org.example.Main - aaaaaaaaaa joined the game
+2024-06-24 11:00:19 [Thread-4] INFO  org.example.Main - aaaaaaaaa joined the game
+2024-06-24 11:00:19 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:00:42 [Thread-4] INFO  org.example.Main - move aaaaaaaaa D
+2024-06-24 11:00:43 [Thread-4] INFO  org.example.Main - move aaaaaaaaa L
+2024-06-24 11:00:44 [Thread-4] INFO  org.example.Main - move aaaaaaaaa D
+2024-06-24 11:00:44 [Thread-4] INFO  org.example.Main - move aaaaaaaaa L
+2024-06-24 11:00:44 [Thread-4] INFO  org.example.Main - move aaaaaaaaa D
+2024-06-24 11:00:50 [Thread-4] INFO  org.example.Main - move aaaaaaaaa R
+2024-06-24 11:00:51 [Thread-4] INFO  org.example.Main - move aaaaaaaaa D
+2024-06-24 11:00:52 [Thread-4] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:02:16 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:02:16 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:02:21 [Thread-0] INFO  org.example.Main - asd joined the game
+2024-06-24 11:02:25 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:02:25 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:02:27 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:03:15 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:03:15 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:03:22 [Thread-0] INFO  org.example.Main - aasdsd joined the game
+2024-06-24 11:03:26 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:03:26 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:03:28 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:03:39 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 11:05:56 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:05:56 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:06:00 [Thread-0] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:06:04 [Thread-1] INFO  org.example.Main - sadasd joined the game
+2024-06-24 11:06:04 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:06:06 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:06:11 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 11:06:11 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:12:12 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:12:12 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:12:16 [Thread-0] INFO  org.example.Main - asdasdasd joined the game
+2024-06-24 11:12:21 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:12:22 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:12:25 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:12:47 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:12:47 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:12:53 [Thread-0] INFO  org.example.Main - asdasdasd joined the game
+2024-06-24 11:12:57 [Thread-1] INFO  org.example.Main - adasda joined the game
+2024-06-24 11:12:57 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:12:59 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:13:08 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:13:08 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:13:14 [Thread-0] INFO  org.example.Main - sadasd joined the game
+2024-06-24 11:13:18 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:13:18 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:13:31 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:14:11 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:14:11 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:14:15 [Thread-0] INFO  org.example.Main - addas joined the game
+2024-06-24 11:14:19 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:14:19 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:14:25 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:15:07 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:15:07 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:15:12 [Thread-0] INFO  org.example.Main - sadasd joined the game
+2024-06-24 11:15:16 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:15:16 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:15:19 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:15:25 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 11:15:25 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:19:31 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:19:31 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:19:36 [Thread-0] INFO  org.example.Main - sdasd joined the game
+2024-06-24 11:19:39 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:19:40 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:19:44 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:20:00 [Thread-3] INFO  org.example.Main - dfsdf joined the game
+2024-06-24 11:20:02 [Thread-4] INFO  org.example.Main - asdsad joined the game
+2024-06-24 11:20:02 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:20:05 [Thread-4] INFO  org.example.Main - move asdsad D
+2024-06-24 11:20:14 [Thread-3] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 11:20:14 [Thread-3] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:20:22 [Thread-6] INFO  org.example.Main - adasd joined the game
+2024-06-24 11:20:25 [Thread-7] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:20:25 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:20:27 [Thread-7] INFO  org.example.Main - move asdasd D
+2024-06-24 11:20:28 [Thread-7] INFO  org.example.Main - move asdasd L
+2024-06-24 11:20:44 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 11:20:44 [Thread-7] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 11:20:44 [Thread-7] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:20:44 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:22:17 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:22:17 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:22:21 [Thread-0] INFO  org.example.Main - asdas joined the game
+2024-06-24 11:22:24 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:22:25 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:22:27 [Thread-1] INFO  org.example.Main - move asdasd D
+2024-06-24 11:22:29 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 11:28:54 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:28:54 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 11:29:02 [Thread-0] INFO  org.example.Main - sdfd joined the game
+2024-06-24 11:29:06 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 11:29:06 [main] INFO  org.example.GameServer - Game started
+2024-06-24 11:29:08 [Thread-1] INFO  org.example.Main - move asdasd D
+2024-06-24 12:09:44 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 12:09:44 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 12:09:49 [Thread-0] INFO  org.example.Main - asdasd joined the game
+2024-06-24 12:09:53 [Thread-1] INFO  org.example.Main - adasda joined the game
+2024-06-24 12:09:54 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:09:57 [Thread-1] INFO  org.example.Main - move adasda D
+2024-06-24 12:09:59 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:10:10 [Thread-3] INFO  org.example.Main - adsdsa joined the game
+2024-06-24 12:10:13 [Thread-4] INFO  org.example.Main - adasd joined the game
+2024-06-24 12:10:13 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:10:14 [Thread-4] INFO  org.example.Main - move adasd D
+2024-06-24 12:10:16 [Thread-4] INFO  org.example.Main - move adasd L
+2024-06-24 12:10:25 [Thread-4] INFO  org.example.Main - move adasd D
+2024-06-24 12:10:45 [Thread-3] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:10:51 [Thread-6] INFO  org.example.Main - asdasdasd joined the game
+2024-06-24 12:10:53 [Thread-7] INFO  org.example.Main - asdasda joined the game
+2024-06-24 12:10:53 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:10:55 [Thread-7] INFO  org.example.Main - move asdasda D
+2024-06-24 12:10:57 [Thread-7] INFO  org.example.Main - move asdasda L
+2024-06-24 12:11:03 [Thread-7] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 12:11:03 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 12:11:03 [Thread-3] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 12:11:03 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:11:03 [Thread-3] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:11:03 [Thread-7] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:14:41 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 12:14:41 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 12:14:45 [Thread-0] INFO  org.example.Main - null sent message:join sdasd
+2024-06-24 12:14:45 [Thread-0] INFO  org.example.Main - sdasd joined the game
+2024-06-24 12:14:50 [Thread-1] INFO  org.example.Main - null sent message:join asdasd
+2024-06-24 12:14:50 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 12:14:50 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:14:57 [Thread-1] INFO  org.example.Main - asdasd sent message:move asdasd D
+2024-06-24 12:14:58 [Thread-1] INFO  org.example.Main - asdasd sent message:move asdasd L
+2024-06-24 12:15:04 [Thread-1] INFO  org.example.Main - asdasd sent message:reset asdasd
+2024-06-24 12:15:04 [Thread-1] INFO  org.example.Main - Player asdasd wants reset
+2024-06-24 12:16:44 [main] INFO  org.example.Main - Spouštím server
+2024-06-24 12:16:44 [main] INFO  org.example.Main - Starting server...
+2024-06-24 12:16:56 [Thread-0] INFO  org.example.Main - null sent message: [ join dasdas ]
+2024-06-24 12:16:56 [Thread-0] INFO  org.example.Main - dasdas joined the game
+2024-06-24 12:17:00 [Thread-1] INFO  org.example.Main - null sent message: [ join asdasdas ]
+2024-06-24 12:17:00 [Thread-1] INFO  org.example.Main - asdasdas joined the game
+2024-06-24 12:17:01 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:17:04 [Thread-1] INFO  org.example.Main - asdasdas sent message: [ move asdasdas D ]
+2024-06-24 12:17:06 [Thread-1] INFO  org.example.Main - asdasdas sent message: [ move asdasdas L ]
+2024-06-24 12:17:08 [Thread-1] INFO  org.example.Main - asdasdas sent message: [ move asdasdas D ]
+2024-06-24 12:17:15 [Thread-1] INFO  org.example.Main - asdasdas sent message: [ move asdasdas L ]
+2024-06-24 12:17:44 [Thread-1] INFO  org.example.Main - asdasdas sent message: [ left asdasdas ]
+2024-06-24 12:17:44 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:17:44 [Thread-1] INFO  org.example.Main - Player asdasdas left
+2024-06-24 12:17:45 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 12:17:45 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:18:18 [main] INFO  org.example.Main - Starting server...
+2024-06-24 12:18:23 [Thread-0] INFO  org.example.Main - null sent message: [ join asdasd ]
+2024-06-24 12:18:23 [Thread-0] INFO  org.example.Main - asdasd joined the game
+2024-06-24 12:18:26 [Thread-1] INFO  org.example.Main - null sent message: [ join adasd ]
+2024-06-24 12:18:26 [Thread-1] INFO  org.example.Main - adasd joined the game
+2024-06-24 12:18:27 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:18:30 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:18:36 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd L ]
+2024-06-24 12:18:36 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:18:38 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd R ]
+2024-06-24 12:18:39 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:18:39 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd R ]
+2024-06-24 12:18:41 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:18:44 [Thread-1] INFO  org.example.Main - adasd sent message: [ reset adasd ]
+2024-06-24 12:18:44 [Thread-1] INFO  org.example.Main - Player adasd wants reset
+2024-06-24 12:18:48 [Thread-0] INFO  org.example.Main - asdasd sent message: [ reset asdasd ]
+2024-06-24 12:18:48 [Thread-0] INFO  org.example.Main - Player asdasd wants reset
+2024-06-24 12:18:49 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:18:49 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd L ]
+2024-06-24 12:18:50 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:18:57 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd R ]
+2024-06-24 12:19:00 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:19:25 [Thread-0] INFO  org.example.Main - asdasd sent message: [ reset asdasd ]
+2024-06-24 12:19:25 [Thread-0] INFO  org.example.Main - Player asdasd wants reset
+2024-06-24 12:19:26 [Thread-1] INFO  org.example.Main - adasd sent message: [ reset adasd ]
+2024-06-24 12:19:26 [Thread-1] INFO  org.example.Main - Player adasd wants reset
+2024-06-24 12:19:28 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:19:30 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd L ]
+2024-06-24 12:19:34 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd U ]
+2024-06-24 12:19:35 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd L ]
+2024-06-24 12:19:35 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd U ]
+2024-06-24 12:19:37 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd L ]
+2024-06-24 12:19:40 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:19:40 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd L ]
+2024-06-24 12:19:40 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:19:44 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd R ]
+2024-06-24 12:19:51 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:19:52 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd R ]
+2024-06-24 12:19:56 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:20:00 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd R ]
+2024-06-24 12:20:01 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:20:02 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd R ]
+2024-06-24 12:20:04 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:20:05 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd L ]
+2024-06-24 12:20:06 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd D ]
+2024-06-24 12:20:08 [Thread-1] INFO  org.example.Main - adasd sent message: [ move adasd L ]
+2024-06-24 12:20:24 [Thread-0] INFO  org.example.Main - asdasd sent message: [ left asdasd ]
+2024-06-24 12:20:24 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:20:24 [Thread-0] INFO  org.example.Main - Player asdasd left
+2024-06-24 12:20:26 [Thread-0] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 12:20:26 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:20:42 [main] INFO  org.example.Main - Starting server...
+2024-06-24 12:20:47 [Thread-0] INFO  org.example.Main - null sent message: [ join sad ]
+2024-06-24 12:20:47 [Thread-0] INFO  org.example.Main - sad joined the game
+2024-06-24 12:20:54 [Thread-1] INFO  org.example.Main - null sent message: [ join asdasd   adssd faa ]
+2024-06-24 12:20:54 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 12:20:54 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:20:57 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:20:59 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa U ]
+2024-06-24 12:21:00 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa U ]
+2024-06-24 12:21:01 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:01 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:01 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:02 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:02 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:03 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:03 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa R ]
+2024-06-24 12:21:03 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:04 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:04 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:04 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:04 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:05 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:05 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:05 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:05 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa L ]
+2024-06-24 12:21:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:08 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:09 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:10 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:10 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:10 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:10 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:10 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:10 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:10 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:10 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:12 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:12 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:12 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:13 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa R ]
+2024-06-24 12:21:13 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:13 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:13 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:13 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:13 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:13 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:13 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:13 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:14 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:14 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:14 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd   adssd faa D ]
+2024-06-24 12:21:24 [main] INFO  org.example.Main - Starting server...
+2024-06-24 12:21:33 [Thread-0] INFO  org.example.Main - null sent message: [ join sadasd ]
+2024-06-24 12:21:33 [Thread-0] INFO  org.example.Main - sadasd joined the game
+2024-06-24 12:21:37 [Thread-1] INFO  org.example.Main - null sent message: [ join asdasd ]
+2024-06-24 12:21:37 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 12:21:37 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:21:38 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd D ]
+2024-06-24 12:21:39 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd L ]
+2024-06-24 12:21:40 [Thread-1] INFO  org.example.Main - asdasd sent message: [ reset asdasd ]
+2024-06-24 12:21:40 [Thread-1] INFO  org.example.Main - Player asdasd wants reset
+2024-06-24 12:21:49 [Thread-1] INFO  org.example.Main - asdasd sent message: [ left asdasd ]
+2024-06-24 12:21:49 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:21:49 [Thread-1] INFO  org.example.Main - Player asdasd left
+2024-06-24 12:21:50 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 12:21:50 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:21:54 [main] INFO  org.example.Main - Starting server...
+2024-06-24 12:21:58 [Thread-0] INFO  org.example.Main - null sent message: [ join asdsd ]
+2024-06-24 12:21:58 [Thread-0] INFO  org.example.Main - asdsd joined the game
+2024-06-24 12:22:02 [Thread-1] INFO  org.example.Main - null sent message: [ join asdasd ]
+2024-06-24 12:22:02 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 12:22:02 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:22:04 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd D ]
+2024-06-24 12:22:05 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd L ]
+2024-06-24 12:22:05 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd U ]
+2024-06-24 12:22:06 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd L ]
+2024-06-24 12:22:07 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd U ]
+2024-06-24 12:22:11 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd R ]
+2024-06-24 12:22:12 [Thread-1] INFO  org.example.Main - asdasd sent message: [ move asdasd U ]
+2024-06-24 12:23:04 [main] INFO  org.example.Main - Starting server...
+2024-06-24 12:23:09 [Thread-0] INFO  org.example.Main - null sent message: [ join dasasd ]
+2024-06-24 12:23:09 [Thread-0] INFO  org.example.Main - dasasd joined the game
+2024-06-24 12:23:13 [Thread-1] INFO  org.example.Main - null sent message: [ join asdasd ]
+2024-06-24 12:23:13 [Thread-1] INFO  org.example.Main - asdasd joined the game
+2024-06-24 12:23:14 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:23:31 [Thread-1] INFO  org.example.Main - asdasd sent message: [ left asdasd ]
+2024-06-24 12:23:31 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:23:31 [Thread-1] INFO  org.example.Main - Player asdasd left
+2024-06-24 12:23:34 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 12:23:34 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:25:33 [main] INFO  org.example.Main - Starting server...
+2024-06-24 12:25:38 [Thread-0] INFO  org.example.Main - null sent message: [ join asdasd_adasd ]
+2024-06-24 12:25:38 [Thread-0] INFO  org.example.Main - asdasd_adasd joined the game
+2024-06-24 12:25:43 [Thread-1] INFO  org.example.Main - null sent message: [ join asdasd_asdasd ]
+2024-06-24 12:25:43 [Thread-1] INFO  org.example.Main - asdasd_asdasd joined the game
+2024-06-24 12:25:44 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:25:47 [Thread-1] INFO  org.example.Main - asdasd_asdasd sent message: [ move asdasd_asdasd D ]
+2024-06-24 12:25:47 [Thread-1] INFO  org.example.Main - asdasd_asdasd sent message: [ move asdasd_asdasd L ]
+2024-06-24 12:25:48 [Thread-1] INFO  org.example.Main - asdasd_asdasd sent message: [ move asdasd_asdasd U ]
+2024-06-24 12:25:49 [Thread-1] INFO  org.example.Main - asdasd_asdasd sent message: [ move asdasd_asdasd L ]
+2024-06-24 12:26:13 [Thread-1] INFO  org.example.Main - asdasd_asdasd sent message: [ left asdasd_asdasd ]
+2024-06-24 12:26:13 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:26:13 [Thread-1] INFO  org.example.Main - Player asdasd_asdasd left
+2024-06-24 12:26:15 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 12:26:15 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:27:00 [main] INFO  org.example.Main - Starting server...
+2024-06-24 12:27:04 [Thread-0] INFO  org.example.Main - null sent message: [ join asdasd ]
+2024-06-24 12:27:04 [Thread-0] INFO  org.example.Main - asdasd joined the game
+2024-06-24 12:27:10 [Thread-1] INFO  org.example.Main - null sent message: [ join asdsda_asdasd ]
+2024-06-24 12:27:10 [Thread-1] INFO  org.example.Main - asdsda_asdasd joined the game
+2024-06-24 12:27:10 [main] INFO  org.example.GameServer - Game started
+2024-06-24 12:27:14 [Thread-1] INFO  org.example.Main - asdsda_asdasd sent message: [ move asdsda_asdasd D ]
+2024-06-24 12:27:14 [Thread-1] INFO  org.example.Main - asdsda_asdasd sent message: [ move asdsda_asdasd L ]
+2024-06-24 12:27:15 [Thread-1] INFO  org.example.Main - asdsda_asdasd sent message: [ move asdsda_asdasd U ]
+2024-06-24 12:27:15 [Thread-1] INFO  org.example.Main - asdsda_asdasd sent message: [ move asdsda_asdasd L ]
+2024-06-24 12:27:26 [Thread-1] INFO  org.example.Main - asdsda_asdasd sent message: [ left asdsda_asdasd ]
+2024-06-24 12:27:26 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 12:27:26 [Thread-1] INFO  org.example.Main - Player asdsda_asdasd left
+2024-06-24 12:27:28 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
+2024-06-24 12:27:28 [Thread-1] INFO  org.example.GameServer - Server stopped.

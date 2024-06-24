@@ -121,8 +121,6 @@ public class GameClient {
                     if (command.equals("start")) {
                         //started = true;
                         gui.getJoinServerFrame().dispose();
-                        gui.toggleMainMenu();
-
 
                         Game game = Game.fromString(parts[1]);
 
@@ -142,13 +140,15 @@ public class GameClient {
                     }
 
                     if(command.equals("stop")){
-                        gui.getGameFrame().dispose();
-                        gui.toggleMainMenu();
+                        socket.close();
+                        gui.closeGameWindowToMainMenu();
+                        return;
                     }
 
                     if(command.equals("end")){
-                        GameOverScreen gameOverScreen = new GameOverScreen(gui, GameClient.this);
-                        gameOverScreen.setVisible(true);
+                        gui.setGameOverScreen(new GameOverScreen(gui, GameClient.this));
+                        gui.getGameOverScreen().setVisible(true);
+
                     }
 
 
@@ -164,16 +164,6 @@ public class GameClient {
                     }
 
 
-                    /*String[] parts = message.split(" ", 3);
-                    if (parts.length > 1) {
-                        String command = parts[0];
-                        int playerId = Integer.parseInt(parts[1]);
-
-                        if (command.equals("player")) {
-                            player = playerId;
-                            log.info("Assigned player ID: {}", player);
-                        }
-                    }*/
                 }
             } catch (IOException e) {
                 log.error("Error reading server message", e);
@@ -187,5 +177,10 @@ public class GameClient {
 
     public String getName() {
         return name;
+    }
+
+    public void stop(){
+        gui.getGameFrame().dispose();
+        gui.toggleMainMenu();
     }
 }

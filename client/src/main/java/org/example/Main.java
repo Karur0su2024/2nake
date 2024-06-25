@@ -9,7 +9,6 @@ import javax.swing.*;
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {
-
         log.info("Spouštím program");
         SwingUtilities.invokeLater(new Runnable() {
             @Override

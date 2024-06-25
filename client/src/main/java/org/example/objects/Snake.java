@@ -5,20 +5,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.GameSettings;
+import org.example.objects.snake.Direction;
+import org.example.objects.snake.SnakeHead;
+import org.example.objects.snake.SnakePart;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Třída reprezentující hada v herním prostředí.
  */
 public class Snake {
     private char direction = 'R'; // Směr hada ('U' pro nahoru, 'D' pro dolů, 'L' pro doleva, 'R' pro doprava)
-    private int bodyParts = 6; // Počet částí hada
+    //private int bodyParts = 6; // Počet částí hada
     private int[] x; // Pole obsahující x-ové souřadnice jednotlivých částí hada
     private int[] y; // Pole obsahující y-ové souřadnice jednotlivých částí hada
     private String name;
+    private List<SnakePart> bodyParts;
+    private SnakeHead head;
+    private Color[] colors;
 
     @JsonIgnore
     private int maxSize; // Maximální velikost hada
@@ -26,21 +33,17 @@ public class Snake {
     private int speed; // Rychlost hada
 
 
+
     @JsonCreator
     public Snake(
             @JsonProperty("direction") char direction,
-            @JsonProperty("bodyParts") int bodyParts,
-            @JsonProperty("x") int[] x,
-            @JsonProperty("y") int[] y,
+            @JsonProperty("bodyParts") List<SnakePart> bodyParts,
             @JsonProperty("name") String name,
             @JsonProperty("speed") int speed) {
         this.direction = direction;
         this.bodyParts = bodyParts;
-        this.x = x;
-        this.y = y;
         this.name = name;
         this.speed = speed;
-        this.maxSize = x.length*y.length;
     }
 
 
@@ -49,18 +52,18 @@ public class Snake {
     /**
      * Konstruktor pro vytvoření hada s určitou maximální velikostí a počátečním počtem částí.
      *
-     * @param maxSize  maximální velikost hada
      * @param bodySize počáteční počet částí hada
      */
-    public Snake(int maxSize, int bodySize, int x, int y, char dir, String name) {
-        this.maxSize = maxSize;
-        this.x = new int[maxSize];
-        this.y = new int[maxSize];
-        direction = dir;
-        setHead(x, y);
-        bodyParts = bodySize;
+    public Snake(int bodySize, int x, int y, Direction direction, String name) {
+        bodyParts = new ArrayList<>();
+        bodyParts.add(new SnakeHead(x, y, direction));
+        bodyParts.getFirst().grow(bodySize, bodyParts);
+
         setSpeed();
         this.name = name;
+
+
+        colors = new Color[]{Color.yellow, new Color(221, 221, 119)};
     }
 
 
@@ -75,22 +78,11 @@ public class Snake {
     }
 
     /**
-     * Konstruktor pro vytvoření hada s určitými x-ovými a y-ovými souřadnicemi.
-     *
-     * @param x pole x-ových souřadnic částí hada
-     * @param y pole y-ových souřadnic částí hada
-     */
-    public Snake(int[] x, int[] y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    /**
      * Metoda pro získání počtu částí hada.
      *
      * @return počet částí hada
      */
-    public int getBodyParts() {
+    public List<SnakePart> getBodyParts() {
         return bodyParts;
     }
 
@@ -98,23 +90,14 @@ public class Snake {
      * Metoda pro zvýšení počtu částí hada o určitý počet bodů.
      * Pokud je počet částí hada 1 a počet bodů je menší než 0, had neztratí tělo.
      *
-     * @param points počet bodů, o který se má zvýšit počet částí hada
      */
-    public void eat(int points) {
-        if (!(bodyParts == 1 && points < 0)) {
-            this.bodyParts = this.bodyParts + points;
-        }
-        if (bodyParts < 1) {
-            bodyParts = 1;
-        }
-
+    public void eat(Food food) {
+        this.getBodyParts().getFirst().grow(1, bodyParts);
         setSpeed();
-
         if (speed < 1) {
             speed = 1;
         }
-
-        //this.sidebarPanel.setScores();
+        colors[1] = food.getColor();
     }
 
     /**
@@ -122,8 +105,8 @@ public class Snake {
      *
      * @param direction nový směr hada ('U' pro nahoru, 'D' pro dolů, 'L' pro doleva, 'R' pro doprava)
      */
-    public void setDirection(char direction) {
-        this.direction = direction;
+    public void setDirection(Direction direction) {
+        bodyParts.getFirst().setDirection(direction);
     }
 
     /**
@@ -140,45 +123,18 @@ public class Snake {
      * Každá část hada se posune na místo předchozí části.
      */
     public void move() {
-        for (int i = bodyParts; i > 0; i--) {
-            x[i] = x[i - 1];
-            y[i] = y[i - 1];
-        }
-        switch (direction) {
-            case 'U':
-                y[0] = y[0] - 1;
-                break;
-            case 'D':
-                y[0] = y[0] + 1;
-                break;
-            case 'L':
-                x[0] = x[0] - 1;
-                break;
-            case 'R':
-                x[0] = x[0] + 1;
-                break;
-        }
+        bodyParts.getFirst().move();
     }
 
     /**
      * Metoda pro vykreslení hada na zadaném grafickém kontextu.
      *
      * @param g     grafický kontext, na kterém se má had vykreslit
-     * @param panel panel, na kterém se had vykresluje
      */
-    public void paint(Graphics g, JPanel panel) {
-        if (this.x != null && this.y != null && x.length > 0 && y.length > 0) {
-            for (int i = 0; i < bodyParts; i++) {
-                if (i == 0) {
-                    g.setColor(Color.yellow); // Barva hlavy hada
-                } else {
-                    g.setColor(new Color(221, 221, 119)); // Barva těla hada
-                }
-
-                g.fillRect(x[i] * GameSettings.UNIT_SIZE, y[i] * GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
-            }
-        } else {
-            // Handle the case when x or y is null (optional based on your logic)
+    public void paint(Graphics g) {
+        g.setColor(Color.cyan);
+        for (SnakePart part : bodyParts) {
+            g.fillRect(part.getX() * GameSettings.UNIT_SIZE, part.getY() * GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
         }
     }
 
@@ -196,7 +152,7 @@ public class Snake {
      * Čím více částí hada, tím nižší je jeho rychlost.
      */
     public void setSpeed() {
-        this.speed = (22 - (bodyParts / 7));
+        this.speed = (22 - (bodyParts.size() / 7));
     }
 
     /**
@@ -205,26 +161,9 @@ public class Snake {
      * @param bodyParts nový počet částí hada
      */
     public void setBodyParts(int bodyParts) {
-        this.bodyParts = bodyParts;
+        head.grow(bodyParts, this.bodyParts);
     }
 
-    /**
-     * Metoda pro nastavení x-ových souřadnic částí hada.
-     *
-     * @param x pole x-ových souřadnic částí hada
-     */
-    public void setX(int[] x) {
-        this.x = x;
-    }
-
-    /**
-     * Metoda pro nastavení y-ových souřadnic částí hada.
-     *
-     * @param y pole y-ových souřadnic částí hada
-     */
-    public void setY(int[] y) {
-        this.y = y;
-    }
 
     /**
      * Metoda pro nastavení rychlosti hada.
@@ -233,24 +172,6 @@ public class Snake {
      */
     public void setSpeed(int speed) {
         this.speed = speed;
-    }
-
-    /**
-     * Metoda pro získání x-ových souřadnic částí hada.
-     *
-     * @return pole x-ových souřadnic částí hada
-     */
-    public int[] getX() {
-        return x;
-    }
-
-    /**
-     * Metoda pro získání y-ových souřadnic částí hada.
-     *
-     * @return pole y-ových souřadnic částí hada
-     */
-    public int[] getY() {
-        return y;
     }
 
     /**
@@ -274,4 +195,5 @@ public class Snake {
                 "name='" + name + '\'' +
                 '}';
     }
+
 }

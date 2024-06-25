@@ -82,8 +82,10 @@ public class GameServer implements Runnable {
             System.out.println(ch.getSnake().toString());
         }
 
-        initializeClients();
+
         gameLogic.startGame();
+
+        initializeClients();
 
         scheduler.scheduleAtFixedRate(this, 0, 200, TimeUnit.MILLISECONDS);
         broadcastGame();

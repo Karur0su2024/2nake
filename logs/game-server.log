@@ -683,3 +683,55 @@
 2024-06-24 12:27:26 [Thread-1] INFO  org.example.Main - Player asdsda_asdasd left
 2024-06-24 12:27:28 [Thread-1] ERROR org.example.Main - Chyba: java.net.SocketException: Connection reset
 2024-06-24 12:27:28 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 18:25:04 [main] INFO  org.example.Main - Starting server...
+2024-06-24 18:25:09 [Thread-0] INFO  org.example.Main - null sent message: [ join asdasd_adasd ]
+2024-06-24 18:25:09 [Thread-0] INFO  org.example.Main - asdasd_adasd joined the game
+2024-06-24 18:25:19 [Thread-0] INFO  org.example.Main - asdasd_adasd sent message: [ left asdasd_adasd ]
+2024-06-24 18:25:19 [Thread-0] INFO  org.example.Main - Player asdasd_adasd left
+2024-06-24 18:25:22 [Thread-1] INFO  org.example.Main - null sent message: [ join asdasda_asdas ]
+2024-06-24 18:25:22 [Thread-1] INFO  org.example.Main - asdasda_asdas joined the game
+2024-06-24 18:25:29 [Thread-2] INFO  org.example.Main - null sent message: [ join asdasdasd ]
+2024-06-24 18:25:29 [Thread-2] INFO  org.example.Main - asdasdasd joined the game
+2024-06-24 18:25:29 [main] INFO  org.example.GameServer - Game started
+2024-06-24 18:25:33 [Thread-2] INFO  org.example.Main - asdasdasd sent message: [ move asdasdasd D ]
+2024-06-24 18:25:34 [Thread-2] INFO  org.example.Main - asdasdasd sent message: [ move asdasdasd L ]
+2024-06-24 18:25:35 [Thread-2] INFO  org.example.Main - asdasdasd sent message: [ move asdasdasd D ]
+2024-06-24 18:25:39 [Thread-1] INFO  org.example.Main - asdasda_asdas sent message: [ move asdasda_asdas L ]
+2024-06-24 18:25:41 [Thread-1] INFO  org.example.Main - asdasda_asdas sent message: [ move asdasda_asdas D ]
+2024-06-24 18:25:46 [Thread-1] INFO  org.example.Main - asdasda_asdas sent message: [ move asdasda_asdas R ]
+2024-06-24 18:25:53 [Thread-1] INFO  org.example.Main - asdasda_asdas sent message: [ reset asdasda_asdas ]
+2024-06-24 18:25:53 [Thread-1] INFO  org.example.Main - Player asdasda_asdas wants reset
+2024-06-24 18:25:56 [Thread-2] INFO  org.example.Main - asdasdasd sent message: [ reset asdasdasd ]
+2024-06-24 18:25:56 [Thread-2] INFO  org.example.Main - Player asdasdasd wants reset
+2024-06-24 18:26:03 [Thread-1] INFO  org.example.Main - asdasda_asdas sent message: [ left asdasda_asdas ]
+2024-06-24 18:26:03 [Thread-1] INFO  org.example.GameServer - Server stopped.
+2024-06-24 18:26:03 [Thread-1] INFO  org.example.Main - Player asdasda_asdas left
+2024-06-24 18:26:17 [Thread-4] INFO  org.example.Main - null sent message: [ join adsadas_asdas ]
+2024-06-24 18:26:17 [Thread-4] INFO  org.example.Main - adsadas_asdas joined the game
+2024-06-24 18:26:19 [Thread-5] INFO  org.example.Main - null sent message: [ join asdasdasd ]
+2024-06-24 18:26:19 [Thread-5] INFO  org.example.Main - asdasdasd joined the game
+2024-06-24 18:26:19 [main] INFO  org.example.GameServer - Game started
+2024-06-24 18:26:28 [Thread-7] INFO  org.example.Main - null sent message: [ join asdasd_as ]
+2024-06-24 18:26:28 [Thread-7] INFO  org.example.Main - asdasd_as joined the game
+2024-06-24 18:26:33 [main] INFO  org.example.Main - Server stopped.
+2024-06-24 18:26:33 [Thread-8] ERROR org.example.Main - Chyba: java.net.SocketException: Socket is closed
+2024-06-24 18:26:33 [Thread-8] INFO  org.example.GameServer - Server stopped.
+2024-06-24 18:26:33 [Thread-7] ERROR org.example.Main - Chyba: java.net.SocketException: Socket closed
+2024-06-24 18:26:33 [Thread-7] INFO  org.example.GameServer - Server stopped.
+2024-06-24 18:27:05 [main] INFO  org.example.Main - Starting server...
+2024-06-24 18:27:10 [Thread-0] INFO  org.example.Main - null sent message: [ join asd_asd ]
+2024-06-24 18:27:10 [Thread-0] INFO  org.example.Main - asd_asd joined the game
+2024-06-24 18:27:13 [Thread-1] INFO  org.example.Main - null sent message: [ join asd ]
+2024-06-24 18:27:13 [Thread-1] INFO  org.example.Main - asd joined the game
+2024-06-24 18:27:13 [main] INFO  org.example.GameServer - Game started
+2024-06-24 18:27:20 [Thread-3] INFO  org.example.Main - null sent message: [ join sad ]
+2024-06-24 18:27:20 [Thread-3] INFO  org.example.Main - sad joined the game
+2024-06-24 18:27:25 [main] INFO  org.example.GameServer - Game started
+2024-06-24 18:27:25 [Thread-4] INFO  org.example.Main - null sent message: [ join asd ]
+2024-06-24 18:27:25 [Thread-4] INFO  org.example.Main - asd joined the game
+2024-06-24 18:27:46 [Thread-4] INFO  org.example.Main - asd sent message: [ left asd ]
+2024-06-24 18:27:46 [Thread-4] INFO  org.example.GameServer - Server stopped.
+2024-06-24 18:27:46 [Thread-4] INFO  org.example.Main - Player asd left
+2024-06-24 18:27:48 [Thread-0] INFO  org.example.Main - asd_asd sent message: [ left asd_asd ]
+2024-06-24 18:27:48 [Thread-0] INFO  org.example.GameServer - Server stopped.
+2024-06-24 18:27:48 [Thread-0] INFO  org.example.Main - Player asd_asd left

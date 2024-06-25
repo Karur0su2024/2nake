@@ -3,6 +3,8 @@ package org.example;
 import org.example.objects.Food;
 import org.example.objects.Obstacle;
 import org.example.objects.Snake;
+import org.example.objects.snake.Direction;
+import org.example.objects.snake.SnakePart;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,9 +70,9 @@ public class GameLogicHandler {
     private void setPlayers() {
         for(int i = 0; i < players; i++){
             if (i == 0) {
-                game.getSnakes().add(new Snake(game.getGamePlan().getWidth() * game.getGamePlan().getHeight(), initialSize, 0, 0, 'R', "Snake 1"));
+                game.getSnakes().add(new Snake(initialSize, 0, 0, Direction.RIGHT, "Snake 1"));
             } else if (i == 1) {
-                game.getSnakes().add(new Snake(game.getGamePlan().getWidth() * game.getGamePlan().getHeight(), initialSize, game.getGamePlan().getWidth() - 1, game.getGamePlan().getHeight() - 1, 'L', "Snake 2"));
+                //game.getSnakes().add(new Snake(game.getGamePlan().getWidth() * game.getGamePlan().getHeight(), initialSize, game.getGamePlan().getWidth() - 1, game.getGamePlan().getHeight() - 1, 'L', "Snake 2"));
             }
         }
     }
@@ -100,8 +102,8 @@ public class GameLogicHandler {
     public void checkFood() {
         for (Snake snake : game.getSnakes()) {
             for (int i = 0; i < game.getFoods().length; i++) {
-                if (game.getFoods()[i] != null && snake.getX()[0] == game.getFoods()[i].getX() && snake.getY()[0] == game.getFoods()[i].getY()) {
-                    snake.eat(game.getFoods()[i].getPoints());
+                if (game.getFoods()[i] != null && snake.getBodyParts().getFirst().getX() == game.getFoods()[i].getX() && snake.getBodyParts().getFirst().getY() == game.getFoods()[i].getY()) {
+                    snake.eat(game.getFoods()[i]);
                     newFood(i);
                 }
             }
@@ -110,8 +112,8 @@ public class GameLogicHandler {
 
     private boolean isPositionEmpty(int x, int y) {
         for (Snake snake : game.getSnakes()) {
-            for (int i = 0; i < snake.getBodyParts(); i++) {
-                if (x == snake.getX()[i] && y == snake.getY()[i]) {
+            for (SnakePart part : snake.getBodyParts()) {
+                if (x == part.getX() && y == part.getY()) {
                     return false;
                 }
             }
@@ -144,9 +146,9 @@ public class GameLogicHandler {
      */
     private void checkSnakeCollisions(Snake snake) {
         for (Snake otherSnake : game.getSnakes()) {
-            for (int i = otherSnake.getBodyParts(); i > 0; i--) {
-                if (snake.getX()[0] == otherSnake.getX()[i] && snake.getY()[0] == otherSnake.getY()[i]) {
-                    running = false;
+            for(SnakePart part : otherSnake.getBodyParts()){
+                if(snake.getBodyParts().getFirst().getX() == part.getX() && snake.getBodyParts().getFirst().getY() == part.getY()){
+                    //running = false;
                     break;
                 }
             }
@@ -160,8 +162,8 @@ public class GameLogicHandler {
      */
     private void checkObstacleCollisions(Snake snake) {
         for (Obstacle obstacle : game.getObstacles()) {
-            if (snake.getX()[0] == obstacle.getX() && snake.getY()[0] == obstacle.getY()) {
-                running = false;
+            if (snake.getBodyParts().getFirst().getX() == obstacle.getX() && snake.getBodyParts().getFirst().getY() == obstacle.getY()) {
+                //running = false;
                 break;
             }
         }
@@ -173,17 +175,7 @@ public class GameLogicHandler {
      * @param snake had, jehož kolize s okrajem se kontrolují
      */
     private void checkBorderCollisions(Snake snake) {
-        if (snake.getX()[0] < 0) {
-            snake.setHead(game.getGamePlan().getWidth() - 1, snake.getY()[0]);
-        } else if (snake.getX()[0] >= game.getGamePlan().getWidth()) {
-            snake.setHead(0, snake.getY()[0]);
-        }
-
-        if (snake.getY()[0] < 0) {
-            snake.setHead(snake.getX()[0], game.getGamePlan().getHeight() - 1);
-        } else if (snake.getY()[0] >= game.getGamePlan().getHeight()) {
-            snake.setHead(snake.getX()[0], 0);
-        }
+        //snake.move();
     }
 
 
@@ -261,7 +253,7 @@ public class GameLogicHandler {
             obstacle.paint(g);
         }
         for (Snake snake : getGame().getSnakes()) {
-            snake.paint(g, panel);
+            snake.paint(g);
         }
     }
 }

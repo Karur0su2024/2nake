@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.objects.Snake;
 import org.example.gui.GamePanel;
+import org.example.objects.snake.Direction;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -58,24 +59,22 @@ public class LocalGameHandler implements GameHandler, ActionListener {
     @Override
     public void sendPlayerAction(int key) {
         Snake snake = gameLogic.getGame().getSnakes().iterator().next();
-        char direction = snake.getDirection();
-
         switch (key) {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                if (direction != 'R') snake.setDirection('L');
+                snake.setDirection(Direction.LEFT);
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                if (direction != 'L') snake.setDirection('R');
+                snake.setDirection(Direction.RIGHT);
                 break;
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                if (direction != 'D') snake.setDirection('U');
+                snake.setDirection(Direction.UP);
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                if (direction != 'U') snake.setDirection('D');
+                snake.setDirection(Direction.DOWN);
                 break;
         }
     }

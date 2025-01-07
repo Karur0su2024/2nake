@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.objects.Food;
-import org.example.objects.Obstacle;
+import org.example.objects.obstacles.Obstacle;
 import org.example.objects.Snake;
 
 import java.util.Random;

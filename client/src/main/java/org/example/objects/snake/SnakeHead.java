@@ -1,5 +1,8 @@
 package org.example.objects.snake;
 
+import org.example.GameSettings;
+
+import java.awt.*;
 import java.util.List;
 
 public class SnakeHead implements SnakePart {
@@ -7,11 +10,16 @@ public class SnakeHead implements SnakePart {
     private int y;
     private Direction direction;
     private SnakeBodyPart nextPart;
+    private Direction beforeTurnDirection;
+    private int cD;
 
     public SnakeHead(int x, int y, Direction direction){
         this.x = x;
         this.y = y;
         this.direction = direction;
+
+        beforeTurnDirection = direction;
+        cD = 0;
     }
 
     public void move() {
@@ -67,7 +75,26 @@ public class SnakeHead implements SnakePart {
     @Override
     public void setDirection(Direction direction) {
         this.direction = direction;
+        cD = 1;
     }
 
+    public void paint(Graphics g){
+        if(nextPart != null){
+            //NextPart
+            if(nextPart.getDirection() == Direction.UP){
+                g.fillRect((x * GameSettings.UNIT_SIZE) + 5, (y * GameSettings.UNIT_SIZE) + 5, GameSettings.UNIT_SIZE - 10, GameSettings.UNIT_SIZE - 5);
+            }
+            if(nextPart.getDirection() == Direction.DOWN){
+                g.fillRect((x * GameSettings.UNIT_SIZE) + 5, (y * GameSettings.UNIT_SIZE), GameSettings.UNIT_SIZE - 10, GameSettings.UNIT_SIZE - 5);
+
+            }
+            if(nextPart.getDirection() == Direction.LEFT){
+                g.fillRect((x * GameSettings.UNIT_SIZE) + 5, (y * GameSettings.UNIT_SIZE) + 5, GameSettings.UNIT_SIZE - 5, GameSettings.UNIT_SIZE - 10);
+            }
+            if(nextPart.getDirection() == Direction.RIGHT){
+                g.fillRect((x * GameSettings.UNIT_SIZE), (y * GameSettings.UNIT_SIZE) + 5, GameSettings.UNIT_SIZE - 5, GameSettings.UNIT_SIZE - 10);
+            }
+        }
+    }
 
 }

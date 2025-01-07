@@ -1,8 +1,9 @@
 package org.example;
 
 import org.example.objects.Food;
-import org.example.objects.Obstacle;
+import org.example.objects.obstacles.Obstacle;
 import org.example.objects.Snake;
+import org.example.objects.obstacles.Water;
 import org.example.objects.snake.Direction;
 import org.example.objects.snake.SnakePart;
 
@@ -194,7 +195,7 @@ public class GameLogicHandler {
      * @param index index v poli překážek (obstacles)
      */
     private void newObstacle(int index) {
-        game.getObstacles()[index] = new Obstacle(random.nextInt(game.getGamePlan().getWidth() - 2) + 1, random.nextInt(game.getGamePlan().getHeight() - 2) + 1);
+        game.getObstacles()[index] = new Water(random.nextInt(game.getGamePlan().getWidth() - 2) + 1, random.nextInt(game.getGamePlan().getHeight() - 2) + 1);
     }
 
 

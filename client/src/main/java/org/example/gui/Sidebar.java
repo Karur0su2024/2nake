@@ -5,20 +5,18 @@ import org.example.objects.Snake;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 
 /**
- * Panel pro zobrazení bočního panelu s informacemi o skóre hráčů a zbývajícím čase hry.
+ * Panel for displaying the sidebar with player scores and remaining game time information.
  */
 public class Sidebar extends JPanel {
-    private final JLabel[] scoreLabel;
+    private final JLabel[] scoreLabels;
     private final JLabel timeLabel;
+
     /**
-     * Konstruktor pro vytvoření bočního panelu s informacemi o skóre hráčů a času.
+     * Constructor to create the sidebar with player scores and time information.
      *
-     * @param players Počet hráčů ve hře
+     * @param players The number of players in the game
      */
     public Sidebar(int players) {
         setLayout(new GridLayout(10, 1));
@@ -26,34 +24,34 @@ public class Sidebar extends JPanel {
         setBackground(Color.LIGHT_GRAY);
 
         Font labelFont = new Font("Arial", Font.BOLD, 16);
-        // Skóre hráčů
-        scoreLabel = new JLabel[players];
-        for (int i = 0; i < players; i++) {
-            scoreLabel[i] = new JLabel("");
 
-            scoreLabel[i].setFont(labelFont);
-            add(scoreLabel[i]);
+        // Player scores
+        scoreLabels = new JLabel[players];
+        for (int i = 0; i < players; i++) {
+            scoreLabels[i] = new JLabel("");
+            scoreLabels[i].setFont(labelFont);
+            add(scoreLabels[i]);
         }
-        // Čas hry
+
+        // Game time
         timeLabel = new JLabel("Time: 0");
         timeLabel.setFont(labelFont);
         add(timeLabel);
     }
 
-
     /**
-     * Metoda pro aktualizaci zobrazení skóre hráčů v bočním panelu.
+     * Method to update the display of player scores in the sidebar.
      */
     public void setScores(List<Snake> snakes) {
         int i = 0;
         for (Snake snake : snakes) {
-            scoreLabel[i].setText(snake.getName().replaceAll("_", " ") + ": " + snake.getBodyParts().size());
+            scoreLabels[i].setText(snake.getName().replace("_", " ") + ": " + snake.getBodyParts().size());
             i++;
         }
     }
 
     /**
-     * Metoda pro aktualizaci zobrazení zbývajícího času hry v bočním panelu.
+     * Method to update the display of the remaining game time in the sidebar.
      */
     public void setTime(int time) {
         timeLabel.setText("Time left: " + time + "s");

@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.objects.GamePlan;
-import org.example.objects.Obstacle;
+import org.example.objects.obstacles.Obstacle;
 import org.example.objects.Food;
 
 public class GameSettings {

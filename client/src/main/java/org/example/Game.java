@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.objects.Food;
 import org.example.objects.GamePlan;
-import org.example.objects.Obstacle;
+import org.example.objects.obstacles.Obstacle;
 import org.example.objects.Snake;
 
 

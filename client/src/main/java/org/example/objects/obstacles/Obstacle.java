@@ -1,4 +1,4 @@
-package org.example.objects;
+package org.example.objects.obstacles;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

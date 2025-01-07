@@ -2,14 +2,12 @@ package org.example;
 
 import org.example.objects.Food;
 import org.example.objects.GamePlan;
-import org.example.objects.Obstacle;
+import org.example.objects.obstacles.Obstacle;
 import org.example.objects.Snake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

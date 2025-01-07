@@ -134,7 +134,7 @@ public class Snake {
     public void paint(Graphics g) {
         g.setColor(Color.cyan);
         for (SnakePart part : bodyParts) {
-            g.fillRect(part.getX() * GameSettings.UNIT_SIZE, part.getY() * GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE, GameSettings.UNIT_SIZE);
+            part.paint(g);
         }
     }
 

@@ -1,5 +1,6 @@
 package org.example.objects.snake;
 
+import java.awt.*;
 import java.util.List;
 
 public interface SnakePart {
@@ -12,4 +13,6 @@ public interface SnakePart {
     void move();
 
     void setDirection(Direction direction);
+
+    void paint(Graphics g);
 }

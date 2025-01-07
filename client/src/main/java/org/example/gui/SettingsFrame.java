@@ -5,7 +5,7 @@ import org.example.GuiHandler;
 import org.example.Main;
 import org.example.objects.Food;
 import org.example.objects.GamePlan;
-import org.example.objects.Obstacle;
+import org.example.objects.obstacles.Obstacle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 /**
  * Okno pro nastavení parametrů hry hada a jejich zahájení.
